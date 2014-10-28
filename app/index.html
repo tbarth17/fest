@@ -52,6 +52,32 @@
       <a {{bind-attr href="href"}}>{{text}}</a>
     </script>
 
+    <script type='text/x-handlebars' data-template-name='venues/viewAll'>
+      {{#each}}
+        <li>
+          {{#link-to 'venues.show' this}}
+            {{venueName}}
+          {{/link-to}}
+        </li>
+      {{/each}}
+    </script>
+
+    <script type='text/x-handlebars' data-template-name='venues/show'>
+      <div {{bind-attr style=imgStyle}} class='band-img'></div>
+      <h2>{{venueName}}</h2>
+      <div>{{venueDescription}}</div>
+      <div>{{venueAddress}}</div>
+      {{#each band in model.venueBands}}
+        <li>
+            {{band.bandName}}
+            {{band.bandStartTime}}
+        </li>
+      {{/each}}
+
+    </script>
+
+
+
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
@@ -70,6 +96,8 @@
         <script src="js/models/band.js"></script>
         <script src="js/models/venue.js"></script>
         <script src="js/controllers/bands_show_controller.js"></script>
+        <script src="js/controllers/venues_show_controller.js"></script>
+
 
         <!-- endbuild -->
 </body>

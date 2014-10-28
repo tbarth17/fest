@@ -3,6 +3,11 @@ Fest.Router.map(function() {
     this.route('show', {path: ':band_id'});
     this.route('viewAll');
   });
+
+  this.resource('venues', function(){
+    this.route('show', {path: ':band_id'});
+    this.route('viewAll');
+  });
 });
 
 Fest.BandsRoute = Ember.Route.extend({
@@ -22,4 +27,16 @@ Fest.BandcampEmbedComponent = Ember.Component.extend({
     tagName: 'iframe',
     style: "border: 0; width: 100%; height: 42px;",
     seamless: true
+});
+
+Fest.VenuesRoute = Ember.Route.extend({
+  model: function() {
+    return this.store.find('venue');
+  }
+});
+
+Fest.VenuesShowRoute = Ember.Route.extend({
+  model: function(params) {
+    return this.store.find('venue', params.venue_id);
+  }
 });
