@@ -1,0 +1,70 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>The FEST!</title>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="../bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+  </head>
+  <body>
+
+    <script type='text/x-handlebars' data-template-name='application'>
+      <h1>FEST!</h1>
+        {{outlet}}
+
+    </script>
+
+    <script type='text/x-handlebars' data-template-name='bands/viewAll'>
+      {{#each}}
+        <li>
+          {{#link-to 'bands.show' this}}
+            {{bandName}}
+          {{/link-to}}
+        </li>
+      {{/each}}
+    </script>
+
+    <script type='text/x-handlebars' data-template-name='bands/show'>
+      <div {{bind-attr style=imgStyle}} class='band-img'></div>
+      <h2>{{currentBand.bandName}}</h2>
+      <div>{{currentBand.bandBio}}</div>
+
+    </script>
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/underscore/underscore.js"></script>
+    <script src="../bower_components/firebase/firebase.js"></script>
+    <script src="../bower_components/handlebars/handlebars.js"></script>
+    <script src="../bower_components/ember/ember.js"></script>
+    <script src="../bower_components/ember-data/index.js"></script>
+    <script src="../bower_components/emberfire/dist/emberfire.min.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js scripts/main.js -->
+        <script src="js/application.js"></script>
+        <script src="js/router.js"></script>
+        <script src="js/models/band.js"></script>
+        <script src="js/models/venue.js"></script>
+        <script src="js/controllers/bands_show_controller.js"></script>
+
+        <!-- endbuild -->
+</body>
+</html>
