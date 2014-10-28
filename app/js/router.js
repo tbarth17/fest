@@ -5,7 +5,7 @@ Fest.Router.map(function() {
   });
 
   this.resource('venues', function(){
-    this.route('show', {path: ':band_id'});
+    this.route('show', {path: ':venue_id'});
     this.route('viewAll');
   });
 });

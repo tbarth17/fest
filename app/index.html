@@ -45,6 +45,7 @@
       <div>{{currentBand.bandBio}}</div>
       {{bandcamp-embed src=currentBand.bandEmbedUrl href=currentBand.bandLinkUrl text=currentBand.bandText}}
       {{outlet}}
+      <div>{{currentBand.bandVenues}}</div>
 
     </script>
 
@@ -69,7 +70,9 @@
       <div>{{venueAddress}}</div>
       {{#each band in model.venueBands}}
         <li>
+          {{#link-to bands.show band_id}}
             {{band.bandName}}
+          {{/link-to}}
             {{band.bandStartTime}}
         </li>
       {{/each}}
