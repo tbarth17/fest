@@ -7,5 +7,5 @@ Fest.Band = DS.Model.extend({
   bandEmbedUrl: DS.attr('string'),
   bandLinkUrl: DS.attr('string'),
   bandText: DS.attr('string'),
-  bandVenues: DS.belongsTo('venue', {async: true})
+  bandVenue: DS.belongsTo('venue', {async: true})
 });

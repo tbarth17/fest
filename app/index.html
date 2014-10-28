@@ -45,7 +45,11 @@
       <div>{{currentBand.bandBio}}</div>
       {{bandcamp-embed src=currentBand.bandEmbedUrl href=currentBand.bandLinkUrl text=currentBand.bandText}}
       {{outlet}}
-      <div>{{currentBand.bandVenues}}</div>
+      <div>
+        {{#link-to 'venues.show' currentBand.bandVenue}}
+          {{currentBand.bandVenue.venueName}}
+        {{/link-to}}
+      </div>
 
     </script>
 
@@ -68,9 +72,9 @@
       <h2>{{venueName}}</h2>
       <div>{{venueDescription}}</div>
       <div>{{venueAddress}}</div>
-      {{#each band in model.venueBands}}
+      {{#each band in model.venueBands itemController='venueBand'}}
         <li>
-          {{#link-to bands.show band_id}}
+          {{#link-to 'bands.show' band}}
             {{band.bandName}}
           {{/link-to}}
             {{band.bandStartTime}}
@@ -80,6 +84,7 @@
     </script>
 
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
@@ -100,6 +105,7 @@
         <script src="js/models/venue.js"></script>
         <script src="js/controllers/bands_show_controller.js"></script>
         <script src="js/controllers/venues_show_controller.js"></script>
+        <script src="js/controllers/venue_band_controller.js"></script>
 
 
         <!-- endbuild -->
