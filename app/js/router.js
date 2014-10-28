@@ -16,3 +16,10 @@ Fest.BandsShowRoute = Ember.Route.extend({
     return this.store.find('band', params.band_id);
   }
 });
+
+Fest.BandcampEmbedComponent = Ember.Component.extend({
+    attributeBindings: ['style', 'src', 'seamless'],
+    tagName: 'iframe',
+    style: "border: 0; width: 100%; height: 42px;",
+    seamless: true
+});
