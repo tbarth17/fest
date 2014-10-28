@@ -31,6 +31,16 @@ Fest.BandcampEmbedComponent = Ember.Component.extend({
     seamless: true
 });
 
+Fest.MapEmbedComponent = Ember.Component.extend({
+    attributeBindings: ['height', 'style', 'frameborder', 'width', 'src', 'seamless'],
+    tagName: 'iframe',
+    height: "400",
+    width: "75%",
+    frameborder: "0",
+    style: "border:0",
+    seamless: true
+});
+
 Fest.VenuesRoute = Ember.Route.extend({
   model: function() {
     return this.store.find('venue');
