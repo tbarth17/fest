@@ -8,6 +8,8 @@ Fest.Router.map(function() {
     this.route('show', {path: ':venue_id'});
     this.route('viewAll');
   });
+
+  this.route('map');
 });
 
 Fest.BandsRoute = Ember.Route.extend({

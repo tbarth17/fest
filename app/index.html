@@ -13,6 +13,30 @@
     <!-- endbower -->
     <!-- endbuild -->
 
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgAuFCzr9I0uV9cLtXi0zMo69K3wW5_oY&sensor=true">
+    </script>
+
+      <style>
+      * {
+          margin: 0;
+          padding: 0;
+      }
+      div.popup {
+          font-size: 14px;
+          margin: 0;
+          width: 270px;
+      }
+      div.popup p {
+          background-color: #FFF;
+          color: #333;
+          font-size: 12px;
+          line-height: 15px;
+      }
+      div.popup p a {
+          color: #1122CC;
+      }
+      </style>
+
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
@@ -23,11 +47,47 @@
   </head>
   <body>
 
-    <script type='text/x-handlebars' data-template-name='application'>
-      <h1>FEST!</h1>
-        {{outlet}}
+      <script type='text/x-handlebars' data-template-name='application'>
+        <div class="header">
+          <h1>GREENVILLE FESTIVAL</h1>
+        </div>
+            <div class="shortcuts">
+              {{#link-to 'bands.viewAll'}}<div>BANDS</div>{{/link-to}}
+              {{#link-to 'venues.viewAll'}}<div>VENUES</div>{{/link-to}}
+              <div>PROFILE</div>
+              <div>FRIENDS</div>
+              <div>SCHEDULE</div>
+            </div>
+            {{outlet}}
 
+      </script>
+
+
+
+      <script type="text/x-handlebars" data-template-name="index">
+        {{#link-to 'bands.viewAll'}}
+          <div class="home-links">BANDS</div>
+        {{/link-to}}
+        {{#link-to 'venues.viewAll'}}
+          <div class="home-links">VENUES</div>
+        {{/link-to}}
+          <div class="home-links">PROFILE</div>
+          <div class="home-links">FRIENDS</div>
+          <div class="home-links">SCHEDULE</div>
+        {{#link-to 'map'}}
+          <div class="home-links">MAP</div>
+        {{/link-to}}
+
+<a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
     </script>
+
+
+
+    <script type='text/x-handlebars' data-template-name='map'>
+      <div id="map_canvas" style="width:90%; height:500px"></div>
+    </script>
+
+
 
     <script type='text/x-handlebars' data-template-name='bands/viewAll'>
       {{#each}}
@@ -102,6 +162,8 @@
         <!-- build:js scripts/main.js -->
         <script src="js/application.js"></script>
         <script src="js/router.js"></script>
+        <script src="js/map.js"></script>
+        <script src="js/index_view.js"></script>
         <script src="js/models/band.js"></script>
         <script src="js/models/venue.js"></script>
         <script src="js/controllers/bands_show_controller.js"></script>
