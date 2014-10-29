@@ -46,25 +46,40 @@
     <!-- endbuild -->
   </head>
   <body>
-
+  <!-- ////////////////////// APPLICATION ///////////////////////////////////-->
       <script type='text/x-handlebars' data-template-name='application'>
         <div class="header">
           <h1>GREENVILLE FESTIVAL</h1>
         </div>
-            <div class="shortcuts">
-              {{#link-to 'bands.viewAll'}}<div>BANDS</div>{{/link-to}}
-              {{#link-to 'venues.viewAll'}}<div>VENUES</div>{{/link-to}}
-              <div>PROFILE</div>
-              <div>FRIENDS</div>
-              <div>SCHEDULE</div>
-            </div>
+
+  <ul class="navigation">
+    {{#link-to 'index'}}<li><a href="" title="Home">Home</a></li>{{/link-to}}
+    {{#link-to 'bands.viewAll'}}<li><a href="" title="Bands">Bands</a></li>{{/link-to}}
+    {{#link-to 'venues.viewAll'}}<li><a href="" title="Venues">Venues</a></li>{{/link-to}}
+    <li><a href="" title="Social">Social</a>
+      <ul class="dropdowns">
+        <li><a href="" title="Profile">Profile</a></li>
+        <li><a href="" title="Friends">Friends</a></li>
+      </ul>
+    </li>
+
+    <li><a href="" title="Festival">Festival</a>
+      <ul class="dropdowns">
+        <li><a href="" title="Schedule">Schedule</a></li>
+        {{#link-to 'map'}}<li><a href="" title="Map">Map</a></li>{{/link-to}}
+      </ul>
+    </li>
+    <div class="clear"></div>
+  </ul>
             {{outlet}}
 
       </script>
 
+<!-- ///////////////////////////// HOME PAGE ////////////////////////////////-->
 
 
       <script type="text/x-handlebars" data-template-name="index">
+       <div class="links-container">
         {{#link-to 'bands.viewAll'}}
           <div class="home-links">BANDS</div>
         {{/link-to}}
@@ -77,27 +92,29 @@
         {{#link-to 'map'}}
           <div class="home-links">MAP</div>
         {{/link-to}}
-
+       </div>
         <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
     </script>
 
-
+<!-- ////////////////////////////// MAPS ////////////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='map'>
       <div id="map_canvas" style="width:90%; height:500px"></div>
     </script>
 
-
+<!-- ////////////////////////////// ALL BANDS ///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='bands/viewAll'>
       {{#each}}
-        <li>
+        <li class="each">
           {{#link-to 'bands.show' this}}
             {{bandName}}
           {{/link-to}}
         </li>
       {{/each}}
     </script>
+
+<!-- ///////////////////////////// EACH BANDS ///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='bands/show'>
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
@@ -111,22 +128,27 @@
         {{/link-to}}
         {{bandStartTime}}
       </div>
-
     </script>
 
     <script type="text/x-handlebars" data-template-name="components/bandcamp-embed">
       <a {{bind-attr href="href"}}>{{text}}</a>
     </script>
 
+<!-- /////////////////////////////// ALL VENUES /////////////////////////////-->
+
     <script type='text/x-handlebars' data-template-name='venues/viewAll'>
       {{#each}}
-        <li>
+
+        <li class="each">
           {{#link-to 'venues.show' this}}
             {{venueName}}
           {{/link-to}}
         </li>
+
       {{/each}}
     </script>
+
+<!-- /////////////////////////////// EACH VENUE /////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='venues/show'>
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
@@ -147,6 +169,7 @@
 
     </script>
 
+<!-- ///////////////////////////////// -->
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
 
