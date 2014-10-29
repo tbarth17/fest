@@ -9,6 +9,11 @@ Fest.Router.map(function() {
     this.route('viewAll');
   });
 
+  this.resource('users', function(){
+    this.route('viewAll');
+    this.route('show', {path: ':user_id'});
+  });
+
   this.route('user');
 
   this.route('map');
@@ -40,6 +45,18 @@ Fest.UserRoute = Ember.Route.extend({
   model: function(){
     var id = this.controllerFor('session').get('currentUser.id');
     return this.store.find('user', id);
+  }
+});
+
+Fest.UsersRoute = Ember.Route.extend({
+  beforeModel: function() {
+  var user = this.controllerFor('session').get('currentUser');
+    if (! user) {
+    this.transitionTo('login');
+    }
+  },
+  model: function() {
+    return this.store.find('user');
   }
 });
 

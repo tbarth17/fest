@@ -50,7 +50,6 @@
       <script type='text/x-handlebars' data-template-name='application'>
         <div class="header">
           <h1>GREENVILLE FESTIVAL</h1>
-          <h2>Hello {{userName}}</h2>
         </div>
             <div class="shortcuts">
               {{#link-to 'bands.viewAll'}}<div>BANDS</div>{{/link-to}}
@@ -120,7 +119,9 @@
         {{#link-to 'user'}}
           <div class="home-links">PROFILE</div>
         {{/link-to}}
-          <div class="home-links">FRIENDS</div>
+        {{#link-to 'users.viewAll'}}
+          <div class="home-links">BROWSE USERS</div>
+        {{/link-to}}
           <div class="home-links">SCHEDULE</div>
         {{#link-to 'map'}}
           <div class="home-links">MAP</div>
@@ -135,6 +136,26 @@
       <h1>{{userName}}</h1>
       <h5>{{email}}</h5>
       <h3>{{userBio}}</h3>
+
+    </script>
+
+
+    <script type='text/x-handlebars' data-template-name='users/viewAll'>
+      {{#each}}
+        {{#link-to 'users.show' this}}
+          <li>{{userName}}</li>
+        {{/link-to}}
+      {{/each}}
+    </script>
+
+
+    <script type='text/x-handlebars' data-template-name='users/show'>
+      <h2>
+        {{userName}}
+      </h2>
+      <h4>
+        {{userBio}}
+      </h4>
 
     </script>
 
