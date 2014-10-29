@@ -10,15 +10,38 @@ Fest.Router.map(function() {
   });
 
   this.route('map');
+  this.route('login');
+});
+
+Fest.IndexRoute = Ember.Route.extend({
+  beforeModel: function() {
+  var user = this.controllerFor('session').get('currentUser');
+    if (! user) {
+    this.transitionTo('login');
+    }
+  }
 });
 
 Fest.BandsRoute = Ember.Route.extend({
+  beforeModel: function() {
+  var user = this.controllerFor('session').get('currentUser');
+    if (! user) {
+    this.transitionTo('login');
+    }
+  },
+
   model: function() {
     return this.store.find('band');
   }
 });
 
 Fest.BandsShowRoute = Ember.Route.extend({
+  beforeModel: function() {
+  var user = this.controllerFor('session').get('currentUser');
+    if (! user) {
+    this.transitionTo('login');
+    }
+  },
   model: function(params) {
     return this.store.find('band', params.band_id);
   }
@@ -42,12 +65,25 @@ Fest.MapEmbedComponent = Ember.Component.extend({
 });
 
 Fest.VenuesRoute = Ember.Route.extend({
+  beforeModel: function() {
+  var user = this.controllerFor('session').get('currentUser');
+    if (! user) {
+    this.transitionTo('login');
+    }
+  },
   model: function() {
     return this.store.find('venue');
   }
 });
 
 Fest.VenuesShowRoute = Ember.Route.extend({
+  beforeModel: function() {
+  var user = this.controllerFor('session').get('currentUser');
+    if (! user) {
+    this.transitionTo('login');
+    }
+  },
+
   model: function(params) {
     return this.store.find('venue', params.venue_id);
   }

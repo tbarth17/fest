@@ -50,6 +50,7 @@
       <script type='text/x-handlebars' data-template-name='application'>
         <div class="header">
           <h1>GREENVILLE FESTIVAL</h1>
+          <h2>Hello {{userName}}</h2>
         </div>
             <div class="shortcuts">
               {{#link-to 'bands.viewAll'}}<div>BANDS</div>{{/link-to}}
@@ -59,6 +60,51 @@
               <div>SCHEDULE</div>
             </div>
             {{outlet}}
+
+      </script>
+
+      <script type='text/x-handlebars' data-template-name='login'>
+
+              <h1>LOG IN</h1>
+      <div>
+       <p>
+        <label class="btn" for="login">Log in</label>
+        <label class="btn btn-blue" for="signin">Sign up</label>
+       </p>
+      </div>
+
+      <input class="modal-state" id="login" type="checkbox" />
+      <div class="modal">
+       <label class="modal__bg" for="login"></label>
+       <div class="modal__inner">
+         <label class="modal__close" for="login"></label>
+         <form>
+           {{input type="email" class="login-input" placeholder="Email" value=email}}
+           {{input type="password" class="login-input" placeholder="Password" value=password}}
+           <button {{action "logIn"}} type="submit" class="btn">Log in</button>
+         </form>
+       </div>
+      </div>
+
+      <input class="modal-state" id="signin" type="checkbox" />
+      <div class="modal">
+       <label class="modal__bg" for="signin"></label>
+        <div class="modal__inner">
+          <label class="modal__close" for="signin"></label>
+          <form>
+            {{input type="text" class="login-input" placeholder="Your name" value=userName}}
+            {{input type="email" class="login-input" placeholder="Email" value=email}}
+            {{input type="password" class="login-input" placeholder="Password" value=password}}
+              {{#if url}}
+                <img {{bind-attr src=url}}>
+              {{else}}
+                <button {{action 'addPhoto' }} class="btn btn-blue">Add Photo</button>
+              {{/if}}
+            {{textarea value=userBio cols="45" rows="6" placeholder='Your statement'}}
+            <button {{action 'createUser'}} type="submit" class="btn btn-blue">Sign up</button>
+          </form>
+        </div>
+      </div>
 
       </script>
 
@@ -99,6 +145,8 @@
       {{/each}}
     </script>
 
+
+
     <script type='text/x-handlebars' data-template-name='bands/show'>
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
       <h2>{{currentBand.bandName}}</h2>
@@ -114,9 +162,13 @@
 
     </script>
 
+
+
     <script type="text/x-handlebars" data-template-name="components/bandcamp-embed">
       <a {{bind-attr href="href"}}>{{text}}</a>
     </script>
+
+
 
     <script type='text/x-handlebars' data-template-name='venues/viewAll'>
       {{#each}}
@@ -127,6 +179,8 @@
         </li>
       {{/each}}
     </script>
+
+
 
     <script type='text/x-handlebars' data-template-name='venues/show'>
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
@@ -148,6 +202,7 @@
     </script>
 
 
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
 
     <!-- build:js scripts/vendor.js -->
@@ -159,20 +214,24 @@
     <script src="../bower_components/ember/ember.js"></script>
     <script src="../bower_components/ember-data/index.js"></script>
     <script src="../bower_components/emberfire/dist/emberfire.min.js"></script>
+    <script src="../bower_components/filepicker/filepicker.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js scripts/main.js -->
         <script src="js/application.js"></script>
         <script src="js/router.js"></script>
-        <script src="js/map.js"></script>
+        <!-- <script src="js/map.js"></script> -->
         <script src="js/index_view.js"></script>
         <script src="js/models/band.js"></script>
         <script src="js/models/venue.js"></script>
+        <script src="js/models/user.js"></script>
         <script src="js/controllers/bands_show_controller.js"></script>
         <script src="js/controllers/venues_show_controller.js"></script>
         <script src="js/controllers/venue_band_controller.js"></script>
-
+        <script src="js/controllers/login_controller.js"></script>
+        <script src="js/controllers/session_controller.js"></script>
+        <script src="js/controllers/application_controller.js"></script>
 
         <!-- endbuild -->
 </body>
