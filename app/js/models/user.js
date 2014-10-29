@@ -3,6 +3,6 @@ Fest.User = DS.Model.extend({
   userImgUrl: DS.attr('string'),
   email: DS.attr('string'),
   userBio: DS.attr('string'),
-  userFriends: DS.hasMany('user', {async: true}),
+  userFollows: DS.hasMany('user', {async: true}),
   userBands: DS.hasMany('band', {async: true})
 });

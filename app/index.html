@@ -150,13 +150,14 @@
 
 
     <script type='text/x-handlebars' data-template-name='users/show'>
+      <div {{bind-attr style=imgStyle}} class='band-img'></div>
       <h2>
         {{userName}}
       </h2>
       <h4>
         {{userBio}}
       </h4>
-
+      <button {{action "follow"}} class="btn">Follow!</button>
     </script>
 
 
@@ -264,6 +265,8 @@
         <script src="js/controllers/session_controller.js"></script>
         <script src="js/controllers/application_controller.js"></script>
         <script src="js/controllers/user_controller.js"></script>
+        <script src="js/controllers/users_show_controller.js"></script>
+
 
         <!-- endbuild -->
 </body>

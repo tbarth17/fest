@@ -60,6 +60,18 @@ Fest.UsersRoute = Ember.Route.extend({
   }
 });
 
+Fest.UsersShowRoute = Ember.Route.extend({
+  beforeModel: function() {
+  var user = this.controllerFor('session').get('currentUser');
+    if (! user) {
+    this.transitionTo('login');
+    }
+  },
+  model: function(params) {
+    return this.store.find('user', params.user_id);
+  }
+});
+
 Fest.BandsRoute = Ember.Route.extend({
   beforeModel: function() {
   var user = this.controllerFor('session').get('currentUser');
