@@ -55,7 +55,7 @@
             <div class="shortcuts">
               {{#link-to 'bands.viewAll'}}<div>BANDS</div>{{/link-to}}
               {{#link-to 'venues.viewAll'}}<div>VENUES</div>{{/link-to}}
-              <div>PROFILE</div>
+              {{#link-to 'user'}}<div>PROFILE</div>{{/link-to}}
               <div>FRIENDS</div>
               <div>SCHEDULE</div>
             </div>
@@ -117,7 +117,9 @@
         {{#link-to 'venues.viewAll'}}
           <div class="home-links">VENUES</div>
         {{/link-to}}
+        {{#link-to 'user'}}
           <div class="home-links">PROFILE</div>
+        {{/link-to}}
           <div class="home-links">FRIENDS</div>
           <div class="home-links">SCHEDULE</div>
         {{#link-to 'map'}}
@@ -127,6 +129,14 @@
         <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
     </script>
 
+
+    <script type='text/x-handlebars' data-template-name='user'>
+      <div {{bind-attr style=imgStyle}} class='band-img'></div>
+      <h1>{{userName}}</h1>
+      <h5>{{email}}</h5>
+      <h3>{{userBio}}</h3>
+
+    </script>
 
 
     <script type='text/x-handlebars' data-template-name='map'>
@@ -232,6 +242,7 @@
         <script src="js/controllers/login_controller.js"></script>
         <script src="js/controllers/session_controller.js"></script>
         <script src="js/controllers/application_controller.js"></script>
+        <script src="js/controllers/user_controller.js"></script>
 
         <!-- endbuild -->
 </body>

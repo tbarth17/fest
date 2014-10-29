@@ -15,6 +15,7 @@ Fest.ApplicationController = Ember.Controller.extend({
               mapTypeId: google.maps.MapTypeId.ROADMAP,
               streetViewControl: false
           };
+
           map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
           addPoints();
       }

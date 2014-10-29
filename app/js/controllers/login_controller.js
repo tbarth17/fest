@@ -33,14 +33,14 @@ Fest.LoginController = Ember.Controller.extend({
           var url = InkBlobs[0].url;
           self.set('url', url);
         });
-      }
+      },
 
-  //
-  //   logIn: function() {
-  //     var credentials = this.getProperties('email', 'password');
-  //     this.get('controllers.session').authenticate(credentials).then(function(user){
-  //       this.transitionToRoute('index');
-  //     });
-  //   }
+    logIn: function() {
+      var self = this;
+      var credentials = this.getProperties('email', 'password');
+      this.get('controllers.session').authenticate(credentials).then(function(user){
+        self.transitionToRoute('index');
+      });
+    }
   }
 });

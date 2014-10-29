@@ -9,6 +9,8 @@ Fest.Router.map(function() {
     this.route('viewAll');
   });
 
+  this.route('user');
+
   this.route('map');
   this.route('login');
 });
@@ -19,6 +21,25 @@ Fest.IndexRoute = Ember.Route.extend({
     if (! user) {
     this.transitionTo('login');
     }
+  },
+
+  model: function(){
+    var id = this.controllerFor('session').get('currentUser');
+    return this.store.find('user');
+  }
+});
+
+Fest.UserRoute = Ember.Route.extend({
+  beforeModel: function() {
+  var user = this.controllerFor('session').get('currentUser');
+    if (! user) {
+    this.transitionTo('login');
+    }
+  },
+
+  model: function(){
+    var id = this.controllerFor('session').get('currentUser.id');
+    return this.store.find('user', id);
   }
 });
 
