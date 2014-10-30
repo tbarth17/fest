@@ -2,11 +2,16 @@
 @import '../../bower_components/bourbon/dist/bourbon';
 @import '../../bower_components/neat/app/assets/stylesheets/neat';
 
+@import 'schedule';
+
 // Custom Styles
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-
+  padding: 1%;
+  font: 1/1.5em sans-serif;
+  text-align: center;
 }
+
 
 $dark-grey: #303030;
 $light-grey: #A6AAA6;
@@ -230,11 +235,7 @@ $hover-blue: #3498db;
 
 
 
-body {
-  padding: 1%;
-  font: 1/1.5em sans-serif;
-  text-align: center;
-}
+
 
 .btn {
   cursor: pointer;
@@ -324,12 +325,37 @@ p img {
 /////BAND PAGE IMG VENUE PAGE IMG//////////////////////////////////////////////
 
 .band-img {
-  height: 300px;
-  width: 480px;
+  height: em(300);
+  width: 100%;
   background-size: cover;
 }
 
+///////EACH VENUE///////////////////////////////////////////////////////////////
+
+.each-venue {
+  background: $light-grey;
+
+  div {
+    background: $dark-grey;
+    width: 96%;
+    margin: 1em auto;
+    padding: 0.5em;
+    text-align: center;
+    color: white;
+
+  }
+}
+
+.times {
+  font-size: 0.7em;
+  display: block;
+}
+
+
 ///////ALL BANDS //////////////////////////////////////////////////////////////////
+li {
+  text-decoration: none;
+}
 
 .each {
   width: 100%;
@@ -339,8 +365,8 @@ p img {
   text-decoration: none;
   background: $light-grey;
   padding-top: 1.4em;
-  text-decoration: none;
   border-bottom: solid $dark-grey 2px;
+
 }
 
 .each:hover {
@@ -349,4 +375,79 @@ p img {
 
 .each:active {
   background: black;
+}
+
+.each a {
+  text-decoration: none;
+  color: black;
+}
+
+.each a:hover {
+  color: white;
+}
+
+
+//////////////////////////// SCHEDULE //////////////////////////////////////////
+
+
+.schedule-container {
+  outline: solid red 1px;
+  overflow: scroll;
+  height: em(470);
+}
+
+
+.schedule-times {
+  outline: solid blue 1px;
+  width: em(2000);
+  margin-left: 5em;
+//  height: 20%;
+
+}
+
+.schedule-times li {
+  outline: solid red 1px;
+  display: inline-block;
+  float: left;
+  width: em(120);
+  text-align: left;
+
+
+}
+
+.schedule {
+  height: em(450);
+  width: em(2000);
+
+  li {
+    outline: solid green 1px;
+    display: inline-block;
+    overflow: ellipsis;
+    float: left;
+    height: em(90);
+
+
+
+    h5 {
+      display: inline-block;
+      outline: solid pink 1px;
+      float: left;
+      width: 6em;
+      height: 100%;
+    }
+  }
+}
+
+.venue-list {
+  width: 100%;
+}
+
+.time-slot {
+  //height: 500px;
+
+  li {
+    margin-right: em(30);
+    width: em(90);
+    padding-top: 15px;
+  }
 }

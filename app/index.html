@@ -65,7 +65,7 @@
 
     <li><a href="" title="Festival">Festival</a>
       <ul class="dropdowns">
-        <li><a href="" title="Schedule">Schedule</a></li>
+      {{#link-to 'schedule'}}<li><a href="" title="Schedule">Schedule</a></li>{{/link-to}}
         {{#link-to 'map'}}<li><a href="" title="Map">Map</a></li>{{/link-to}}
       </ul>
     </li>
@@ -106,11 +106,13 @@
 
     <script type='text/x-handlebars' data-template-name='bands/viewAll'>
       {{#each}}
+      <ul>
         <li class="each">
           {{#link-to 'bands.show' this}}
             {{bandName}}
           {{/link-to}}
         </li>
+       </ul>
       {{/each}}
     </script>
 
@@ -152,24 +154,82 @@
 
     <script type='text/x-handlebars' data-template-name='venues/show'>
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
-      <h2>{{venueName}}</h2>
-      <div>{{venueDescription}}</div>
-      {{#each band in model.venueBands itemController='venueBand'}}
-        <li>
+      <div class="each-venue">
+       <h2>{{venueName}}</h2>
+       <div>{{venueDescription}}</div>
+       {{#each band in model.venueBands itemController='venueBand'}}
+       <ul>
+        <li class="each">
           {{#link-to 'bands.show' band}}
             {{band.bandName}}
           {{/link-to}}
-            {{band.bandStartTime}} - {{band.bandEndTime}}
+           <span class="times">{{band.bandStartTime}} - {{band.bandEndTime}}</span>
         </li>
-      {{/each}}
+      </ul>
+       {{/each}}
 
       <div>{{venueAddress}}</div>
 
       {{map-embed src=venueEmbedAddress}}
-
+    </div>
     </script>
 
-<!-- ///////////////////////////////// -->
+<!-- ///////////////////////////////// SCHEDULE //////////////////////////////// -->
+
+    <script type="text/x-handlebars" data-template-name="schedule">
+      <h1>SCHEDULE</h1>
+
+      <div class="schedule-container">
+
+       <ul class="schedule-times">
+         <li>1PM</li>
+         <li>2PM</li>
+         <li>3PM</li>
+         <li>4PM</li>
+         <li>5PM</li>
+         <li>6PM</li>
+         <li>7PM</li>
+         <li>8PM</li>
+         <li>9PM</li>
+         <li>10PM</li>
+         <li>11PM</li>
+         <li>12AM</li>
+         <li>1AM</li>
+         <li>2AM</li>
+       </ul>
+
+          <ul class="schedule">
+            {{#each}}
+             <li class="venue-list">
+             <h5>{{venueName}}</h5>
+              <ul class="time-slot">
+                {{#each band in venueBands itemController="venueBand"}}
+                  <li {{bind-attr class="timeSlot isSelected"}} {{bind-attr style="timeSlotStyle"}}>
+                    {{band.bandName}}
+                  </li>
+                {{/each}}
+              </ul>
+             </li>
+            {{/each}}
+          </ul>
+      </div>
+
+
+    <!--   <div><ul class="schedule-12">
+    <li class="empty">zusinu</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li></ul></div> -->
+    </script>
+
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
 
@@ -188,7 +248,7 @@
         <!-- build:js scripts/main.js -->
         <script src="js/application.js"></script>
         <script src="js/router.js"></script>
-        <script src="js/map.js"></script>
+        <script src="js/map_view.js"></script>
         <script src="js/index_view.js"></script>
         <script src="js/models/band.js"></script>
         <script src="js/models/venue.js"></script>

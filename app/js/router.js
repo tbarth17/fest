@@ -10,7 +10,7 @@ Fest.Router.map(function() {
   });
 
   this.route('map');
-  this.route('schedule')
+  this.route('schedule');
 });
 
 Fest.BandsRoute = Ember.Route.extend({
@@ -56,6 +56,6 @@ Fest.VenuesShowRoute = Ember.Route.extend({
 
 Fest.ScheduleRoute = Ember.Route.extend({
   model: function() {
-    return this.store.find('venue', 'band');
+    return this.store.find('venue');
   }
 });

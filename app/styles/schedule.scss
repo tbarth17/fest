@@ -1,0 +1,17 @@
+@for $i from 1 through 24 {
+  .schedule-#{$i} {
+    @include outer-container;
+    $grid-columns: $i;
+
+    .empty {
+      height: 20px;
+      @include span-columns(1 of $i);
+    }
+
+    .band {
+      height: 20px;
+      background-color: green;
+      @include span-columns(1 of $i);
+    }
+  }
+}
