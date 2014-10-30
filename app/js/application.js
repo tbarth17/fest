@@ -21,7 +21,7 @@
 				session.authWithToken(token).then(function(){
 					application.advanceReadiness();
 					});
-			}
+			} else {application.advanceReadiness();}
 		}
 	});
 })();

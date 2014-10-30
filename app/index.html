@@ -208,7 +208,11 @@
           {{/link-to}}
         </li>
       {{/each}}
+      {{#if followed}}
+      <button class="btn">Already Followed</button>
+      {{else}}
       <button {{action "followUser"}} class="btn">Follow!</button>
+      {{/if}}
     </script>
 
 
@@ -257,7 +261,11 @@
         {{/link-to}}
         {{bandStartTime}}
       </div>
-      <button {{action "followBand"}} class="btn">Follow this Band!</button>
+      {{#if followed}}
+        <button class="btn">Already Followed</button>
+      {{else}}
+        <button {{action "followBand"}} class="btn">Follow this Band!</button>
+      {{/if}}
 
     </script>
 
@@ -334,7 +342,7 @@
               <ul class="time-slot">
                 {{#each band in venueBands itemController="venueBand"}}
                   <li {{bind-attr class="timeSlot isSelected"}} {{bind-attr style="timeSlotStyle"}}>
-                    {{band.bandName}}
+                    {{#link-to 'bands.show' band}}{{band.bandName}}{{/link-to}}
                   </li>
                 {{/each}}
               </ul>
