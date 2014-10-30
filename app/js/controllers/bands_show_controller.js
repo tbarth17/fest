@@ -1,6 +1,15 @@
 Fest.BandsShowController = Ember.ObjectController.extend({
-  needs: ['application'],
+  needs: ['application', 'session'],
   currentBand: Ember.computed.alias('model'),
+
+  actions: {
+    followBand: function() {
+      var currentUser = this.get('controllers.session.currentUser');
+      var viewedBand = this.get('model');
+      currentUser.get('userBands').addObject(viewedBand);
+      currentUser.save();
+    }
+  },
 
   imgStyle: function(){
     return new Ember.Handlebars.SafeString("background-image: url('"+this.get('bandImgUrl')+"')").toString();

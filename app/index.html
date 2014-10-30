@@ -136,6 +136,24 @@
       <h1>{{userName}}</h1>
       <h5>{{email}}</h5>
       <h3>{{userBio}}</h3>
+      <h4>People you follow</h4>
+      {{#each user in userFollows}}
+
+        <li>
+          {{#link-to 'users.show' user}}
+            {{user.userName}}
+          {{/link-to}}
+        </li>
+      {{/each}}
+      <h4>Bands you follow</h4>
+      {{#each band in userBands}}
+
+        <li>
+          {{#link-to 'bands.show' band}}
+            {{band.bandName}}
+          {{/link-to}}
+        </li>
+      {{/each}}
 
     </script>
 
@@ -157,7 +175,7 @@
       <h4>
         {{userBio}}
       </h4>
-      <button {{action "follow"}} class="btn">Follow!</button>
+      <button {{action "followUser"}} class="btn">Follow!</button>
     </script>
 
 
@@ -191,6 +209,7 @@
         {{/link-to}}
         {{bandStartTime}}
       </div>
+      <button {{action "followBand"}} class="btn">Follow this Band!</button>
 
     </script>
 

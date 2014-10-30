@@ -3,7 +3,7 @@ Fest.UsersShowController = Ember.ObjectController.extend({
   userFollows: null,
 
   actions: {
-    follow: function() {
+    followUser: function() {
       var currentUser = this.get('controllers.session.currentUser');
       var viewedUser = this.get('model');
       currentUser.get('userFollows').addObject(viewedUser);
