@@ -116,9 +116,10 @@
       {{/each}}
     </script>
 
-<!-- ///////////////////////////// EACH BANDS ///////////////////////////////-->
+<!-- ///////////////////////////// EACH BAND ///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='bands/show'>
+      <!-- <div class="each-venue"> -->
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
       <h2>{{currentBand.bandName}}</h2>
       <div>{{currentBand.bandBio}}</div>
@@ -130,11 +131,10 @@
         {{/link-to}}
         {{bandStartTime}}
       </div>
+      <!-- </div> -->
     </script>
 
-    <script type="text/x-handlebars" data-template-name="components/bandcamp-embed">
-      <a {{bind-attr href="href"}}>{{text}}</a>
-    </script>
+
 
 <!-- /////////////////////////////// ALL VENUES /////////////////////////////-->
 
