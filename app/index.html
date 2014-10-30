@@ -180,6 +180,16 @@
       <h4>
         {{userBio}}
       </h4>
+      <h4>
+        Bands {{userName}} is going to see:
+      </h4>
+      {{#each band in userBands}}
+        <li>
+          {{#link-to 'bands.show' band}}
+            {{band.bandName}}
+          {{/link-to}}
+        </li>
+      {{/each}}
       <button {{action "followUser"}} class="btn">Follow!</button>
     </script>
 
