@@ -55,7 +55,7 @@
               {{#link-to 'bands.viewAll'}}<div>BANDS</div>{{/link-to}}
               {{#link-to 'venues.viewAll'}}<div>VENUES</div>{{/link-to}}
               {{#link-to 'user'}}<div>PROFILE</div>{{/link-to}}
-              <div>FRIENDS</div>
+              {{#link-to 'following'}}<div>FRIENDS</div>{{/link-to}}
               <div>SCHEDULE</div>
             </div>
             {{outlet}}
@@ -152,6 +152,11 @@
           {{#link-to 'bands.show' band}}
             {{band.bandName}}
           {{/link-to}}
+          <span>at</span>
+          {{#link-to 'venues.show' band.bandVenue}}
+            {{band.bandVenue.venueName}}
+          {{/link-to}}
+          {{band.bandStartTime}}
         </li>
       {{/each}}
 
@@ -176,6 +181,17 @@
         {{userBio}}
       </h4>
       <button {{action "followUser"}} class="btn">Follow!</button>
+    </script>
+
+
+    <script type='text/x-handlebars' data-template-name='following'>
+      {{#each user in model.userFollows}}
+        <li>
+          {{#link-to 'users.show' user}}
+            {{user.userName}}
+          {{/link-to}}
+        </li>
+      {{/each}}
     </script>
 
 
@@ -285,6 +301,8 @@
         <script src="js/controllers/application_controller.js"></script>
         <script src="js/controllers/user_controller.js"></script>
         <script src="js/controllers/users_show_controller.js"></script>
+        <script src="js/controllers/following_controller.js"></script>
+
 
 
         <!-- endbuild -->

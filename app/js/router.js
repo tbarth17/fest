@@ -15,7 +15,7 @@ Fest.Router.map(function() {
   });
 
   this.route('user');
-
+  this.route('following');
   this.route('map');
   this.route('login');
 });
@@ -69,6 +69,19 @@ Fest.UsersShowRoute = Ember.Route.extend({
   },
   model: function(params) {
     return this.store.find('user', params.user_id);
+  }
+});
+
+Fest.FollowingRoute = Ember.Route.extend({
+  beforeModel: function() {
+  var user = this.controllerFor('session').get('currentUser');
+    if (! user) {
+    this.transitionTo('login');
+    }
+  },
+
+  model: function(){
+    return this.controllerFor('session').get('currentUser');
   }
 });
 
