@@ -9,4 +9,19 @@
 	});
 
 	filepicker.setKey("ARZytQTzJQdG7LD1IrsCiz");
+
+	Ember.Application.initializer({
+		name: 'firebase-session',
+
+		initialize: function(container, application){
+			application.deferReadiness();
+			var token = localStorage.getItem('fest-firebase-token');
+			if (token) {
+				var session = container.lookup('controller:session');
+				session.authWithToken(token).then(function(){
+					application.advanceReadiness();
+					});
+			}
+		}
+	});
 })();
