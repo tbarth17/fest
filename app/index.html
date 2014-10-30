@@ -46,18 +46,32 @@
     <!-- endbuild -->
   </head>
   <body>
-
+  <!-- ////////////////////// APPLICATION ///////////////////////////////////-->
       <script type='text/x-handlebars' data-template-name='application'>
         <div class="header">
           <h1>GREENVILLE FESTIVAL</h1>
         </div>
-            <div class="shortcuts">
-              {{#link-to 'bands.viewAll'}}<div>BANDS</div>{{/link-to}}
-              {{#link-to 'venues.viewAll'}}<div>VENUES</div>{{/link-to}}
-              {{#link-to 'user'}}<div>PROFILE</div>{{/link-to}}
-              {{#link-to 'following'}}<div>FRIENDS</div>{{/link-to}}
-              <div>SCHEDULE</div>
-            </div>
+
+
+  <ul class="navigation">
+    {{#link-to 'index'}}<li>Home</li>{{/link-to}}
+    {{#link-to 'bands.viewAll'}}<li>Bands</li>{{/link-to}}
+    {{#link-to 'venues.viewAll'}}<li>Venues</li>{{/link-to}}
+    <li><a href="" title="Social">Social</a>
+      <ul class="dropdowns">
+        {{#link-to 'user'}}<li>Profile</li>{{/link-to}}
+        {{#link-to 'following'}}<li>Friends</li>{{/link-to}}
+      </ul>
+    </li>
+
+    <li><a href="" title="Festival">Festival</a>
+      <ul class="dropdowns">
+      {{#link-to 'schedule'}}<li>Schedule</li>{{/link-to}}
+        {{#link-to 'map'}}<li>Map</li>{{/link-to}}
+      </ul>
+    </li>
+    <div class="clear"></div>
+  </ul>
             {{outlet}}
 
       </script>
@@ -107,9 +121,11 @@
 
       </script>
 
+<!-- ///////////////////////////// HOME PAGE ////////////////////////////////-->
 
 
       <script type="text/x-handlebars" data-template-name="index">
+       <div class="links-container">
         {{#link-to 'bands.viewAll'}}
           <div class="home-links">BANDS</div>
         {{/link-to}}
@@ -122,11 +138,13 @@
         {{#link-to 'users.viewAll'}}
           <div class="home-links">BROWSE USERS</div>
         {{/link-to}}
+        {{#link-to 'schedule'}}
           <div class="home-links">SCHEDULE</div>
+        {{/link-to}}
         {{#link-to 'map'}}
           <div class="home-links">MAP</div>
         {{/link-to}}
-
+       </div>
         <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
     </script>
 
@@ -204,24 +222,28 @@
       {{/each}}
     </script>
 
+<!-- ////////////////////////////// MAPS ////////////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='map'>
       <div id="map_canvas" style="width:90%; height:500px"></div>
     </script>
 
-
+<!-- ////////////////////////////// ALL BANDS ///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='bands/viewAll'>
       {{#each}}
-        <li>
+      <ul>
+        <li class="each">
           {{#link-to 'bands.show' this}}
             {{bandName}}
           {{/link-to}}
         </li>
+       </ul>
       {{/each}}
     </script>
 
 
+<!-- ///////////////////////////// EACH BAND ///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='bands/show'>
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
@@ -240,42 +262,101 @@
     </script>
 
 
-
-    <script type="text/x-handlebars" data-template-name="components/bandcamp-embed">
-      <a {{bind-attr href="href"}}>{{text}}</a>
-    </script>
-
+<!-- /////////////////////////////// ALL VENUES /////////////////////////////-->
 
 
     <script type='text/x-handlebars' data-template-name='venues/viewAll'>
       {{#each}}
-        <li>
+
+        <li class="each">
           {{#link-to 'venues.show' this}}
             {{venueName}}
           {{/link-to}}
         </li>
+
       {{/each}}
     </script>
 
 
+<!-- /////////////////////////////// EACH VENUE /////////////////////////////-->
+
 
     <script type='text/x-handlebars' data-template-name='venues/show'>
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
-      <h2>{{venueName}}</h2>
-      <div>{{venueDescription}}</div>
-      {{#each band in model.venueBands itemController='venueBand'}}
-        <li>
+      <div class="each-venue">
+       <h2>{{venueName}}</h2>
+       <div>{{venueDescription}}</div>
+       {{#each band in model.venueBands itemController='venueBand'}}
+       <ul>
+        <li class="each">
           {{#link-to 'bands.show' band}}
             {{band.bandName}}
           {{/link-to}}
-            {{band.bandStartTime}} - {{band.bandEndTime}}
+           <span class="times">{{band.bandStartTime}} - {{band.bandEndTime}}</span>
         </li>
-      {{/each}}
+      </ul>
+       {{/each}}
 
       <div>{{venueAddress}}</div>
 
       {{map-embed src=venueEmbedAddress}}
+    </div>
+    </script>
 
+<!-- ///////////////////////////////// SCHEDULE //////////////////////////////// -->
+
+    <script type="text/x-handlebars" data-template-name="schedule">
+      <h1>SCHEDULE</h1>
+
+      <div class="schedule-container">
+
+       <ul class="schedule-times">
+         <li>1PM</li>
+         <li>2PM</li>
+         <li>3PM</li>
+         <li>4PM</li>
+         <li>5PM</li>
+         <li>6PM</li>
+         <li>7PM</li>
+         <li>8PM</li>
+         <li>9PM</li>
+         <li>10PM</li>
+         <li>11PM</li>
+         <li>12AM</li>
+         <li>1AM</li>
+         <li>2AM</li>
+       </ul>
+
+          <ul class="schedule">
+            {{#each}}
+             <li class="venue-list">
+             <h5>{{venueName}}</h5>
+              <ul class="time-slot">
+                {{#each band in venueBands itemController="venueBand"}}
+                  <li {{bind-attr class="timeSlot isSelected"}} {{bind-attr style="timeSlotStyle"}}>
+                    {{band.bandName}}
+                  </li>
+                {{/each}}
+              </ul>
+             </li>
+            {{/each}}
+          </ul>
+      </div>
+
+
+    <!--   <div><ul class="schedule-12">
+    <li class="empty">zusinu</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li>
+    <li class="band">Cool</li></ul></div> -->
     </script>
 
 
@@ -298,7 +379,7 @@
         <!-- build:js scripts/main.js -->
         <script src="js/application.js"></script>
         <script src="js/router.js"></script>
-        <!-- <script src="js/map.js"></script> -->
+        <script src="js/map_view.js"></script>
         <script src="js/index_view.js"></script>
         <script src="js/models/band.js"></script>
         <script src="js/models/venue.js"></script>

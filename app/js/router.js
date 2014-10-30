@@ -18,6 +18,8 @@ Fest.Router.map(function() {
   this.route('following');
   this.route('map');
   this.route('login');
+  this.route('schedule');
+
 });
 
 Fest.IndexRoute = Ember.Route.extend({
@@ -149,5 +151,11 @@ Fest.VenuesShowRoute = Ember.Route.extend({
 
   model: function(params) {
     return this.store.find('venue', params.venue_id);
+  }
+});
+
+Fest.ScheduleRoute = Ember.Route.extend({
+  model: function() {
+    return this.store.find('venue');
   }
 });
