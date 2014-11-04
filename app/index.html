@@ -193,7 +193,7 @@
 <!--///////////////////////////BROWSE USERS////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='users/viewAll'>
-      {{#each}}
+      {{#each arrangedContent}}
         {{#link-to 'users.show' this}}
           <li>{{userName}}</li>
         {{/link-to}}
@@ -291,7 +291,7 @@
 <!-- ////////////////////////////// ALL BANDS ///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='bands/viewAll'>
-      {{#each arrangedContent}}
+      {{#each}}
       <ul>
         <li class="each">
           {{#link-to 'bands.show' this}}
@@ -466,7 +466,8 @@
         <script src="js/models/band.js"></script>
         <script src="js/models/venue.js"></script>
         <script src="js/models/user.js"></script>
-        <script src="js/controllers/bands_controller.js"></script>
+        <script src="js/controllers/bands_viewall_controller.js"></script>
+        <script src="js/controllers/users_viewall_controller.js"></script>
         <script src="js/controllers/user_bands_controller.js"></script>
         <script src="js/controllers/bands_show_controller.js"></script>
         <script src="js/controllers/venues_show_controller.js"></script>

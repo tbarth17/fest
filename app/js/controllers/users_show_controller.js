@@ -10,13 +10,16 @@ Fest.UsersShowController = Ember.ObjectController.extend({
       currentUser.save();
       viewedUser.get('userFollowedBy').addObject(currentUser);
       viewedUser.save();
+    },
+
+    unfollowUser: function() {
+      var currentUser = this.get('controllers.session.currentUser');
+      var viewedUser = this.get('model');
+      currentUser.get('userFollows').removeObject(viewedUser);
+      viewedUser.get('userFollowedBy').removeObject(currentUser);
+      currentUser.save();
+      viewedUser.save();
     }
-  },
-
-  unfollowUser: function() {
-    var currentUser = this.get('controllers.session.currentUser');
-    var viewedUser = this.get('model');
-
   },
 
   followed: function() {
