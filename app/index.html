@@ -213,13 +213,42 @@
       <h4>
         Bands {{userName}} is going to see:
       </h4>
-      {{#each band in userBands}}
-        <li>
-          {{#link-to 'bands.show' band}}
-            {{band.bandName}}
-          {{/link-to}}
-        </li>
-      {{/each}}
+        <ul>
+          {{#each band in userBands}}
+            <li>
+              {{#link-to 'bands.show' band}}
+                {{band.bandName}}
+              {{/link-to}}
+            </li>
+          {{/each}}
+        </ul>
+        
+      {{#if friendsInCommon}}
+      <h4>
+        Friends you have in common
+      </h4>
+        <ul>
+          {{#each friendsInCommon}}
+            {{#link-to 'users.show' this}}
+              <li>{{userName}}</li>
+            {{/link-to}}
+          {{/each}}
+        </ul>
+      {{/if}}
+
+      {{#if bandsInCommon}}
+      <h4>
+        Bands you have in common
+      </h4>
+        <ul>
+          {{#each bandsInCommon}}
+            {{#link-to 'bands.show' this}}
+              <li>{{bandName}}</li>
+            {{/link-to}}
+          {{/each}}
+        </ul>
+      {{/if}}
+
       {{#if followed}}
       <button class="btn">Already Followed</button>
       {{else}}
