@@ -4,5 +4,6 @@ Fest.User = DS.Model.extend({
   email: DS.attr('string'),
   userBio: DS.attr('string'),
   userFollows: DS.hasMany('user', {async: true}),
+  userFollowedBy: DS.hasMany('user', {inverse: 'userFollows'}),
   userBands: DS.hasMany('band', {async: true})
 });

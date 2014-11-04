@@ -22,6 +22,15 @@ Fest.Router.map(function() {
 
 });
 
+Fest.MapRoute = Ember.Route.extend({
+  beforeModel: function() {
+  var user = this.controllerFor('session').get('currentUser');
+    if (! user) {
+    this.transitionTo('login');
+    }
+  }
+});
+
 Fest.IndexRoute = Ember.Route.extend({
   beforeModel: function() {
   var user = this.controllerFor('session').get('currentUser');
@@ -155,6 +164,13 @@ Fest.VenuesShowRoute = Ember.Route.extend({
 });
 
 Fest.ScheduleRoute = Ember.Route.extend({
+  beforeModel: function() {
+  var user = this.controllerFor('session').get('currentUser');
+    if (! user) {
+    this.transitionTo('login');
+    }
+  },
+
   model: function() {
     return this.store.find('venue');
   }

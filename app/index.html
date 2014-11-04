@@ -144,6 +144,7 @@
         {{#link-to 'map'}}
           <div class="home-links">MAP</div>
         {{/link-to}}
+        <button class="home-links" {{action 'logOut'}}>Log Out</button>
        </div>
         <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
     </script>
@@ -209,7 +210,11 @@
           {{/link-to}}
         </li>
       {{/each}}
+      {{#if followed}}
+      <button class="btn">Already Followed</button>
+      {{else}}
       <button {{action "followUser"}} class="btn">Follow!</button>
+      {{/if}}
     </script>
 
 
@@ -232,7 +237,7 @@
 <!-- ////////////////////////////// ALL BANDS ///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='bands/viewAll'>
-      {{#each}}
+      {{#each arrangedContent}}
       <ul>
         <li class="each">
           {{#link-to 'bands.show' this}}
@@ -258,7 +263,24 @@
         {{/link-to}}
         {{bandStartTime}}
       </div>
-      <button {{action "followBand"}} class="btn">Follow this Band!</button>
+      <h3>People following this band:</h3>
+      {{#each user in model.bandAttendees}}
+        <li>
+          {{#link-to 'users.show' user}}
+            {{user.userName}}
+          {{/link-to}}
+        </li>
+      {{/each}}
+
+<!--       {{#if friendFollowed}}
+  {{userName}}
+{{/if}}
+ -->
+      {{#if followed}}
+        <button class="btn">Already Followed</button>
+      {{else}}
+        <button {{action "followBand"}} class="btn">Follow this Band!</button>
+      {{/if}}
 
     </script>
 
@@ -335,7 +357,7 @@
               <ul class="time-slot">
                 {{#each band in venueBands itemController="venueBand"}}
                   <li {{bind-attr class="timeSlot isSelected"}} {{bind-attr style="timeSlotStyle"}}>
-                    {{band.bandName}}
+                    {{#link-to 'bands.show' band}}{{band.bandName}}{{/link-to}}
                   </li>
                 {{/each}}
               </ul>
@@ -385,10 +407,12 @@
         <script src="js/models/band.js"></script>
         <script src="js/models/venue.js"></script>
         <script src="js/models/user.js"></script>
+        <script src="js/controllers/bands_controller.js"></script>
         <script src="js/controllers/bands_show_controller.js"></script>
         <script src="js/controllers/venues_show_controller.js"></script>
         <script src="js/controllers/venue_band_controller.js"></script>
         <script src="js/controllers/login_controller.js"></script>
+        <script src="js/controllers/index_controller.js"></script>
         <script src="js/controllers/session_controller.js"></script>
         <script src="js/controllers/application_controller.js"></script>
         <script src="js/controllers/user_controller.js"></script>
