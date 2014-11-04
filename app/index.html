@@ -149,21 +149,14 @@
         <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
     </script>
 
+<!--//////////////////////////////USER PROFILE///////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='user'>
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
       <h1>{{userName}}</h1>
       <h5>{{email}}</h5>
       <h3>{{userBio}}</h3>
-      <h4>People you follow</h4>
-      {{#each user in userFollows}}
 
-        <li>
-          {{#link-to 'users.show' user}}
-            {{user.userName}}
-          {{/link-to}}
-        </li>
-      {{/each}}
       <h4>Bands you follow</h4>
       {{#each band in userBands}}
 
@@ -179,8 +172,25 @@
         </li>
       {{/each}}
 
+      <h4>People you follow</h4>
+      {{#each user in userFollows}}
+
+        <li>
+          {{#link-to 'users.show' user}}
+            {{user.userName}}
+          {{/link-to}}
+        </li>
+      {{/each}}
+
+      <h4>Followers</h4>
+        {{#each user in userFollowedBy}}
+          {{#link-to 'users.show' user}}
+            <li>{{user.userName}}</li>
+          {{/link-to}}
+        {{/each}}
     </script>
 
+<!--///////////////////////////BROWSE USERS////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='users/viewAll'>
       {{#each}}
@@ -190,6 +200,7 @@
       {{/each}}
     </script>
 
+<!--////////////////////////////SHOW USER///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='users/show'>
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
@@ -200,7 +211,7 @@
         {{userBio}}
       </h4>
       <h4>
-        Bands "{{userName}}" is going to see:
+        Bands {{userName}} is going to see:
       </h4>
       {{#each band in userBands}}
         <li>
@@ -216,6 +227,7 @@
       {{/if}}
     </script>
 
+<!--///////////////////////////////FRIENDS////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='following'>
       {{#each user in model.userFollows}}
@@ -271,10 +283,15 @@
         </li>
       {{/each}}
 
-<!--       {{#if friendFollowed}}
-  {{userName}}
-{{/if}}
- -->
+      {{#if friendFollowed}}
+      <h3>Friends Following this band:</h3>
+        {{#each friendFollowed}}
+          {{#link-to 'users.show' user}}
+            <li>{{userName}}</li>
+          {{/link-to}}
+        {{/each}}
+      {{/if}}
+
       {{#if followed}}
         <button class="btn">Already Followed</button>
       {{else}}

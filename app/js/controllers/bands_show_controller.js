@@ -19,11 +19,7 @@ Fest.BandsShowController = Ember.ObjectController.extend({
     return currentUser.get('userBands').contains(viewedBand);
   }.property('model', 'controllers.session.currentUser.userBands.@each'),
 
-  // friendFollowed: function() {
-  //   var currentUser = this.get('controllers.session.currentUser');
-  //   var viewedBandFollowers = this.get('model.bandAttendees');
-  //   return currentUser.get('userFollows').contains(viewedBandFollowers);
-  // }.property('model', 'controllers.session.currentUser.'),
+  friendFollowed: Ember.computed.intersect('model.bandAttendees', 'controllers.session.currentUser.userFollows'),
 
   imgStyle: function(){
     return new Ember.Handlebars.SafeString("background-image: url('"+this.get('bandImgUrl')+"')").toString();
