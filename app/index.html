@@ -291,7 +291,8 @@
 <!-- ////////////////////////////// ALL BANDS ///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='bands/viewAll'>
-      {{#each}}
+    {{input type='text' value=filter placeholder="Search Bands"}}
+      {{#each filteredContent}}
       <ul>
         <li class="each">
           {{#link-to 'bands.show' this}}
@@ -336,7 +337,7 @@
       {{/if}}
 
       {{#if followed}}
-        <button class="btn">Already Followed</button>
+        <button {{action 'unfollowBand'}} class="btn">Unfollow Band</button>
       {{else}}
         <button {{action "followBand"}} class="btn">Follow this Band!</button>
       {{/if}}

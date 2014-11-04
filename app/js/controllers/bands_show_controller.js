@@ -10,6 +10,15 @@ Fest.BandsShowController = Ember.ObjectController.extend({
       currentUser.save();
       viewedBand.get('bandAttendees').addObject(currentUser);
       viewedBand.save();
+    },
+
+    unfollowBand: function() {
+      var currentUser = this.get('controllers.session.currentUser');
+      var viewedBand = this.get ('model');
+      currentUser.get('userBands').removeObject(viewedBand);
+      viewedBand.get('bandAttendees').removeObject(currentUser);
+      currentUser.save();
+      viewedBand.save();
     }
   },
 
