@@ -158,7 +158,7 @@
       <h3>{{userBio}}</h3>
 
       <h4>Bands you follow</h4>
-      {{#each band in userBands}}
+      {{#each band in userBands itemController='userBands'}}
 
         <li>
           {{#link-to 'bands.show' band}}
@@ -214,15 +214,29 @@
         Bands {{userName}} is going to see:
       </h4>
         <ul>
-          {{#each band in userBands}}
+          {{#each band in userBands itemController='userBands'}}
             <li>
               {{#link-to 'bands.show' band}}
                 {{band.bandName}}
               {{/link-to}}
+              <span>at</span>
+              {{#link-to 'venues.show' band.bandVenue}}
+                {{band.bandVenue.venueName}}
+              {{/link-to}}
+              {{band.bandStartTime}}
             </li>
           {{/each}}
         </ul>
-        
+
+      <h4>
+        People {{userName}} is following:
+      </h4>
+        <ul>
+          {{#each user in userFollows}}
+            {{userName}}
+          {{/each}}
+        </ul>
+
       {{#if friendsInCommon}}
       <h4>
         Friends you have in common
@@ -250,7 +264,7 @@
       {{/if}}
 
       {{#if followed}}
-      <button class="btn">Already Followed</button>
+      <button {{action "unfollowUser"}} class="btn">Unfollow User</button>
       {{else}}
       <button {{action "followUser"}} class="btn">Follow!</button>
       {{/if}}
@@ -453,6 +467,7 @@
         <script src="js/models/venue.js"></script>
         <script src="js/models/user.js"></script>
         <script src="js/controllers/bands_controller.js"></script>
+        <script src="js/controllers/user_bands_controller.js"></script>
         <script src="js/controllers/bands_show_controller.js"></script>
         <script src="js/controllers/venues_show_controller.js"></script>
         <script src="js/controllers/venue_band_controller.js"></script>
