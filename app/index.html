@@ -193,7 +193,8 @@
 <!--///////////////////////////BROWSE USERS////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='users/viewAll'>
-      {{#each arrangedContent}}
+    {{input type='text' value=filter placeholder="Search Users"}}
+      {{#each filteredContent}}
         {{#link-to 'users.show' this}}
           <li>{{userName}}</li>
         {{/link-to}}
