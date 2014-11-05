@@ -164,41 +164,52 @@
       <h1>{{userName}}</h1>
       <h3>{{userBio}}</h3>
 
-      <h4>People you follow</h4>
-      <ul class="profile-container">
-      {{#each user in userFollows}}
-        <li>
-          {{#link-to 'users.show' user}}
-            {{user.userName}}
-          {{/link-to}}
-        </li>
-      {{/each}}
-      </ul>
+      <nav role='navigation' class="SiteNav">
+       <label for="trigger" class="SiteNav-triggerLabel">People you follow</label>
+       <input type="checkbox" id="trigger" class="SiteNav-trigger"/>
+          <ul class="SiteNav-links">
+            {{#each user in userFollows}}
+              <li>
+               {{#link-to 'users.show' user}}
+                 {{user.userName}}
+               {{/link-to}}
+              </li>
+            {{/each}}
+          </ul>
+      </nav>
 
-      <h4>Bands you follow</h4>
-      <ul class="profile-container">
-      {{#each band in userBands itemController='userBands'}}
-        <li>
-          {{#link-to 'bands.show' band}}
-            {{band.bandName}}
-          {{/link-to}}
-          <span>at</span>
-          {{#link-to 'venues.show' band.bandVenue}}
-            {{band.bandVenue.venueName}}
-          {{/link-to}}
-          {{band.bandStartTime}}
-        </li>
-      {{/each}}
-      </ul>
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger2" class="SiteNav-triggerLabel">Bands you follow</label>
+        <input type="checkbox" id="trigger2" class="SiteNav-trigger"/>
+          <ul class="SiteNav-links">
+            {{#each band in userBands itemController='userBands'}}
+            <li>
+              {{#link-to 'bands.show' band}}
+                {{band.bandName}}
+              {{/link-to}}
+              <span>at</span>
+              {{#link-to 'venues.show' band.bandVenue}}
+                {{band.bandVenue.venueName}}
+              {{/link-to}}
+                {{band.bandStartTime}}
+            </li>
+            {{/each}}
+          </ul>
+      </nav>
 
-      <h4>Followers</h4>
-      <ul class="profile-container">
-        {{#each user in userFollowedBy}}
-          {{#link-to 'users.show' user}}
-            <li>{{user.userName}}</li>
-          {{/link-to}}
-        {{/each}}
-      </ul>
+
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger3" class="SiteNav-triggerLabel">Followers</label>
+        <input type="checkbox" id="trigger3" class="SiteNav-trigger"/>
+         <ul class="SiteNav-links">
+           {{#each user in userFollowedBy}}
+             {{#link-to 'users.show' user}}
+              <li>{{user.userName}}</li>
+             {{/link-to}}
+           {{/each}}
+         </ul>
+      </nav>
+
     </script>
 
 <!--///////////////////////////BROWSE USERS////////////////////////////-->
@@ -225,68 +236,77 @@
       <h4>
         {{userBio}}
       </h4>
-      <h4>
-        Bands {{userName}} is going to see:
-      </h4>
-        <ul class="profile-each-band">
-          {{#each band in userBands itemController='userBands'}}
-            <li>
-              {{#link-to 'bands.show' band}}
-                {{band.bandName}}
-              {{/link-to}}
-              <span>at</span>
-              {{#link-to 'venues.show' band.bandVenue}}
-                {{band.bandVenue.venueName}}
-              {{/link-to}}
-              {{band.bandStartTime}}
-            </li>
-          {{/each}}
-        </ul>
 
-      <h4>
-        People {{userName}} follows:
-      </h4>
-        <ul>
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger4" class="SiteNav-triggerLabel">Bands {{userName}} is going to see:</label>
+        <input type="checkbox" id="trigger4" class="SiteNav-trigger"/>
+          <ul class="SiteNav-links">
+           {{#each band in userBands itemController='userBands'}}
+             <li>
+               {{#link-to 'bands.show' band}}
+                 {{band.bandName}}
+               {{/link-to}}
+               <span>at</span>
+               {{#link-to 'venues.show' band.bandVenue}}
+                 {{band.bandVenue.venueName}}
+               {{/link-to}}
+               {{band.bandStartTime}}
+             </li>
+           {{/each}}
+         </ul>
+      </nav>
+
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger5" class="SiteNav-triggerLabel">People {{userName}} follows:</label>
+        <input type="checkbox" id="trigger5" class="SiteNav-trigger"/>
+        <ul class="SiteNav-links">
           {{#each user in model.userFollows}}
             {{#link-to 'users.show' user}}
               <li>{{user.userName}}</li>
             {{/link-to}}
           {{/each}}
         </ul>
+      </nav>
 
-      <h4>{{userName}}'s Followers:</h4>
-        <ul>
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger6" class="SiteNav-triggerLabel">{{userName}}'s Followers:</label>
+        <input type="checkbox" id="trigger6" class="SiteNav-trigger"/>
+        <ul class="SiteNav-links">
           {{#each user in model.userFollowedBy}}
             {{#link-to 'users.show' user}}
               <li>{{user.userName}}</li>
             {{/link-to}}
           {{/each}}
         </ul>
+      </nav>
+
 
       {{#if friendsInCommon}}
-      <h4>
-        Friends you have in common
-      </h4>
-        <ul>
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger7" class="SiteNav-triggerLabel">Friends you have in common</label>
+        <input type="checkbox" id="trigger7" class="SiteNav-trigger"/>
+        <ul class="SiteNav-links">
           {{#each friendsInCommon}}
             {{#link-to 'users.show' this}}
               <li>{{userName}}</li>
             {{/link-to}}
           {{/each}}
         </ul>
+      </nav>
       {{/if}}
 
       {{#if bandsInCommon}}
-      <h4>
-        Bands you have in common
-      </h4>
-        <ul>
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger8" class="SiteNav-triggerLabel">Bands you have in common</label>
+        <input type="checkbox" id="trigger8" class="SiteNav-trigger"/>
+        <ul class="SiteNav-links">
           {{#each bandsInCommon}}
             {{#link-to 'bands.show' this}}
               <li>{{bandName}}</li>
             {{/link-to}}
           {{/each}}
         </ul>
+      </nav>
       {{/if}}
 
 
@@ -329,22 +349,34 @@
         {{/link-to}}
         {{bandStartTime}}
       </div>
-      <h3>People following this band:</h3>
-      {{#each user in model.bandAttendees}}
-        <li>
-          {{#link-to 'users.show' user}}
-            {{user.userName}}
-          {{/link-to}}
-        </li>
-      {{/each}}
+
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger9" class="SiteNav-triggerLabel">People following this band:</label>
+        <input type="checkbox" id="trigger9" class="SiteNav-trigger"/>
+        <ul class="SiteNav-links">
+          {{#each user in model.bandAttendees}}
+            <li>
+              {{#link-to 'users.show' user}}
+                {{user.userName}}
+              {{/link-to}}
+            </li>
+          {{/each}}
+        </ul>
+      </nav>
+
 
       {{#if friendFollowed}}
-      <h3>Friends Following this band:</h3>
-        {{#each friendFollowed}}
-          {{#link-to 'users.show' this}}
-            <li>{{userName}}</li>
-          {{/link-to}}
-        {{/each}}
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger10" class="SiteNav-triggerLabel">Friends Following this band:</label>
+        <input type="checkbox" id="trigger10" class="SiteNav-trigger"/>
+        <ul class="SiteNav-links">
+          {{#each friendFollowed}}
+            {{#link-to 'users.show' this}}
+              <li>{{userName}}</li>
+            {{/link-to}}
+          {{/each}}
+        </ul>
+      </nav>
       {{/if}}
 
       {{#if followed}}
