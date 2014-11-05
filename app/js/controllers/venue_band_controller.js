@@ -1,4 +1,6 @@
 Fest.VenueBandController = Ember.ObjectController.extend({
+  needs: ['session'],
+
   bandStartTime: function(){
     return moment(this.get('model.bandStartTime')).zone('+0000').format('h:mm A');
   }.property('model.bandStartTime'),
@@ -7,9 +9,13 @@ Fest.VenueBandController = Ember.ObjectController.extend({
     return moment(this.get('model.bandEndTime')).zone('+0000').format('h:mm A');
   }.property('model.bandEndTime'),
 
-  // isSelected: function(){
-  //   if(this.get('controllers.session.currentUser')){
-  //     return this.get('controllers.session.currentUser.bands').contains(this.get('model'));
-  //   }
-  // }.property('controllers.session.currentUser.bands.@each')
+  isSelected: function() {
+    var currentUser = this.get('controllers.session.currentUser');
+    var currentBand = this.get('model');
+    if (currentBand.get('bandAttendees').contains(currentUser)){
+      return true;
+    } else {
+      return false;
+    }
+  }.property('model.bandAttendees.@each', 'controllers.session.currentUser')
 });
