@@ -3,7 +3,7 @@
       openInfowindow = null;
       newPoints = [];
 
-  Fest.MapView = Ember.View.extend({
+  Fest.VenuesViewAllView = Ember.View.extend({
     didInsertElement: function(){
       initialize();
     }
@@ -12,7 +12,7 @@
   function initialize () {
       var mapOptions = {
           center: new google.maps.LatLng(34.86811622745945, -82.38741874694824),
-          zoom: 13,
+          zoom: 12,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           streetViewControl: false
       };

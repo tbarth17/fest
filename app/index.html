@@ -60,14 +60,12 @@
     <li><a href="" title="Social">Social</a>
       <ul class="dropdowns">
         {{#link-to 'user'}}<li>Profile</li>{{/link-to}}
-        {{#link-to 'following'}}<li>Friends</li>{{/link-to}}
       </ul>
     </li>
 
     <li><a href="" title="Festival">Festival</a>
       <ul class="dropdowns">
       {{#link-to 'schedule'}}<li>Schedule</li>{{/link-to}}
-        {{#link-to 'map'}}<li>Map</li>{{/link-to}}
       </ul>
     </li>
     <div class="clear"></div>
@@ -141,9 +139,6 @@
         {{#link-to 'schedule'}}
           <div class="home-links">SCHEDULE</div>
         {{/link-to}}
-        {{#link-to 'map'}}
-          <div class="home-links">MAP</div>
-        {{/link-to}}
         <button class="home-links" {{action 'logOut'}}>Log Out</button>
        </div>
         <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
@@ -194,11 +189,13 @@
 
     <script type='text/x-handlebars' data-template-name='users/viewAll'>
     {{input type='text' value=filter placeholder="Search Users"}}
-      {{#each filteredContent}}
-        {{#link-to 'users.show' this}}
-          <li>{{userName}}</li>
-        {{/link-to}}
-      {{/each}}
+      <ul>
+        {{#each filteredContent}}
+          {{#link-to 'users.show' this}}
+            <li>{{userName}}</li>
+          {{/link-to}}
+        {{/each}}
+      </ul>
     </script>
 
 <!--////////////////////////////SHOW USER///////////////////////////////-->
@@ -282,24 +279,6 @@
       {{/if}}
     </script>
 
-<!--///////////////////////////////FRIENDS////////////////////////////-->
-
-    <script type='text/x-handlebars' data-template-name='following'>
-      {{#each user in model.userFollows}}
-        <li>
-          {{#link-to 'users.show' user}}
-            {{user.userName}}
-          {{/link-to}}
-        </li>
-      {{/each}}
-    </script>
-
-<!-- ////////////////////////////// MAPS ////////////////////////////////////-->
-
-    <script type='text/x-handlebars' data-template-name='map'>
-      <div id="map_canvas" style="width:90%; height:500px"></div>
-    </script>
-
 <!-- ////////////////////////////// ALL BANDS ///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='bands/viewAll'>
@@ -370,6 +349,8 @@
         </li>
 
       {{/each}}
+      <div id="map_canvas" style="width:90%; height:500px"></div>
+
     </script>
 
 
@@ -438,20 +419,6 @@
           </ul>
       </div>
 
-
-    <!--   <div><ul class="schedule-12">
-    <li class="empty">zusinu</li>
-    <li class="band">Cool</li>
-    <li class="band">Cool</li>
-    <li class="band">Cool</li>
-    <li class="band">Cool</li>
-    <li class="band">Cool</li>
-    <li class="band">Cool</li>
-    <li class="band">Cool</li>
-    <li class="band">Cool</li>
-    <li class="band">Cool</li>
-    <li class="band">Cool</li>
-    <li class="band">Cool</li></ul></div> -->
     </script>
 
 
@@ -474,7 +441,7 @@
         <!-- build:js scripts/main.js -->
         <script src="js/application.js"></script>
         <script src="js/router.js"></script>
-        <script src="js/map_view.js"></script>
+        <script src="js/venues_viewall_view.js"></script>
         <script src="js/index_view.js"></script>
         <script src="js/models/band.js"></script>
         <script src="js/models/venue.js"></script>
