@@ -17,5 +17,14 @@ Fest.VenueBandController = Ember.ObjectController.extend({
     } else {
       return false;
     }
-  }.property('model.bandAttendees.@each', 'controllers.session.currentUser')
+  }.property('model.bandAttendees.@each', 'controllers.session.currentUser'),
+
+  timeSlotStyle: function() {
+    var start = this.get('model.bandStartTime');
+    var end = this.get('model.bandEndTime');
+    var timeSlot = Math.abs(end - start);
+    var ratio = timeSlot/30000;
+    return new Ember.Handlebars.SafeString("width:" +ratio+ "px").toString();
+  }.property('model.bandStartTime', 'model.bandEndTime')
 });
+// return new Ember.Handlebars.SafeString("background-image: url('"+this.get('bandImgUrl')+"')").toString();

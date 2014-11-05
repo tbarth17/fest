@@ -429,7 +429,7 @@
              <h5>{{venueName}}</h5>
               <ul class="time-slot">
                 {{#each band in venueBands itemController="venueBand"}}
-                  <li {{ bind-attr class='band.isSelected' style=timeSlotStyle }}>
+                  <li {{ bind-attr class='band.isSelected' style=band.timeSlotStyle }}>
                     {{#link-to 'bands.show' band}}{{band.bandName}}{{/link-to}}
                   </li>
                 {{/each}}
