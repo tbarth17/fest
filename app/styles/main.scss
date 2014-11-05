@@ -15,7 +15,7 @@ body {
 }
 
 
-$mobile: new-breakpoint(max-width 500px 12);
+$mobile: new-breakpoint(max-width 600px 12);
 $dark-grey: #303030;
 $light-grey: #A6AAA6;
 $green: #27AE60;
@@ -58,7 +58,6 @@ $hover-blue: #3498db;
   margin: 0;
   background: rgb(58,58,58);
   border-top: solid 3px #fff;
-  border-bottom: solid 3px #fff;
   width: 100%;
   line-height: 50px;
   color: white;
@@ -120,23 +119,6 @@ border-radius: 0 0 8px 8px;
 
 }
 
-.dropdowns li {
-  text-decoration: none;
-  list-style: none;
-  color: #fff;
-  background: #3A3A3A;
-}
-
-.dropdown-btn {
-  width: 100%;
-  background: #3A3A3A;
-  border: 0;
-  outline: none;
-}
-
-.dropdown-btn:hover {
-  background: #222;
-}
 
 //////////////////////////////////////////////////////
 
@@ -347,9 +329,48 @@ p img {
 }
 
 .home-text img {
-  width: 43%;
+  width: 60%;
 }
 
+#slider {
+  height: 300px;
+  width: 60%;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+}
+
+#images {
+  width: 300%;
+  height:100%;
+  margin:0 auto;
+  position: absolute;
+	animation: slide 16s infinite ease-in-out alternate;
+}
+
+#images li {
+  float:left;
+  width: 33.33%;
+  height:100%;
+  margin-left:0px;
+  list-style:none;
+
+  /* Not Part of Slider */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+}
+
+@keyframes slide {
+	  0% { margin-left: 0; }
+   28% { margin-left: 0; }
+	 33% { margin-left: -100%; }
+   61% { margin-left: -100%; }
+	 66% { margin-left: -200%; }
+   100% { margin-left: -200%; }
+}
 /////BAND PAGE IMG VENUE PAGE IMG//////////////////////////////////////////////
 
 .band-img {
@@ -434,6 +455,7 @@ li {
 ///////////////////////////// USER PROFILE /////////////////////////////////////
 .profile-container * {
   margin-bottom: 0.5  em;
+  list-style: none;
 }
 
 .profile-each-band {
