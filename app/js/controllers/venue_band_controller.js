@@ -27,4 +27,3 @@ Fest.VenueBandController = Ember.ObjectController.extend({
     return new Ember.Handlebars.SafeString("width:" +ratio+ "px").toString();
   }.property('model.bandStartTime', 'model.bandEndTime')
 });
-// return new Ember.Handlebars.SafeString("background-image: url('"+this.get('bandImgUrl')+"')").toString();
