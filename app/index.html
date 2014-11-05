@@ -57,13 +57,13 @@
     {{#link-to 'index'}}<li>Home</li>{{/link-to}}
     {{#link-to 'bands.viewAll'}}<li>Bands</li>{{/link-to}}
     {{#link-to 'venues.viewAll'}}<li>Venues</li>{{/link-to}}
-    <li><a href="" title="Social">Social</a>
+    <li>Social
       <ul class="dropdowns">
         {{#link-to 'user'}}<li>Profile</li>{{/link-to}}
       </ul>
     </li>
 
-    <li><a href="" title="Festival">Festival</a>
+    <li>Festival
       <ul class="dropdowns">
       {{#link-to 'schedule'}}<li>Schedule</li>{{/link-to}}
       </ul>
@@ -111,7 +111,7 @@
               {{else}}
                 <button {{action 'addPhoto' }} class="btn btn-blue">Add Photo</button>
               {{/if}}
-            {{textarea value=userBio cols="45" rows="6" placeholder='Your statement'}}
+            {{textarea class="bio-text" value=userBio cols="45" rows="6" placeholder='Your statement'}}
             <button {{action 'createUser'}} type="submit" class="btn btn-blue">Sign up</button>
           </form>
         </div>
@@ -125,36 +125,52 @@
       <script type="text/x-handlebars" data-template-name="index">
        <div class="links-container">
         {{#link-to 'bands.viewAll'}}
-          <div class="home-links">BANDS</div>
+          <div class="home-links">Bands</div>
         {{/link-to}}
         {{#link-to 'venues.viewAll'}}
-          <div class="home-links">VENUES</div>
+          <div class="home-links">Venues</div>
         {{/link-to}}
         {{#link-to 'user'}}
-          <div class="home-links">PROFILE</div>
+          <div class="home-links">Profile</div>
         {{/link-to}}
         {{#link-to 'users.viewAll'}}
-          <div class="home-links">BROWSE USERS</div>
+          <div class="home-links">Browse Users</div>
         {{/link-to}}
         {{#link-to 'schedule'}}
-          <div class="home-links">SCHEDULE</div>
+          <div class="home-links">Schedule</div>
         {{/link-to}}
         <button class="home-links" {{action 'logOut'}}>Log Out</button>
        </div>
+
+        <div class="home-text">
+          <h1>Welcome to Indie Upstate!</h1>
+          <img src="http://www.largepict.com/wp-content/uploads/2014/05/falls-park-greenville-sc.jpg">
+        </div>
+
         <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
     </script>
 
-<!--//////////////////////////////USER PROFILE///////////////////////-->
+<!--/////////////////////////////////////USER PROFILE ///////////////////////////////////// -->
 
     <script type='text/x-handlebars' data-template-name='user'>
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
       <h1>{{userName}}</h1>
-      <h5>{{email}}</h5>
       <h3>{{userBio}}</h3>
 
-      <h4>Bands you follow</h4>
-      {{#each band in userBands itemController='userBands'}}
+      <h4>People you follow</h4>
+      <ul class="profile-container">
+      {{#each user in userFollows}}
+        <li>
+          {{#link-to 'users.show' user}}
+            {{user.userName}}
+          {{/link-to}}
+        </li>
+      {{/each}}
+      </ul>
 
+      <h4>Bands you follow</h4>
+      <ul class="profile-container">
+      {{#each band in userBands itemController='userBands'}}
         <li>
           {{#link-to 'bands.show' band}}
             {{band.bandName}}
@@ -166,23 +182,16 @@
           {{band.bandStartTime}}
         </li>
       {{/each}}
-
-      <h4>People you follow</h4>
-      {{#each user in userFollows}}
-
-        <li>
-          {{#link-to 'users.show' user}}
-            {{user.userName}}
-          {{/link-to}}
-        </li>
-      {{/each}}
+      </ul>
 
       <h4>Followers</h4>
+      <ul>
         {{#each user in userFollowedBy}}
           {{#link-to 'users.show' user}}
             <li>{{user.userName}}</li>
           {{/link-to}}
         {{/each}}
+      </ul>
     </script>
 
 <!--///////////////////////////BROWSE USERS////////////////////////////-->
@@ -202,6 +211,7 @@
 
     <script type='text/x-handlebars' data-template-name='users/show'>
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
+      <div class="profile-container">
       <h2>
         {{userName}}
       </h2>
@@ -211,7 +221,7 @@
       <h4>
         Bands {{userName}} is going to see:
       </h4>
-        <ul>
+        <ul class="profile-each-band">
           {{#each band in userBands itemController='userBands'}}
             <li>
               {{#link-to 'bands.show' band}}
@@ -272,11 +282,13 @@
         </ul>
       {{/if}}
 
+
       {{#if followed}}
       <button {{action "unfollowUser"}} class="btn">Unfollow User</button>
       {{else}}
       <button {{action "followUser"}} class="btn">Follow!</button>
       {{/if}}
+      </div>
     </script>
 
 <!-- ////////////////////////////// ALL BANDS ///////////////////////////////-->
@@ -292,6 +304,7 @@
         </li>
        </ul>
       {{/each}}
+      </div>
     </script>
 
 

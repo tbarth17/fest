@@ -8,6 +8,7 @@
     "bourbon": "~4.0.2",
     "neat": "~1.6.0",
     "normalize-css": "~3.0.1",
-    "emberfire": "~1.2.7"
+    "emberfire": "~1.2.7",
+    "filepicker": "*"
   }
 }

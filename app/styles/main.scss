@@ -10,9 +10,12 @@ body {
   padding: 1%;
   font: 1/1.5em sans-serif;
   text-align: center;
+  background: grey;
+  @include outer-container;
 }
 
 
+$mobile: new-breakpoint(max-width 500px 12);
 $dark-grey: #303030;
 $light-grey: #A6AAA6;
 $green: #27AE60;
@@ -24,6 +27,8 @@ $hover-blue: #3498db;
   outline: solid red 1px;
   width: 100%;
   height: 5em;
+  background: white;
+  @include span-columns(24);
 
 
 
@@ -32,6 +37,7 @@ $hover-blue: #3498db;
     vertical-align: middle;
     outline: solid blue 1px;
     color: black;
+    @include span-columns(24);
   }
 }
 
@@ -44,16 +50,6 @@ $hover-blue: #3498db;
   clear: both;
 }
 
-/* .wrapper {
-  width: 450px;
-  margin: 20px auto;
-  border-radius: 10px;
-  border: solid 3px #fff;
-  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
-} */
-
-
-
 .navigation {
   z-index: 5;
   font-family: 'Monda', sans-serif;
@@ -64,31 +60,20 @@ $hover-blue: #3498db;
   border-top: solid 3px #fff;
   border-bottom: solid 3px #fff;
   width: 100%;
-  /*
-  box-shadow:  0px -2px 3px -1px rgba(0, 0, 0, 1);
-  */
+  line-height: 50px;
+  color: white;
+
+
 }
 
 .navigation li {
   float: left;
   width: 20%;
+  color: white;
 }
 
 .navigation li:hover {
   background: #222;
-}
-
-.navigation li:first-child {
-  -webkit-border-radius: 5px 5px 0 0;
-  border-radius: 5px 0 0 5px;
-}
-
-.navigation li a {
-  display: block;
-  padding: 0 10px;
-  text-decoration: none;
-  line-height: 40px;
-  color: #fff;
 }
 
 .navigation ul {
@@ -98,9 +83,13 @@ $hover-blue: #3498db;
   margin-left: -3px;
   padding: 0;
   overflow: hidden;
-  width: 21%;
+  width: 17.5%;
   text-align: center;
   z-index: 5;
+  color: #fff;
+  @include media($mobile) {
+    width: 21%;
+  }
 }
 
 .navigation ul li {
@@ -108,6 +97,7 @@ $hover-blue: #3498db;
   width: 100%;
   text-align: center;
   z-index: 5;
+
 }
 
 .navigation li:hover > ul {
@@ -116,28 +106,37 @@ $hover-blue: #3498db;
   border: solid 3px #fff;
   border-top: 0;
 
-  -webkit-border-radius: 0 0 8px 8px;
-  border-radius: 0 0 8px 8px;
+-webkit-border-radius: 0 0 8px 8px;
+border-radius: 0 0 8px 8px;
 
   -webkit-box-shadow:  0px 3px 3px 0px rgba(0, 0, 0, 0.25);
   box-shadow:  0px 3px 3px 0px rgba(0, 0, 0, 0.25);
+
 }
 
 .navigation li:hover > ul li:hover {
   -webkit-border-radius: 0 0 5px 5px;
   border-radius: 0 0 5px 5px;
+
 }
 
-.navigation li li a:hover {
-  background: #000;
+.dropdowns li {
+  text-decoration: none;
+  list-style: none;
+  color: #fff;
+  background: #3A3A3A;
 }
 
-.navigation ul li:last-child a,
-.navigation ul li:last-child a:hover {
-  -webkit-border-radius: 0 0 5px 5px;
-  border-radius: 0 0 5px 5px;
+.dropdown-btn {
+  width: 100%;
+  background: #3A3A3A;
+  border: 0;
+  outline: none;
 }
 
+.dropdown-btn:hover {
+  background: #222;
+}
 
 //////////////////////////////////////////////////////
 
@@ -233,6 +232,11 @@ $hover-blue: #3498db;
   }
 }
 
+.bio-text {
+  width: 75%;
+  margin-bottom: 1.5em;
+}
+
 
 
 
@@ -241,7 +245,7 @@ $hover-blue: #3498db;
   cursor: pointer;
   background: $green;
   display: inline-block;
-  padding: .5em 0.5em;
+  padding: 0.4em 0.5em;
   color: #fff;
   border-radius: 3px;
   width: 75%;
@@ -297,30 +301,53 @@ p img {
 // HOME PAGE //////////////////////////////////////////////////////////////////
 
 
+.links-container {
+  margin-bottom: 2em;
+  @include span-columns(5);
+  @include media($mobile) {
+    @include span-columns(12);
+  }
+}
 
 .home-links {
-  outline: solid red 1px;
   width: 100%;
   height: 4em;
   margin: 0 auto;
   font-size: 20px;
   text-decoration: none;
-  background: $light-grey;
+  background: $dark-grey;
   padding-top: 1.4em;
-
+  color: white;
+  border-bottom: solid black 2px;
 }
 
 .home-links:hover {
-  background: black;
+  background: $light-grey;
 }
 
 .home-links:active {
-  background: black;
+  background: $light-grey;
+}
+
+.links-container button {
+  outline: none;
+  border: none;
+  padding: 0;
 }
 
 #map_canvas {
   outline: solid red 1px;
   margin: 0 auto;
+}
+
+.home-text {
+  @include media($mobile) {
+    display: none;
+  }
+}
+
+.home-text img {
+  width: 43%;
 }
 
 /////BAND PAGE IMG VENUE PAGE IMG//////////////////////////////////////////////
@@ -356,8 +383,22 @@ p img {
 
 
 ///////ALL BANDS //////////////////////////////////////////////////////////////////
+
+.all-bands-container {
+  @include outer-container;
+}
+
+.all-bands-container ul li {
+  @include span-columns(5);
+  @include media($mobile) {
+    @include span-columns(12);
+  }
+}
+
 li {
   text-decoration: none;
+//  @include outer-container;
+//  @include span-columns(6);
 }
 
 .each {
@@ -368,16 +409,17 @@ li {
   text-decoration: none;
   background: $light-grey;
   padding-top: 1.4em;
-  border-bottom: solid $dark-grey 2px;
+  border/* -bottom */: solid $dark-grey 2px;
 
 }
 
 .each:hover {
-  background: black;
+  background: $dark-grey;
+  color: white;
 }
 
 .each:active {
-  background: black;
+  background: $dark-grey;
 }
 
 .each a {
@@ -389,6 +431,14 @@ li {
   color: white;
 }
 
+///////////////////////////// USER PROFILE /////////////////////////////////////
+.profile-container * {
+  margin-bottom: 0.5  em;
+}
+
+.profile-each-band {
+  list-style: none;
+}
 
 //////////////////////////// SCHEDULE //////////////////////////////////////////
 
