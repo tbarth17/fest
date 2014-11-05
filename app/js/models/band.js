@@ -8,5 +8,5 @@ Fest.Band = DS.Model.extend({
   bandLinkUrl: DS.attr('string'),
   bandText: DS.attr('string'),
   bandVenue: DS.belongsTo('venue', {async: true}),
-  bandAttendees: DS.hasMany('user', {inverse: 'userBands'})
+  bandAttendees: DS.hasMany('user', {inverse: 'userBands', async: true})
 });

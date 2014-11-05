@@ -57,14 +57,16 @@
     {{#link-to 'index'}}<li>Home</li>{{/link-to}}
     {{#link-to 'bands.viewAll'}}<li>Bands</li>{{/link-to}}
     {{#link-to 'venues.viewAll'}}<li>Venues</li>{{/link-to}}
-    <li><a href="" title="Social">Social</a>
+    <li>Social
       <ul class="dropdowns">
         {{#link-to 'user'}}<li>Profile</li>{{/link-to}}
         {{#link-to 'following'}}<li>Friends</li>{{/link-to}}
+        {{#link-to 'users.viewAll'}}<li>Users</li>{{/link-to}}
+        <li><button class="dropdown-btn" {{action 'logOut'}}>Log Out</button></li>
       </ul>
     </li>
 
-    <li><a href="" title="Festival">Festival</a>
+    <li>Festival
       <ul class="dropdowns">
       {{#link-to 'schedule'}}<li>Schedule</li>{{/link-to}}
         {{#link-to 'map'}}<li>Map</li>{{/link-to}}
@@ -113,7 +115,7 @@
               {{else}}
                 <button {{action 'addPhoto' }} class="btn btn-blue">Add Photo</button>
               {{/if}}
-            {{textarea value=userBio cols="45" rows="6" placeholder='Your statement'}}
+            {{textarea class="bio-text" value=userBio cols="45" rows="6" placeholder='Your statement'}}
             <button {{action 'createUser'}} type="submit" class="btn btn-blue">Sign up</button>
           </form>
         </div>
@@ -127,25 +129,31 @@
       <script type="text/x-handlebars" data-template-name="index">
        <div class="links-container">
         {{#link-to 'bands.viewAll'}}
-          <div class="home-links">BANDS</div>
+          <div class="home-links">Bands</div>
         {{/link-to}}
         {{#link-to 'venues.viewAll'}}
-          <div class="home-links">VENUES</div>
+          <div class="home-links">Venues</div>
         {{/link-to}}
         {{#link-to 'user'}}
-          <div class="home-links">PROFILE</div>
+          <div class="home-links">Profile</div>
         {{/link-to}}
         {{#link-to 'users.viewAll'}}
-          <div class="home-links">BROWSE USERS</div>
+          <div class="home-links">Browse Users</div>
         {{/link-to}}
         {{#link-to 'schedule'}}
-          <div class="home-links">SCHEDULE</div>
+          <div class="home-links">Schedule</div>
         {{/link-to}}
         {{#link-to 'map'}}
-          <div class="home-links">MAP</div>
+          <div class="home-links">Map</div>
         {{/link-to}}
         <button class="home-links" {{action 'logOut'}}>Log Out</button>
        </div>
+
+        <div class="home-text">
+          <h1>Welcome to Indie Upstate!</h1>
+          <img src="http://www.largepict.com/wp-content/uploads/2014/05/falls-park-greenville-sc.jpg">
+        </div>
+
         <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
     </script>
 
@@ -157,17 +165,18 @@
       <h5>{{email}}</h5>
       <h3>{{userBio}}</h3>
       <h4>People you follow</h4>
+      <ul class="profile-container">
       {{#each user in userFollows}}
-
         <li>
           {{#link-to 'users.show' user}}
             {{user.userName}}
           {{/link-to}}
         </li>
       {{/each}}
+      </ul>
       <h4>Bands you follow</h4>
+      <ul class="profile-container">
       {{#each band in userBands}}
-
         <li>
           {{#link-to 'bands.show' band}}
             {{band.bandName}}
@@ -179,7 +188,7 @@
           {{band.bandStartTime}}
         </li>
       {{/each}}
-
+      </ul>
     </script>
 
 
@@ -194,6 +203,7 @@
 
     <script type='text/x-handlebars' data-template-name='users/show'>
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
+      <div class="profile-container">
       <h2>
         {{userName}}
       </h2>
@@ -201,20 +211,23 @@
         {{userBio}}
       </h4>
       <h4>
-        Bands "{{userName}}" is going to see:
+        Bands {{userName}} is going to see:
       </h4>
-      {{#each band in userBands}}
+       <ul class="profile-each-band">
+        {{#each band in userBands}}
         <li>
           {{#link-to 'bands.show' band}}
             {{band.bandName}}
           {{/link-to}}
         </li>
-      {{/each}}
+         {{/each}}
+        </ul>
       {{#if followed}}
       <button class="btn">Already Followed</button>
       {{else}}
       <button {{action "followUser"}} class="btn">Follow!</button>
       {{/if}}
+      </div>
     </script>
 
 
@@ -237,6 +250,7 @@
 <!-- ////////////////////////////// ALL BANDS ///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='bands/viewAll'>
+      <div class="all-bands-container">
       {{#each arrangedContent}}
       <ul>
         <li class="each">
@@ -246,6 +260,7 @@
         </li>
        </ul>
       {{/each}}
+      </div>
     </script>
 
 
@@ -272,12 +287,12 @@
         </li>
       {{/each}}
 
-<!--       {{#if friendFollowed}}
+       {{#if friendFollowed}}
   {{userName}}
 {{/if}}
- -->
+
       {{#if followed}}
-        <button class="btn">Already Followed</button>
+        <button class="btn">Following</button>
       {{else}}
         <button {{action "followBand"}} class="btn">Follow this Band!</button>
       {{/if}}
