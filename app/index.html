@@ -48,26 +48,17 @@
   <body>
   <!-- ////////////////////// APPLICATION ///////////////////////////////////-->
       <script type='text/x-handlebars' data-template-name='application'>
-        <div class="header">
+        {{#link-to 'index'}}<div class="header">
           <h1>GREENVILLE FESTIVAL</h1>
-        </div>
+        </div>{{/link-to}}
 
 
   <ul class="navigation">
-    {{#link-to 'index'}}<li>Home</li>{{/link-to}}
+    {{#link-to 'user'}}<li>Profile</li>{{/link-to}}
+    {{#link-to 'users.viewAll'}}<li>Users</li>{{/link-to}}
     {{#link-to 'bands.viewAll'}}<li>Bands</li>{{/link-to}}
     {{#link-to 'venues.viewAll'}}<li>Venues</li>{{/link-to}}
-    <li>Social
-      <ul class="dropdowns">
-        {{#link-to 'user'}}<li>Profile</li>{{/link-to}}
-      </ul>
-    </li>
-
-    <li>Festival
-      <ul class="dropdowns">
-      {{#link-to 'schedule'}}<li>Schedule</li>{{/link-to}}
-      </ul>
-    </li>
+    {{#link-to 'schedule'}}<li>Schedule</li>{{/link-to}}
     <div class="clear"></div>
   </ul>
             {{outlet}}
@@ -144,7 +135,23 @@
 
         <div class="home-text">
           <h1>Welcome to Indie Upstate!</h1>
-          <img src="http://www.largepict.com/wp-content/uploads/2014/05/falls-park-greenville-sc.jpg">
+            <div id="slider">
+             <ul id="images">
+              <li style="background:url(https://c2.staticflickr.com/4/3626/3354626263_68ed0a35f6.jpg)  no-repeat center center; "></li>
+              <li style="background:url(https://c1.staticflickr.com/3/2728/4516269817_72fa4996a2_z.jpg)  no-repeat center center;"></li>
+              <li style="background:url(http://www.greenvilleinformation.com/images/terrace_650.jpg)  no-repeat center center; "></li>
+	           </ul>
+            </div>
+
+            <div class="home-blurb">
+              <h2>This is the official app for (festival name)!</h2>
+              <p>Everything you need for the ultimate festival experience is here!<br/>
+              Just add your friends and pick some bands to watch and let us do the rest. It's that simple.</p>
+
+              <p>We know we have the sweetest line up available, but be sure to check out the sights and sounds of our host city, <a href="http://www.visitgreenvillesc.com/">GREENVILLE!</a>
+              This fair city has gone all out to be welcoming, so no wrecking the place, ok? Be cool. Enjoy yourself. <br/> The (festival name) team.
+              </p>
+            </div>
         </div>
 
         <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
@@ -185,7 +192,7 @@
       </ul>
 
       <h4>Followers</h4>
-      <ul>
+      <ul class="profile-container">
         {{#each user in userFollowedBy}}
           {{#link-to 'users.show' user}}
             <li>{{user.userName}}</li>
