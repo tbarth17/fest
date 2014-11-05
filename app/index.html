@@ -334,7 +334,7 @@
       {{#if friendFollowed}}
       <h3>Friends Following this band:</h3>
         {{#each friendFollowed}}
-          {{#link-to 'users.show' user}}
+          {{#link-to 'users.show' this}}
             <li>{{userName}}</li>
           {{/link-to}}
         {{/each}}
