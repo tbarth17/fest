@@ -230,10 +230,19 @@
         </ul>
 
       <h4>
-        People {{userName}} is following:
+        People {{userName}} follows:
       </h4>
         <ul>
           {{#each user in model.userFollows}}
+            {{#link-to 'users.show' user}}
+              <li>{{user.userName}}</li>
+            {{/link-to}}
+          {{/each}}
+        </ul>
+
+      <h4>{{userName}}'s Followers:</h4>
+        <ul>
+          {{#each user in model.userFollowedBy}}
             {{#link-to 'users.show' user}}
               <li>{{user.userName}}</li>
             {{/link-to}}
