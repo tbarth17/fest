@@ -420,7 +420,6 @@
          <li>11PM</li>
          <li>12AM</li>
          <li>1AM</li>
-         <!-- <li>2AM</li> -->
        </ul>
 
           <ul class="schedule">
@@ -431,6 +430,7 @@
                 {{#each band in venueBands itemController="venueBand"}}
                   <li {{ bind-attr class='band.isSelected' style=band.timeSlotStyle }}>
                     {{#link-to 'bands.show' band}}{{band.bandName}}{{/link-to}}
+                    {{band.bandStartTime}}
                   </li>
                 {{/each}}
               </ul>

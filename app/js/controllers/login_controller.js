@@ -16,7 +16,7 @@ Fest.LoginController = Ember.Controller.extend({
               userBio: self.get('userBio')
             });
             user.save().then(function(){
-              self.transitionToRoute('index');
+              self.transitionToRoute('user');
             })
             .catch(function(error){
               console.error(error);
@@ -39,7 +39,7 @@ Fest.LoginController = Ember.Controller.extend({
       var self = this;
       var credentials = this.getProperties('email', 'password');
       this.get('controllers.session').authenticate(credentials).then(function(user){
-        self.transitionToRoute('index');
+        self.transitionToRoute('user');
       });
     }
   }
