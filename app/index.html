@@ -155,14 +155,17 @@
         </div>
 
         <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
+
+
     </script>
 
 <!--/////////////////////////////////////USER PROFILE ///////////////////////////////////// -->
 
     <script type='text/x-handlebars' data-template-name='user'>
+      <div class="profile-container">
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
-      <h1>{{userName}}</h1>
-      <h3>{{userBio}}</h3>
+      <h1 class="profile-usernames">{{userName}}</h1>
+      <h3 class="bios">{{userBio}}</h3>
 
       <nav role='navigation' class="SiteNav">
        <label for="trigger" class="SiteNav-triggerLabel">People you follow</label>
@@ -209,14 +212,17 @@
            {{/each}}
          </ul>
       </nav>
+      </div>
+      <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
 
     </script>
 
 <!--///////////////////////////BROWSE USERS////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='users/viewAll'>
-    {{input type='text' value=filter placeholder="Search Users"}}
-      <ul>
+    {{input type='text' class="searches" value=filter placeholder="Search Users"}}
+    <span class="underline"></span>
+      <ul class="all-users">
         {{#each filteredContent itemController='userItem'}}
           <div {{bind-attr style=imgStyle}} class='band-img-small'></div>
           {{#link-to 'users.show' this}}
@@ -231,15 +237,15 @@
     <script type='text/x-handlebars' data-template-name='users/show'>
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
       <div class="profile-container">
-      <h2>
+      <h1 class="profile-usernames">
         {{userName}}
-      </h2>
-      <h4>
+      </h1>
+      <h3 class="bios">
         {{userBio}}
-      </h4>
+      </h3>
 
       <nav role='navigation' class="SiteNav">
-        <label for="trigger4" class="SiteNav-triggerLabel">Bands {{userName}} is going to see:</label>
+        <label for="trigger4" class="SiteNav-triggerLabel">Bands {{userName}} is going to see</label>
         <input type="checkbox" id="trigger4" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
            {{#each band in userBands itemController='userBands'}}
@@ -258,7 +264,7 @@
       </nav>
 
       <nav role='navigation' class="SiteNav">
-        <label for="trigger5" class="SiteNav-triggerLabel">People {{userName}} follows:</label>
+        <label for="trigger5" class="SiteNav-triggerLabel">People {{userName}} follows</label>
         <input type="checkbox" id="trigger5" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each user in model.userFollows}}
@@ -270,7 +276,7 @@
       </nav>
 
       <nav role='navigation' class="SiteNav">
-        <label for="trigger6" class="SiteNav-triggerLabel">{{userName}}'s Followers:</label>
+        <label for="trigger6" class="SiteNav-triggerLabel">{{userName}}'s Followers</label>
         <input type="checkbox" id="trigger6" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each user in model.userFollowedBy}}
@@ -322,7 +328,9 @@
 <!-- ////////////////////////////// ALL BANDS ///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='bands/viewAll'>
-    {{input type='text' value=filter placeholder="Search Bands"}}
+    {{input type='text' class="searches" value=filter placeholder="Search Bands"}}
+    <span class="underline"></span>
+     <div class="all-bands-container">
       {{#each filteredContent itemController='bandItem'}}
       <ul>
         <li class="each">
@@ -499,6 +507,7 @@
         <script src="js/router.js"></script>
         <script src="js/venues_viewall_view.js"></script>
         <script src="js/index_view.js"></script>
+        <script src="js/user_view.js"></script>
         <script src="js/models/band.js"></script>
         <script src="js/models/venue.js"></script>
         <script src="js/models/user.js"></script>
