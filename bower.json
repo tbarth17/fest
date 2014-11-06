@@ -9,6 +9,7 @@
     "neat": "~1.6.0",
     "normalize-css": "~3.0.1",
     "emberfire": "~1.2.7",
-    "filepicker": "*"
+    "filepicker": "*",
+    "ember-validations": "~1.0.0"
   }
 }

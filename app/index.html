@@ -457,16 +457,18 @@
           <ul class="schedule">
             {{#each}}
              <li class="venue-list">
-             <h5>{{venueName}}</h5>
-              <ul class="time-slot">
-                {{#each band in venueBands itemController="venueBand"}}
-                  <li {{ bind-attr class='band.isSelected' style=band.timeSlotStyle }}>
-                    {{#link-to 'bands.show' band}}{{band.bandName}}{{/link-to}}
-                    {{band.bandStartTime}}
-                  </li>
-                {{/each}}
-              </ul>
-             </li>
+               {{#link-to 'venues.show' this}}
+                 <h5>{{venueName}}</h5>
+               {{/link-to}}
+                  <ul class="time-slot">
+                    {{#each band in venueBands itemController="venueBand"}}
+                      <li {{ bind-attr class='band.isSelected' style=band.timeSlotStyle }}>
+                        {{#link-to 'bands.show' band}}{{band.bandName}}{{/link-to}}
+                        {{band.bandStartTime}}
+                      </li>
+                    {{/each}}
+                  </ul>
+                 </li>
             {{/each}}
           </ul>
       </div>
