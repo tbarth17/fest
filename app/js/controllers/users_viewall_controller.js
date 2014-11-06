@@ -12,3 +12,9 @@ Fest.UsersViewAllController = Ember.ArrayController.extend({
 
   }.property('filter', 'model.userName')
 });
+
+Fest.UserItemController = Ember.ObjectController.extend({
+  imgStyle: function(){
+    return new Ember.Handlebars.SafeString("background-image: url('"+this.get('userImgUrl')+"')").toString();
+  }.property('userImgUrl')
+});

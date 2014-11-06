@@ -405,6 +405,15 @@ p img {
 
 ///////ALL BANDS //////////////////////////////////////////////////////////////////
 
+.band-img-small {
+  height: 2em;
+  width: 2em;
+  float: left;
+  background-size: cover;
+  background-position: center;
+  outline: 1px solid red;
+}
+
 .all-bands-container {
   @include outer-container;
 }

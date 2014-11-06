@@ -217,7 +217,8 @@
     <script type='text/x-handlebars' data-template-name='users/viewAll'>
     {{input type='text' value=filter placeholder="Search Users"}}
       <ul>
-        {{#each filteredContent}}
+        {{#each filteredContent itemController='userItem'}}
+          <div {{bind-attr style=imgStyle}} class='band-img-small'></div>
           {{#link-to 'users.show' this}}
             <li>{{userName}}</li>
           {{/link-to}}
@@ -322,10 +323,11 @@
 
     <script type='text/x-handlebars' data-template-name='bands/viewAll'>
     {{input type='text' value=filter placeholder="Search Bands"}}
-      {{#each filteredContent}}
+      {{#each filteredContent itemController='bandItem'}}
       <ul>
         <li class="each">
           {{#link-to 'bands.show' this}}
+            <div {{bind-attr style=imgStyle}} class='band-img-small'></div>
             {{bandName}}
           {{/link-to}}
         </li>
