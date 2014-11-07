@@ -10,6 +10,9 @@
     "normalize-css": "~3.0.1",
     "emberfire": "~1.2.7",
     "filepicker": "*",
-    "ember-validations": "~1.0.0"
+    "ember-validations": "http://builds.dockyard.com.s3.amazonaws.com/ember-validations/tags/v1.0.0/ember-validations.js"
+  },
+  "resolutions": {
+    "ember-validations": "e-tag:212fcee2e"
   }
 }

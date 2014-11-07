@@ -1,29 +1,45 @@
-Fest.LoginController = Ember.Controller.extend({
+Fest.LoginController = Ember.Controller.extend(Ember.Validations.Mixin, {
   needs: ['session'],
-  // userName: '',
+  validations: Fest.User.Validations,
+  flash: {},
+
   actions: {
     createUser: function(){
-      var credentials = this.getProperties('email', 'password');
       var self = this;
-      Fest.ref.createUser(credentials, function(error){
-        if (! error){
-          self.get('controllers.session').authenticate(credentials).then(function(user){
-            console.log(user);
-            user.setProperties({
-              userName: self.get('userName'),
-              email: credentials.email,
-              userImgUrl: self.get('url'),
-              userBio: self.get('userBio')
+      this.validate().then(function(){
+        var credentials = self.getProperties('email', 'password');
+        Fest.ref.createUser(credentials, function(error){
+          if (! error){
+            self.get('controllers.session').authenticate(credentials).then(function(user){
+              user.setProperties({
+                userName: self.get('userName'),
+                email: credentials.email,
+                userImgUrl: self.get('userImgUrl'),
+                userBio: self.get('userBio')
+              });
+              user.save().then(function(){
+                self.transitionToRoute('user');
+              })
+              .catch(function(error){
+                console.error(error);
+              });
             });
-            user.save().then(function(){
-              self.transitionToRoute('user');
-            })
-            .catch(function(error){
-              console.error(error);
-            });
-          });
+          }
+        });
+      })
+      // validation was not successful
+      .catch(function(){
+      var errors = self.get('errors');
+      var messages = [];
+      Object.keys(errors).forEach(function(prop){
+        if (errors[prop].length) {
+          messages.push(errors[prop][0])
         }
+      })
+      self.set('flash.errors', messages)
+
       });
+
     },
 
     addPhoto: function() {
@@ -31,7 +47,7 @@ Fest.LoginController = Ember.Controller.extend({
         filepicker.pickAndStore({mimetype:"image/*"},{},
         function(InkBlobs){
           var url = InkBlobs[0].url;
-          self.set('url', url);
+          self.set('userImgUrl', url);
         });
       },
 
@@ -40,6 +56,9 @@ Fest.LoginController = Ember.Controller.extend({
       var credentials = this.getProperties('email', 'password');
       this.get('controllers.session').authenticate(credentials).then(function(user){
         self.transitionToRoute('user');
+      })
+      .catch(function(error) {
+        alert(error);
       });
     }
   }

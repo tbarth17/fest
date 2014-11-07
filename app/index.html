@@ -98,12 +98,17 @@
             {{input type="email" class="login-input" placeholder="Email" value=email}}
             {{input type="password" class="login-input" placeholder="Password" value=password}}
               {{#if url}}
-                <img {{bind-attr src=url}}>
+                <img {{ bind-attr src=userImgUrl }}>
               {{else}}
-                <button {{action 'addPhoto' }} class="btn btn-blue">Add Photo</button>
+                <button {{ action 'addPhoto' }} class="btn btn-blue">Add Photo</button>
               {{/if}}
             {{textarea class="bio-text" value=userBio cols="45" rows="6" placeholder='Your statement'}}
-            <button {{action 'createUser'}} type="submit" class="btn btn-blue">Sign up</button>
+              <ul>
+                {{#each flash.errors}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            <button {{ action 'createUser' }} type="submit" class="btn btn-blue">Sign up</button>
           </form>
         </div>
       </div>
@@ -499,6 +504,7 @@
     <script src="../bower_components/ember-data/index.js"></script>
     <script src="../bower_components/emberfire/dist/emberfire.min.js"></script>
     <script src="../bower_components/filepicker/filepicker.min.js"></script>
+    <script src="../bower_components/ember-validations/index.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
