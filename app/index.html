@@ -96,8 +96,11 @@
           <form>
             {{input type="text" class="login-input" placeholder="Your name" value=userName}}
             {{input type="email" class="login-input" placeholder="Email" value=email}}
+              <h3>Make email public
+                {{input type='checkbox' name="emailIsPublic" checked=emailIsPublic}}
+              </h3>
             {{input type="password" class="login-input" placeholder="Password" value=password}}
-              {{#if url}}
+              {{#if userImgUrl}}
                 <img {{ bind-attr src=userImgUrl }}>
               {{else}}
                 <button {{ action 'addPhoto' }} class="btn btn-blue">Add Photo</button>
@@ -245,6 +248,9 @@
       <h1 class="profile-usernames">
         {{userName}}
       </h1>
+      {{#if emailIsPublic}}
+        <h3>{{email}}</h3>
+      {{/if}}
       <h3 class="bios">
         {{userBio}}
       </h3>

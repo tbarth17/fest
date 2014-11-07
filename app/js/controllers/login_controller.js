@@ -15,7 +15,8 @@ Fest.LoginController = Ember.Controller.extend(Ember.Validations.Mixin, {
                 userName: self.get('userName'),
                 email: credentials.email,
                 userImgUrl: self.get('userImgUrl'),
-                userBio: self.get('userBio')
+                userBio: self.get('userBio'),
+                emailIsPublic: self.get('emailIsPublic')
               });
               user.save().then(function(){
                 self.transitionToRoute('user');
@@ -33,10 +34,10 @@ Fest.LoginController = Ember.Controller.extend(Ember.Validations.Mixin, {
       var messages = [];
       Object.keys(errors).forEach(function(prop){
         if (errors[prop].length) {
-          messages.push(errors[prop][0])
+          messages.push(errors[prop][0]);
         }
-      })
-      self.set('flash.errors', messages)
+      });
+      self.set('flash.errors', messages);
 
       });
 
