@@ -49,7 +49,7 @@
   <!-- ////////////////////// APPLICATION ///////////////////////////////////-->
       <script type='text/x-handlebars' data-template-name='application'>
         {{#link-to 'index'}}<div class="header">
-          <h1>GREENVILLE FESTIVAL</h1>
+          <img src="images/fest-logo.png">
         </div>{{/link-to}}
 
 
@@ -142,7 +142,7 @@
        </div>
 
         <div class="home-text">
-          <h1>Welcome to Indie Upstate!</h1>
+          <h1>Welcome to Salad Days Fest!</h1>
             <div id="slider">
              <ul id="images">
               <li style="background:url(https://c2.staticflickr.com/4/3626/3354626263_68ed0a35f6.jpg)  no-repeat center center; "></li>
@@ -152,12 +152,12 @@
             </div>
 
             <div class="home-blurb">
-              <h2>This is the official app for (festival name)!</h2>
+              <h2>This is the official app for Salad Days Fest!</h2>
               <p>Everything you need for the ultimate festival experience is here!<br/>
               Just add your friends and pick some bands to watch and let us do the rest. It's that simple.</p>
 
               <p>We know we have the sweetest line up available, but be sure to check out the sights and sounds of our host city, <a href="http://www.visitgreenvillesc.com/">GREENVILLE!</a>
-              This fair city has gone all out to be welcoming, so no wrecking the place, ok? Be cool. Enjoy yourself. <br/> The (festival name) team.
+              This fair city has gone all out to be welcoming, so no wrecking the place, ok? Be cool. Enjoy yourself. <br/> The Salad Days team.
               </p>
             </div>
         </div>
@@ -214,9 +214,9 @@
         <input type="checkbox" id="trigger3" class="SiteNav-trigger"/>
          <ul class="SiteNav-links">
            {{#each user in userFollowedBy}}
-             {{#link-to 'users.show' user}}
-              <li>{{user.userName}}</li>
-             {{/link-to}}
+             <li>{{#link-to 'users.show' user}}
+              {{user.userName}}
+             {{/link-to}}</li>
            {{/each}}
          </ul>
       </nav>
@@ -232,7 +232,7 @@
     <span class="underline"></span>
       <ul class="all-users">
         {{#each filteredContent itemController='userItem'}}
-          <div {{bind-attr style=imgStyle}} class='band-img-small'></div>
+          <div {{bind-attr style=imgStyle}} class='user-img-small'></div>
           {{#link-to 'users.show' this}}
             <li>{{userName}}</li>
           {{/link-to}}
@@ -279,9 +279,9 @@
         <input type="checkbox" id="trigger5" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each user in model.userFollows}}
-            {{#link-to 'users.show' user}}
-              <li>{{user.userName}}</li>
-            {{/link-to}}
+            <li>{{#link-to 'users.show' user}}
+              {{user.userName}}
+            {{/link-to}}</li>
           {{/each}}
         </ul>
       </nav>
@@ -291,9 +291,9 @@
         <input type="checkbox" id="trigger6" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each user in model.userFollowedBy}}
-            {{#link-to 'users.show' user}}
-              <li>{{user.userName}}</li>
-            {{/link-to}}
+            <li>{{#link-to 'users.show' user}}
+              {{user.userName}}
+            {{/link-to}}</li>
           {{/each}}
         </ul>
       </nav>
@@ -305,9 +305,9 @@
         <input type="checkbox" id="trigger7" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each friendsInCommon}}
-            {{#link-to 'users.show' this}}
-              <li>{{userName}}</li>
-            {{/link-to}}
+            <li>{{#link-to 'users.show' this}}
+              {{userName}}
+            {{/link-to}}</li>
           {{/each}}
         </ul>
       </nav>
@@ -319,9 +319,9 @@
         <input type="checkbox" id="trigger8" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each bandsInCommon}}
-            {{#link-to 'bands.show' this}}
-              <li>{{bandName}}</li>
-            {{/link-to}}
+            <li>{{#link-to 'bands.show' this}}
+              {{bandName}}
+            {{/link-to}}</li>
           {{/each}}
         </ul>
       </nav>
@@ -359,53 +359,57 @@
 <!-- ///////////////////////////// EACH BAND ///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='bands/show'>
-      <div {{bind-attr style=imgStyle}} class='band-img'></div>
-      <h2>{{currentBand.bandName}}</h2>
-      <div>{{currentBand.bandBio}}</div>
-      {{bandcamp-embed src=currentBand.bandEmbedUrl href=currentBand.bandLinkUrl text=currentBand.bandText}}
-      {{outlet}}
-      <div>
-        {{#link-to 'venues.show' currentBand.bandVenue}}
-          {{currentBand.bandVenue.venueName}}
-        {{/link-to}}
-        {{bandStartTime}}
+      <div class="each-band-container">
+        <div {{bind-attr style=imgStyle}} class='band-img'></div>
+        <h2>{{currentBand.bandName}}</h2>
+        <div class="band-bio">{{currentBand.bandBio}}</div>
+        <div class="bandcamp">{{bandcamp-embed src=currentBand.bandEmbedUrl href=currentBand.bandLinkUrl text=currentBand.bandText}}</div>
+
+          <h4>{{#link-to 'venues.show' currentBand.bandVenue}}
+            {{currentBand.bandVenue.venueName}}
+          {{/link-to}}</h4>
+          <h4>{{bandStartTime}}</h4>
+
+
+        <nav role='navigation' class="SiteNav">
+          <label for="trigger9" class="SiteNav-triggerLabel">People following this band</label>
+          <input type="checkbox" id="trigger9" class="SiteNav-trigger"/>
+          <ul class="SiteNav-links">
+            {{#each user in model.bandAttendees}}
+              <li>
+                {{#link-to 'users.show' user}}
+                  {{user.userName}}
+                {{/link-to}}
+              </li>
+            {{/each}}
+          </ul>
+        </nav>
+
+
+        {{#if friendFollowed}}
+        <nav role='navigation' class="SiteNav">
+          <label for="trigger10" class="SiteNav-triggerLabel">Friends Following this band</label>
+          <input type="checkbox" id="trigger10" class="SiteNav-trigger"/>
+          <ul class="SiteNav-links">
+            {{#each friendFollowed}}
+              <li>
+                {{#link-to 'users.show' this}}
+                  {{userName}}
+                {{/link-to}}
+              </li>
+            {{/each}}
+          </ul>
+        </nav>
+        {{/if}}
+
+        {{#if followed}}
+          <button {{action 'unfollowBand'}} class="btn">Unfollow Band</button>
+        {{else}}
+          <button {{action "followBand"}} class="btn">Follow this Band!</button>
+        {{/if}}
       </div>
 
-      <nav role='navigation' class="SiteNav">
-        <label for="trigger9" class="SiteNav-triggerLabel">People following this band:</label>
-        <input type="checkbox" id="trigger9" class="SiteNav-trigger"/>
-        <ul class="SiteNav-links">
-          {{#each user in model.bandAttendees}}
-            <li>
-              {{#link-to 'users.show' user}}
-                {{user.userName}}
-              {{/link-to}}
-            </li>
-          {{/each}}
-        </ul>
-      </nav>
-
-
-      {{#if friendFollowed}}
-      <nav role='navigation' class="SiteNav">
-        <label for="trigger10" class="SiteNav-triggerLabel">Friends Following this band:</label>
-        <input type="checkbox" id="trigger10" class="SiteNav-trigger"/>
-        <ul class="SiteNav-links">
-          {{#each friendFollowed}}
-            {{#link-to 'users.show' this}}
-              <li>{{userName}}</li>
-            {{/link-to}}
-          {{/each}}
-        </ul>
-      </nav>
-      {{/if}}
-
-      {{#if followed}}
-        <button {{action 'unfollowBand'}} class="btn">Unfollow Band</button>
-      {{else}}
-        <button {{action "followBand"}} class="btn">Follow this Band!</button>
-      {{/if}}
-
+      </div>
     </script>
 
 
@@ -413,16 +417,24 @@
 
 
     <script type='text/x-handlebars' data-template-name='venues/viewAll'>
-      {{#each}}
-
-        <li class="each">
-          {{#link-to 'venues.show' this}}
-            {{venueName}}
-          {{/link-to}}
-        </li>
-
-      {{/each}}
-      <div id="map_canvas" style="width:90%; height:500px"></div>
+        <ul class="all-venues">
+          {{#each}}
+            <li class="each">
+              {{#link-to 'venues.show' this}}
+                {{venueName}}
+              {{/link-to}}
+            </li>
+          {{/each}}
+        </ul>
+<!--       <div id="map_canvas" style="width:90%; height:500px"></div>
+ -->  <div class="new-map">
+        <iframe width='90%' height='400px' frameBorder='0' src='https://a.tiles.mapbox.com/v4/olliegill.k5j6de2b/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1Ijoib2xsaWVnaWxsIiwiYSI6IlFhOVNveGcifQ.0DfgZ11nX__lEwJH-hgydg'></iframe>
+      </div>
+      <div class="legend">
+        <div><img src="images/redpoint.png"><span>Venues</span></div>
+        <div><img src="images/mintpoint.png"><span>Hotels</span></div>
+        <div><img src="images/yellowpoint.png"><span>Places to eat</span></div>
+      </div>
 
     </script>
 
@@ -431,25 +443,28 @@
 
 
     <script type='text/x-handlebars' data-template-name='venues/show'>
-      <div {{bind-attr style=imgStyle}} class='band-img'></div>
-      <div class="each-venue">
-       <h2>{{venueName}}</h2>
-       <div>{{venueDescription}}</div>
-       {{#each band in model.venueBands itemController='venueBand'}}
-       <ul>
-        <li class="each">
-          {{#link-to 'bands.show' band}}
-            {{band.bandName}}
-          {{/link-to}}
-           <span class="times">{{band.bandStartTime}} - {{band.bandEndTime}}</span>
-        </li>
-      </ul>
-       {{/each}}
 
-      <div>{{venueAddress}}</div>
+      <div class="each-venue-container">
+        <div {{bind-attr style=imgStyle}} class='band-img'></div>
+          <div class="each-venue">
+           <h2>{{venueName}}</h2>
+           <div>{{venueDescription}}</div>
+           {{#each band in model.venueBands itemController='venueBand'}}
+           <ul>
+            <li class="each">
+              {{#link-to 'bands.show' band}}
+                {{band.bandName}}
+              {{/link-to}}
+               <span class="times">{{band.bandStartTime}} - {{band.bandEndTime}}</span>
+            </li>
+          </ul>
+           {{/each}}
 
+          <div>{{venueAddress}}</div>
+        </div>
+      </div>
       {{map-embed src=venueEmbedAddress}}
-    </div>
+
     </script>
 
 <!-- ///////////////////////////////// SCHEDULE //////////////////////////////// -->
