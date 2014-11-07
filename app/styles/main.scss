@@ -5,6 +5,10 @@
 @import 'schedule';
 
 // Custom Styles
+* {
+  border-radius: 2px;
+}
+
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 1%;
