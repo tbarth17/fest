@@ -22,8 +22,10 @@ Fest.VenueBandController = Ember.ObjectController.extend({
   timeSlotStyle: function() {
     var start = this.get('model.bandStartTime');
     var end = this.get('model.bandEndTime');
+    var bandBreak = this.get('model.bandBreak');
     var timeSlot = Math.abs(end - start);
     var ratio = timeSlot/30000;
-    return new Ember.Handlebars.SafeString("width:" +ratio+ "px").toString();
-  }.property('model.bandStartTime', 'model.bandEndTime')
+    var margin = bandBreak * 2;
+    return new Ember.Handlebars.SafeString("width:" +ratio+ "px; margin-left:" +margin+ "px;").toString();
+  }.property('model.bandStartTime', 'model.bandEndTime', 'model.bandBreak')
 });
