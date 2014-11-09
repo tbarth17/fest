@@ -754,6 +754,10 @@ p img {
 
 ///////ALL BANDS //////////////////////////////////////////////////////////////////
 
+.all-bands-container input {
+  margin-right: 400px;
+}
+
 .band-img-small {
   position: relative;
   margin-top: -.29em;
@@ -770,7 +774,7 @@ p img {
 }
 
 .all-bands-container ul {
-  margin-top: 5em;
+  margin-top: 2em;
   padding: 0;
 
 }
@@ -868,7 +872,17 @@ li {
 }
 
 .each-band-container .SiteNav-triggerLabel {
-  outline: solid red 1px;
+  width: 100%;
+  @include shift(0);
+}
+
+.each-band-container .SiteNav-triggerLabel:after {
+  @include span-columns(12);
+  @include shift(-.45);
+  @include media($mobile) {
+    @include span-columns(11.5);
+    @include shift(-.5);
+  }
 }
 
 .band-bio {
@@ -1064,7 +1078,7 @@ li {
 
 
 .schedule-times {
-  width: em(2000);
+  width: em(1900);
   margin-left: 5em;
 }
 
@@ -1079,7 +1093,7 @@ li {
 
 .schedule {
   height: em(450);
-  width: em(1840);
+  width: em(1740);
   font-weight: 400;
   margin-left: -10px;
 

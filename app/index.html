@@ -349,9 +349,9 @@
 <!-- ////////////////////////////// ALL BANDS ///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='bands/viewAll'>
+    <div class="all-bands-container">
     {{input type='text' class="searches" value=filter placeholder="Search Bands"}}
     <span class="underline"></span>
-     <div class="all-bands-container">
       {{#each filteredContent itemController='bandItem'}}
       <ul>
         <li class="each">
@@ -362,6 +362,7 @@
         </li>
        </ul>
       {{/each}}
+      </div>
       </div>
     </script>
 
