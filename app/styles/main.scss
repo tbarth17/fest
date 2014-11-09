@@ -146,6 +146,10 @@ li {
   background: $light-grey;
 }
 
+.header:active {
+  background: $light-grey;
+}
+
 // SHORTCUTS ////////////////////////////////////////////////////////
 
 
@@ -324,18 +328,21 @@ li {
 }
 
 @-webkit-keyframes slideIn {
-  0% {opacity:0;left:200px}
-  100% {left:0}
+  0% {opacity: 0; left: 200px}
+  100% {left: 35px}
 }
 
 .errors {
   color: red;
-  //outline: solid 2px red;
+  border: solid 2px red;
   background-color: RGBA(255, 0, 0, .4);
   border-radius: 4px;
   padding: 0 .3em;
   margin-bottom: 1em;
-  -webkit-animation: slideIn .7s ease 1;
+  position: absolute;
+  width: 80%;
+  bottom: -80px;
+  -webkit-animation: slideIn 1s ease 1;
 
   li {
     //list-style: square;
@@ -833,7 +840,7 @@ li {
 
 .each-band-container {
   @include outer-container;
-  outline: solid $dark-grey 1px;
+  //outline: solid $dark-grey 1px;
   width: 90%;
   @include media($mobile) {
     width: 100%;
@@ -866,6 +873,12 @@ li {
   @include media($mobile) {
     font-size: 1.5em;
   }
+}
+
+.each-band-container .SiteNav-triggerLabel {
+  outline: solid red 1px;
+   //@include span-columns(26);
+  // @include shift(0);
 }
 
 .band-bio {
