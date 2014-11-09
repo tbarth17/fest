@@ -11,7 +11,7 @@ Fest.User = DS.Model.extend({
 
 Fest.User.Validations = {
   userName: {
-    length: { minimum: 3, messages: {tooShort: 'Please enter a user name (minumum 3 characters).'} }
+    length: { minimum: 3, messages: {tooShort: 'Please enter a user name (minimum 3 characters).'} }
   },
   email: {
     format: { with: /@/, message: 'Please enter a valid email address.'}
