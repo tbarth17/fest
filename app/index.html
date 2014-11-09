@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css" />
     <!-- endbower -->
     <!-- endbuild -->
-
+<!--
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgAuFCzr9I0uV9cLtXi0zMo69K3wW5_oY&sensor=true">
     </script>
 
@@ -35,7 +35,7 @@
       div.popup p a {
           color: #1122CC;
       }
-      </style>
+      </style> -->
 
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
@@ -96,9 +96,11 @@
           <form>
             {{input type="text" class="login-input" placeholder="Your name" value=userName}}
             {{input type="email" class="login-input" placeholder="Email" value=email}}
-              <h3>Make email public
-                {{input type='checkbox' name="emailIsPublic" checked=emailIsPublic}}
-              </h3>
+              <h3 class="email-check">Make email public</h3>
+              <div class="slider">
+	              {{input type="checkbox" value="None" id="slider" name="emailIsPublic" checked=emailIsPublic}}
+	              <label for="slider"></label>
+              </div>
             {{input type="password" class="login-input" placeholder="Password" value=password}}
               {{#if userImgUrl}}
                 <img {{ bind-attr src=userImgUrl }}>
@@ -107,7 +109,7 @@
               {{/if}}
             {{textarea class="bio-text" value=userBio cols="45" rows="6" placeholder='Your statement'}}
               {{#if flash.errors}}
-                <ul>
+                <ul class="errors">
                   {{#each flash.errors}}
                     <li>{{this}}</li>
                   {{/each}}
@@ -175,10 +177,13 @@
       <div class="profile-container">
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
       <h1 class="profile-usernames">{{userName}}</h1>
-      <h3 class="bios">{{userBio}}</h3>
-
+      <div class="bios-container">
+        <span>&#147</span>
+        <h3 class="bios">{{userBio}}</h3>
+        <span>&#148</span>
+      </div>
       <nav role='navigation' class="SiteNav">
-       <label for="trigger" class="SiteNav-triggerLabel">People you follow</label>
+       <label for="trigger" class="SiteNav-triggerLabel">People you follow &#10095</label>
        <input type="checkbox" id="trigger" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
             {{#each user in userFollows}}
@@ -192,7 +197,7 @@
       </nav>
 
       <nav role='navigation' class="SiteNav">
-        <label for="trigger2" class="SiteNav-triggerLabel">Bands you follow</label>
+        <label for="trigger2" class="SiteNav-triggerLabel">Bands you follow &#10095</label>
         <input type="checkbox" id="trigger2" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
             {{#each band in userBands itemController='userBands'}}
@@ -212,7 +217,7 @@
 
 
       <nav role='navigation' class="SiteNav">
-        <label for="trigger3" class="SiteNav-triggerLabel">Followers</label>
+        <label for="trigger3" class="SiteNav-triggerLabel">Followers &#10095</label>
         <input type="checkbox" id="trigger3" class="SiteNav-trigger"/>
          <ul class="SiteNav-links">
            {{#each user in userFollowedBy}}
@@ -245,20 +250,23 @@
 <!--////////////////////////////SHOW USER///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='users/show'>
-      <div {{bind-attr style=imgStyle}} class='band-img'></div>
       <div class="profile-container">
+      <div {{bind-attr style=imgStyle}} class='band-img'></div>
       <h1 class="profile-usernames">
         {{userName}}
       </h1>
       {{#if emailIsPublic}}
-        <h3>{{email}}</h3>
+        <h3 class="profile-email">{{email}}</h3>
       {{/if}}
-      <h3 class="bios">
-        {{userBio}}
-      </h3>
+
+      <div class="bios-container">
+        <span>&#147</span>
+        <h3 class="bios">{{userBio}}</h3>
+        <span>&#148</span>
+      </div>
 
       <nav role='navigation' class="SiteNav">
-        <label for="trigger4" class="SiteNav-triggerLabel">Bands {{userName}} is going to see</label>
+        <label for="trigger4" class="SiteNav-triggerLabel">Bands {{userName}} is going to see &#10095</label>
         <input type="checkbox" id="trigger4" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
            {{#each band in userBands itemController='userBands'}}
@@ -277,7 +285,7 @@
       </nav>
 
       <nav role='navigation' class="SiteNav">
-        <label for="trigger5" class="SiteNav-triggerLabel">People {{userName}} follows</label>
+        <label for="trigger5" class="SiteNav-triggerLabel">People {{userName}} follows &#10095</label>
         <input type="checkbox" id="trigger5" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each user in model.userFollows}}
@@ -289,7 +297,7 @@
       </nav>
 
       <nav role='navigation' class="SiteNav">
-        <label for="trigger6" class="SiteNav-triggerLabel">{{userName}}'s Followers</label>
+        <label for="trigger6" class="SiteNav-triggerLabel">{{userName}}'s Followers &#10095</label>
         <input type="checkbox" id="trigger6" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each user in model.userFollowedBy}}
@@ -303,7 +311,7 @@
 
       {{#if friendsInCommon}}
       <nav role='navigation' class="SiteNav">
-        <label for="trigger7" class="SiteNav-triggerLabel">Friends you have in common</label>
+        <label for="trigger7" class="SiteNav-triggerLabel">Friends you have in common &#10095</label>
         <input type="checkbox" id="trigger7" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each friendsInCommon}}
@@ -317,7 +325,7 @@
 
       {{#if bandsInCommon}}
       <nav role='navigation' class="SiteNav">
-        <label for="trigger8" class="SiteNav-triggerLabel">Bands you have in common</label>
+        <label for="trigger8" class="SiteNav-triggerLabel">Bands you have in common &#10095</label>
         <input type="checkbox" id="trigger8" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each bandsInCommon}}
@@ -364,8 +372,8 @@
       <div class="each-band-container">
         <div {{bind-attr style=imgStyle}} class='band-img'></div>
         <h2>{{currentBand.bandName}}</h2>
-        <div class="band-bio">{{currentBand.bandBio}}</div>
         <div class="bandcamp">{{bandcamp-embed src=currentBand.bandEmbedUrl href=currentBand.bandLinkUrl text=currentBand.bandText}}</div>
+        <div class="band-bio">{{currentBand.bandBio}}</div>
 
           <h4>{{#link-to 'venues.show' currentBand.bandVenue}}
             {{currentBand.bandVenue.venueName}}
@@ -374,7 +382,7 @@
 
 
         <nav role='navigation' class="SiteNav">
-          <label for="trigger9" class="SiteNav-triggerLabel">People following this band</label>
+          <label for="trigger9" class="SiteNav-triggerLabel">People following this band &#10095</label>
           <input type="checkbox" id="trigger9" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
             {{#each user in model.bandAttendees}}
@@ -390,7 +398,7 @@
 
         {{#if friendFollowed}}
         <nav role='navigation' class="SiteNav">
-          <label for="trigger10" class="SiteNav-triggerLabel">Friends Following this band</label>
+          <label for="trigger10" class="SiteNav-triggerLabel">Friends Following this band </label>
           <input type="checkbox" id="trigger10" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
             {{#each friendFollowed}}
@@ -502,7 +510,7 @@
                     {{#each band in venueBands itemController="venueBand"}}
                       {{#link-to 'bands.show' band}}
                         <li {{ bind-attr class='band.isSelected' style=band.timeSlotStyle }}>
-                        {{band.bandName}}
+                        {{band.bandName}}<br/>
                         {{band.bandStartTime}}
                         </li>
                       {{/link-to}}

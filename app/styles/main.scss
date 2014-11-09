@@ -46,14 +46,6 @@ li {
 }
 ////////////////////////// SEARCHES ////////////////////////////////////////////////////
 
-/* .searches {
-  outline: solid red 1px;
-  width: 60%;
-  height: 2em;
-  margin: 2em;
-  background: #CACACC;
-  color: \$dark-grey;
-} */
 
 .searches {
   display: block;
@@ -92,7 +84,7 @@ li {
 }
 
 .searches:focus::-webkit-input-placeholder {
-  color: $blue;
+  color: black;
 }
 
 .searches:focus+.underline {
@@ -100,7 +92,7 @@ li {
 }
 
 .underline {
-  background-color: $blue;
+  background-color: black;
   display: inline-block;
   height: 2px;
   margin: em(67) auto 0;
@@ -148,7 +140,14 @@ li {
 .header img {
   width: 100%;
   height: 4.5em;
+}
 
+.header:hover {
+  background: $light-grey;
+}
+
+.header:active {
+  background: $light-grey;
 }
 
 // SHORTCUTS ////////////////////////////////////////////////////////
@@ -214,11 +213,11 @@ li {
   border: solid 3px #fff;
   border-top: 0;
 
--webkit-border-radius: 0 0 8px 8px;
-border-radius: 0 0 8px 8px;
+  -webkit-border-radius: 0 0 8px 8px;
+  border-radius: 0 0 8px 8px;
 
-  -webkit-box-shadow:  0px 3px 3px 0px rgba(0, 0, 0, 0.25);
-  box-shadow:  0px 3px 3px 0px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow:  0 3px 3px 0 rgba(0, 0, 0, .25);
+  box-shadow:  0 3px 3px 0 rgba(0, 0, 0, .25);
 
 }
 
@@ -229,7 +228,7 @@ border-radius: 0 0 8px 8px;
 }
 
 
-//////////////////////////////////////////////////////
+////////////////////// LOG IN //////////////////////////////////////////////////////
 
 .modal {
   opacity: 0;
@@ -328,6 +327,142 @@ border-radius: 0 0 8px 8px;
   margin-bottom: 1.5em;
 }
 
+@-webkit-keyframes slideIn {
+  0% {opacity: 0; left: 200px}
+  100% {left: 35px}
+}
+
+.errors {
+  color: red;
+  border: solid 2px red;
+  background-color: RGBA(255, 0, 0, .4);
+  border-radius: 4px;
+  padding: 0 .3em;
+  margin-bottom: 1em;
+  position: absolute;
+  width: 80%;
+  bottom: -80px;
+  -webkit-animation: slideIn 1s ease 1;
+
+  li {
+    //list-style: square;
+    border-bottom: solid 1px RGBA(255, 0, 0, .6);
+    padding: .2em 0;
+  }
+}
+
+.errors li:last-child {
+  border-bottom: none;
+}
+
+.email-check {
+  display: inline-block;
+  margin-bottom: 1.5em;
+  margin-top: -1.5em;
+  color: #A9A9AE;
+  font-weight: 400;
+}
+
+.slider input[type=checkbox] {
+  visibility: hidden;
+}
+
+.slider {
+  //float: right;
+  width: 62px;
+  height: 30px;
+  background: $light-grey;
+  margin: 20px auto;
+
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  position: absolute;
+  top: 9.5em;
+  left: 12em;
+
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .2);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .2);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .2);
+}
+
+.slider:after {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  height: 2px;
+  width: 38px;
+
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  background: #111;
+
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .2);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .2);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .2);
+}
+
+.slider label {
+  display: block;
+  width: 22px;
+  height: 22px;
+
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+
+  -webkit-transition: all .4s ease;
+  -moz-transition: all .4s ease;
+  -o-transition: all .4s ease;
+  -ms-transition: all .4s ease;
+  transition: all .4s ease;
+  cursor: pointer;
+  position: absolute;
+  top: 4px;
+  z-index: 1;
+  left: 4px;
+
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
+  -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
+  background: #fcfff4;
+
+  background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
+}
+
+.slider label:after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  background: #333;
+  left: 6px;
+  top: 6px;
+
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, .9);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, .9);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255 ,255, .9);
+}
+
+.slider input[type=checkbox]:checked + label {
+  left: 34px;
+}
+
+.slider input[type=checkbox]:checked + label:after {
+  background: $blue;
+}
+
 .btn {
   cursor: pointer;
   background: $green;
@@ -406,7 +541,7 @@ p img {
   background: $dark-grey;
   padding-top: 1.4em;
   color: white;
-  border-bottom: solid black 2px;
+  border-bottom: solid $light-grey 2px;
 }
 
 .home-links:hover {
@@ -511,6 +646,7 @@ p img {
 //////////////// ALL VENUES ///////////////////////////////////////////////////////
 
 .all-venues {
+  padding: 0;
   margin: 1em 0;
   @include span-columns(16);
   @include shift(4);
@@ -522,6 +658,7 @@ p img {
 
 .all-venues li {
   font-size: 1.5em;
+  padding-top: 1.3em;
 }
 
 .legend {
@@ -584,8 +721,8 @@ p img {
     background: $dark-grey;
     width: 96%;
     margin: 1em auto;
-    padding: 0.5em;
-    text-align: center;
+    padding: 0.8em;
+    text-align: left;
     color: white;
 
     @include media($mobile) {
@@ -594,15 +731,23 @@ p img {
   }
 }
 
+.each-venue h2 {
+  color: $dark-grey;
+  font-size: 2em;
+}
+
 .each-venue .each {
-  margin-top: 1em;
-  @include span-columns(36);
-  @include shift(-6);
+  //margin-top: 1em;
+  padding-top: 1em;
+  @include span-columns(48);
+  @include shift(-13);
   @include media($bands) {
     margin-top: 0;
   }
   @include media($mobile) {
     margin-top: 0;
+    @include span-columns(13);
+    @include shift(-1.2);
   }
 
 }
@@ -616,7 +761,7 @@ p img {
 
 .band-img-small {
   position: relative;
-  margin-top: -1em;
+  margin-top: -.29em;
   height: 3.79em;
   width: 3.79em;
   float: left;
@@ -631,6 +776,8 @@ p img {
 
 .all-bands-container ul {
   margin-top: 5em;
+  padding: 0;
+
 }
 
 .all-bands-container ul li {
@@ -660,15 +807,16 @@ li {
   margin: 0 auto;
   font-size: 20px;
   text-decoration: none;
-  background: $light-grey;
-  padding-top: 1em;
-  border/* -bottom */: solid $dark-grey 2px;
+  background: $dark-grey;
+  padding-top: .3em;
+  border/* -bottom */: solid $light-grey 2px;
+  color: white;
 
 }
 
 .each:hover {
-  background: $dark-grey;
-  color: white;
+  background: $light-grey;
+  color: $dark-grey;
 }
 
 .each:hover a {
@@ -681,7 +829,7 @@ li {
 
 .each a {
   text-decoration: none;
-  color: black;
+  color: white;
 }
 
 .each a:hover {
@@ -692,6 +840,11 @@ li {
 
 .each-band-container {
   @include outer-container;
+  //outline: solid $dark-grey 1px;
+  width: 90%;
+  @include media($mobile) {
+    width: 100%;
+  }
 }
 
 .each-band-container * {
@@ -706,13 +859,26 @@ li {
 .each-band-container h2 {
   margin-top: 1em;
   margin-bottom: .5em;
-  font-size: 2em;
+  font-size: 3em;
   color: $dark-grey;
+  @include media($mobile) {
+    font-size: 2em;
+  }
 }
 
 .each-band-container h4 {
   margin-top: .5em;
-  font-size: 1.3em;
+  font-size: 2.3em;
+  color: $dark-grey;
+  @include media($mobile) {
+    font-size: 1.5em;
+  }
+}
+
+.each-band-container .SiteNav-triggerLabel {
+  outline: solid red 1px;
+   //@include span-columns(26);
+  // @include shift(0);
 }
 
 .band-bio {
@@ -721,7 +887,8 @@ li {
   font-weight: 400;
   margin-top: 1em;
   margin-bottom: 1em;
-  padding: .4em;
+  padding: .8em;
+  text-align: left;
 }
 
 .bandcamp {
@@ -736,6 +903,7 @@ li {
 
 .all-users {
   width: 80%;
+  overflow: ellipsis;
   margin: 0 auto;
   @include span-columns(12);
   @include shift(6);
@@ -764,22 +932,22 @@ li {
 
 ///////////////////////////// USER PROFILE /////////////////////////////////////
 
-
-
 .SiteNav-triggerLabel {
   color: $dark-grey;
   cursor: pointer;
   display: block;
   font-size: 1.6em;
-  padding: em(20);
+  padding: em(13);
+  margin-bottom: 10px;
   text-align: center;
   &:after {
-    border-bottom: 1px solid $dark-grey;
+    border-bottom: 2px solid $dark-grey;
     content: '';
     display: block;
     margin-top: 20px;
     position: absolute;
     width: 80%;
+
     //padding: 0 .5em;
     @include span-columns(13);
     @include shift(-3.2);
@@ -789,6 +957,10 @@ li {
 
     }
   }
+}
+
+.SiteNav-triggerLabel:hover {
+  background: $light-grey;
 }
 
 .SiteNav-trigger {
@@ -806,6 +978,7 @@ li {
   @include transition(max-height .3s ease-in-out);
   overflow: scroll;
   width: 100%;
+
 }
 
 .SiteNav-links li {
@@ -822,6 +995,12 @@ li {
   margin-left: .21em;
 }
 
+.SiteNav-links li:nth-child(even) {
+  background: $light-grey;
+  padding: .2em 0;
+  margin-left: .21em;
+}
+
 .SiteNav-trigger:checked ~ .SiteNav-links{
   max-height: 350px;
   //outline: solid blue 1px;
@@ -831,17 +1010,53 @@ li {
 
 }
 
+ .bios-container {
+  //outline: solid red 1px;
+  //height: 5em;
+  background: $dark-grey;
+}
+
+.bios-container span {
+  //outline: solid red 1px;
+  font-size: 5em;
+  font-family: "Palatino Linotype";
+  position: relative;
+  color: white;
+  margin: 0;
+  padding: 0;
+  float: left;
+  text-align: left;
+  width: .5em;
+  height: .5em;
+}
+
+.bios-container span:last-child {
+  float: right;
+  //margin-top: 1em;
+}
+
 .bios {
   background: $dark-grey;
   color: white;
   font-weight: 400;
-  margin: 1em;
-  padding: .4em;
+//  margin: 1em;
+  margin: 0;
+  padding: .5em;
   //@include span-columns(12);
+  //@include shift(-2);
+  text-align: left;
 }
+
+/* .profile-container .band-img {
+  width: 12em;
+  height: 12em;
+} */
 
 .profile-usernames {
   color: $dark-grey;
+  //outline: solid red 1px;
+  //display: inline-block;
+  //position: absolute;
 }
 
 .profile-container {
@@ -857,6 +1072,10 @@ li {
   }
 }
 
+.profile-email {
+  color: $dark-grey;
+}
+
 .twitter-timeline {
   margin-top: 1em;
 }
@@ -864,14 +1083,15 @@ li {
 
 
 .schedule-container {
-  outline: solid red 1px;
   overflow: scroll;
-  height: em(470);
+  height: em(500);
+  background: $light-grey;
+  border: solid $dark-grey 3px;
+
 }
 
 
 .schedule-times {
-  outline: solid blue 1px;
   width: em(2000);
   margin-left: 5em;
 //  height: 20%;
@@ -879,50 +1099,66 @@ li {
 }
 
 .schedule-times li {
-  outline: solid red 1px;
   display: inline-block;
   float: left;
   width: em(120);
   text-align: left;
-
+  border-left: solid $dark-grey 2px;
+  padding-left: 3px;
 
 }
 
 .schedule {
   height: em(450);
   width: em(1640);
+  font-weight: 400;
+  margin-left: -10px;
 
   li {
-    outline: solid green 1px;
+    outline: solid $dark-grey 2px;
     display: inline-block;
     overflow: ellipsis;
     float: left;
     height: em(90);
-
-
+    //background: $dark-grey;
 
     h5 {
       display: inline-block;
-      outline: solid pink 1px;
       float: left;
       width: 6em;
       height: 100%;
+      background: grey;
+      color: $dark-grey;
+      margin: 0;
+      padding-right: 2px;
+      padding-top: 5px;
+      margin-right: 10px;
+      border-right: solid $dark-grey 2px;
+
     }
   }
 }
 
+
 .venue-list {
   width: 100%;
+  margin-bottom: 10px;
 }
+
 
 .time-slot {
 
   li {
-    padding-top: 15px;
+    margin-right: em(30);
+    padding-top: 10px;
+    //background: $dark-grey;
+    z-index: 1;
+
   }
 }
 
 .is-selected {
-  border: 2px solid chartreuse;
+  border: 2px solid $dark-grey;
   background: yellow;
+  z-index: 2;
 }
