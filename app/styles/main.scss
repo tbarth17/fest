@@ -58,8 +58,6 @@ li {
   box-sizing: border-box;
   font-size: em(18);
   height: 50px;
-  //left: 50%;
-  //margin: -25px 0 0 -100px;
   margin-bottom: 1em;
   margin-top: 1em;
   padding: 10px 0 10px 5px;
@@ -352,7 +350,7 @@ li {
 }
 
 .errors li:last-child {
-  border-bottom: none;
+  border-bottom: 0;
 }
 
 .email-check {
@@ -452,7 +450,7 @@ li {
 
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, .9);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, .9);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255 ,255, .9);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 1), 0 1px 0 rgba(255, 255, 255, .9);
 }
 
 .slider input[type=checkbox]:checked + label {
@@ -595,20 +593,19 @@ p img {
 
 #images {
   width: 300%;
-  height:100%;
-  margin:0 auto;
+  height: 100%;
+  margin: 0 auto;
   position: absolute;
 	animation: slide 16s infinite ease-in-out alternate;
 }
 
 #images li {
-  float:left;
+  float: left;
   width: 33.33%;
-  height:100%;
-  margin-left:0px;
-  list-style:none;
+  height: 100%;
+  margin-left: 0;
+  list-style: none;
 
-  /* Not Part of Slider */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -631,7 +628,6 @@ p img {
   margin-top: 1em;
   display: block;
   height: em(300);
-  //width: 100%;
   background-size: cover;
   background-position: center;
   border: solid $dark-grey 2px;
@@ -676,7 +672,6 @@ p img {
 
 .legend div {
   width: 90%;
-  //display: inline-block;
   text-align: left;
   font-size: 1.5em;
   padding: .5em 0;
@@ -797,8 +792,6 @@ p img {
 
 li {
   text-decoration: none;
-//  @include outer-container;
-//  @include span-columns(6);
 }
 
 .each {
@@ -809,7 +802,7 @@ li {
   text-decoration: none;
   background: $dark-grey;
   padding-top: .3em;
-  border/* -bottom */: solid $light-grey 2px;
+  border: solid $light-grey 2px;
   color: white;
 
 }
@@ -840,7 +833,6 @@ li {
 
 .each-band-container {
   @include outer-container;
-  //outline: solid $dark-grey 1px;
   width: 90%;
   @include media($mobile) {
     width: 100%;
@@ -877,8 +869,6 @@ li {
 
 .each-band-container .SiteNav-triggerLabel {
   outline: solid red 1px;
-   //@include span-columns(26);
-  // @include shift(0);
 }
 
 .band-bio {
@@ -948,7 +938,6 @@ li {
     position: absolute;
     width: 80%;
 
-    //padding: 0 .5em;
     @include span-columns(13);
     @include shift(-3.2);
     @include media($mobile) {
@@ -983,7 +972,6 @@ li {
 
 .SiteNav-links li {
   width: 100%;
-  //height: 5em;
   padding: 0;
   margin: 0 0 .5em;
   font-size: 1.3em;
@@ -1003,7 +991,6 @@ li {
 
 .SiteNav-trigger:checked ~ .SiteNav-links{
   max-height: 350px;
-  //outline: solid blue 1px;
   width: 100%;
   @include span-columns(24);
   @include shift(0);
@@ -1011,13 +998,10 @@ li {
 }
 
  .bios-container {
-  //outline: solid red 1px;
-  //height: 5em;
   background: $dark-grey;
 }
 
 .bios-container span {
-  //outline: solid red 1px;
   font-size: 5em;
   font-family: "Palatino Linotype";
   position: relative;
@@ -1032,31 +1016,19 @@ li {
 
 .bios-container span:last-child {
   float: right;
-  //margin-top: 1em;
 }
 
 .bios {
   background: $dark-grey;
   color: white;
   font-weight: 400;
-//  margin: 1em;
   margin: 0;
   padding: .5em;
-  //@include span-columns(12);
-  //@include shift(-2);
   text-align: left;
 }
 
-/* .profile-container .band-img {
-  width: 12em;
-  height: 12em;
-} */
-
 .profile-usernames {
   color: $dark-grey;
-  //outline: solid red 1px;
-  //display: inline-block;
-  //position: absolute;
 }
 
 .profile-container {
@@ -1092,10 +1064,8 @@ li {
 
 
 .schedule-times {
-  width: em(2000);
+  width: em(2200);
   margin-left: 5em;
-//  height: 20%;
-
 }
 
 .schedule-times li {
@@ -1105,12 +1075,11 @@ li {
   text-align: left;
   border-left: solid $dark-grey 2px;
   padding-left: 3px;
-
 }
 
 .schedule {
   height: em(450);
-  width: em(1640);
+  width: em(2040);
   font-weight: 400;
   margin-left: -10px;
 
@@ -1120,7 +1089,6 @@ li {
     overflow: ellipsis;
     float: left;
     height: em(90);
-    //background: $dark-grey;
 
     h5 {
       display: inline-block;
@@ -1161,4 +1129,5 @@ li {
   border: 2px solid $dark-grey;
   background: yellow;
   z-index: 2;
+
 }
