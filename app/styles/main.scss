@@ -1056,7 +1056,7 @@ li {
 
 .schedule-container {
   overflow: scroll;
-  height: em(500);
+  height: em(550);
   background: $light-grey;
   border: solid $dark-grey 3px;
 
@@ -1064,7 +1064,7 @@ li {
 
 
 .schedule-times {
-  width: em(2200);
+  width: em(2000);
   margin-left: 5em;
 }
 
@@ -1079,7 +1079,7 @@ li {
 
 .schedule {
   height: em(450);
-  width: em(2040);
+  width: em(1840);
   font-weight: 400;
   margin-left: -10px;
 
@@ -1117,7 +1117,7 @@ li {
 .time-slot {
 
   li {
-    margin-right: em(30);
+    //margin-right: em(30);
     padding-top: 10px;
     //background: $dark-grey;
     z-index: 1;
