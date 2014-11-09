@@ -106,11 +106,13 @@
                 <button {{ action 'addPhoto' }} class="btn btn-blue">Add Photo</button>
               {{/if}}
             {{textarea class="bio-text" value=userBio cols="45" rows="6" placeholder='Your statement'}}
-              <ul>
-                {{#each flash.errors}}
-                  <li>{{this}}</li>
-                {{/each}}
-              </ul>
+              {{#if flash.errors}}
+                <ul>
+                  {{#each flash.errors}}
+                    <li>{{this}}</li>
+                  {{/each}}
+                </ul>
+              {{/if}}
             <button {{ action 'createUser' }} type="submit" class="btn btn-blue">Sign up</button>
           </form>
         </div>
