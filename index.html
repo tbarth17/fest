@@ -1,0 +1,526 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>The FEST!</title>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="styles/vendor.css">
+<!--
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgAuFCzr9I0uV9cLtXi0zMo69K3wW5_oY&sensor=true">
+    </script>
+
+      <style>
+      * {
+          margin: 0;
+          padding: 0;
+      }
+      div.popup {
+          font-size: 14px;
+          margin: 0;
+          width: 270px;
+      }
+      div.popup p {
+          background-color: #FFF;
+          color: #333;
+          font-size: 12px;
+          line-height: 15px;
+      }
+      div.popup p a {
+          color: #1122CC;
+      }
+      </style> -->
+
+    <link rel="stylesheet" href="styles/main.css">
+
+    <script src="scripts/vendor/modernizr.js"></script>
+  </head>
+  <body>
+  <!-- ////////////////////// APPLICATION ///////////////////////////////////-->
+      <script type='text/x-handlebars' data-template-name='application'>
+        {{#link-to 'index'}}<div class="header">
+          <img src="images/fest-logo.png">
+        </div>{{/link-to}}
+
+
+  <ul class="navigation">
+    {{#link-to 'user'}}<li>Profile</li>{{/link-to}}
+    {{#link-to 'users.viewAll'}}<li>Users</li>{{/link-to}}
+    {{#link-to 'bands.viewAll'}}<li>Bands</li>{{/link-to}}
+    {{#link-to 'venues.viewAll'}}<li>Venues</li>{{/link-to}}
+    {{#link-to 'schedule'}}<li>Schedule</li>{{/link-to}}
+    <div class="clear"></div>
+  </ul>
+            {{outlet}}
+
+      </script>
+
+      <script type='text/x-handlebars' data-template-name='login'>
+
+              <h1>LOG IN</h1>
+      <div>
+       <p>
+        <label class="btn" for="login">Log in</label>
+        <label class="btn btn-blue" for="signin">Sign up</label>
+       </p>
+      </div>
+
+      <input class="modal-state" id="login" type="checkbox" />
+      <div class="modal">
+       <label class="modal__bg" for="login"></label>
+       <div class="modal__inner">
+         <label class="modal__close" for="login"></label>
+         <form>
+           {{input type="email" class="login-input" placeholder="Email" value=email}}
+           {{input type="password" class="login-input" placeholder="Password" value=password}}
+           <button {{action "logIn"}} type="submit" class="btn">Log in</button>
+         </form>
+       </div>
+      </div>
+
+      <input class="modal-state" id="signin" type="checkbox" />
+      <div class="modal">
+       <label class="modal__bg" for="signin"></label>
+        <div class="modal__inner">
+          <label class="modal__close" for="signin"></label>
+          <form>
+            {{input type="text" class="login-input" placeholder="Your name" value=userName}}
+            {{input type="email" class="login-input" placeholder="Email" value=email}}
+              <h3 class="email-check">Make email public</h3>
+              <div class="slider">
+	              {{input type="checkbox" value="None" id="slider" name="emailIsPublic" checked=emailIsPublic}}
+	              <label for="slider"></label>
+              </div>
+            {{input type="password" class="login-input" placeholder="Password" value=password}}
+              {{#if userImgUrl}}
+                <img {{ bind-attr src=userImgUrl }}>
+              {{else}}
+                <button {{ action 'addPhoto' }} class="btn btn-blue">Add Photo</button>
+              {{/if}}
+            {{textarea class="bio-text" value=userBio cols="45" rows="6" placeholder='Your statement'}}
+              {{#if flash.errors}}
+                <ul class="errors">
+                  {{#each flash.errors}}
+                    <li>{{this}}</li>
+                  {{/each}}
+                </ul>
+              {{/if}}
+            <button {{ action 'createUser' }} type="submit" class="btn btn-blue">Sign up</button>
+          </form>
+        </div>
+      </div>
+
+      </script>
+
+<!-- ///////////////////////////// HOME PAGE ////////////////////////////////-->
+
+
+      <script type="text/x-handlebars" data-template-name="index">
+       <div class="links-container">
+        {{#link-to 'bands.viewAll'}}
+          <div class="home-links">Bands</div>
+        {{/link-to}}
+        {{#link-to 'venues.viewAll'}}
+          <div class="home-links">Venues</div>
+        {{/link-to}}
+        {{#link-to 'user'}}
+          <div class="home-links">Profile</div>
+        {{/link-to}}
+        {{#link-to 'users.viewAll'}}
+          <div class="home-links">Browse Users</div>
+        {{/link-to}}
+        {{#link-to 'schedule'}}
+          <div class="home-links">Schedule</div>
+        {{/link-to}}
+        <button class="home-links" {{action 'logOut'}}>Log Out</button>
+       </div>
+
+        <div class="home-text">
+          <h1>Welcome to Salad Days Fest!</h1>
+            <div id="slider">
+             <ul id="images">
+              <li style="background:url(https://c2.staticflickr.com/4/3626/3354626263_68ed0a35f6.jpg)  no-repeat center center; "></li>
+              <li style="background:url(https://c1.staticflickr.com/3/2728/4516269817_72fa4996a2_z.jpg)  no-repeat center center;"></li>
+              <li style="background:url(http://www.greenvilleinformation.com/images/terrace_650.jpg)  no-repeat center center; "></li>
+	           </ul>
+            </div>
+
+            <div class="home-blurb">
+              <h2>This is the official app for Salad Days Fest!</h2>
+              <p>Everything you need for the ultimate festival experience is here!<br/>
+              Just add your friends and pick some bands to watch and let us do the rest. It's that simple.</p>
+
+              <p>We know we have the sweetest line up available, but be sure to check out the sights and sounds of our host city, <a href="http://www.visitgreenvillesc.com/">GREENVILLE!</a>
+              This fair city has gone all out to be welcoming, so no wrecking the place, ok? Be cool. Enjoy yourself. <br/> The Salad Days team.
+              </p>
+            </div>
+        </div>
+
+        <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
+
+
+    </script>
+
+<!--/////////////////////////////////////USER PROFILE ///////////////////////////////////// -->
+
+    <script type='text/x-handlebars' data-template-name='user'>
+      <div class="profile-container">
+      <div {{bind-attr style=imgStyle}} class='band-img'></div>
+      <h1 class="profile-usernames">{{userName}}</h1>
+      <div class="bios-container">
+        <span>&#147</span>
+        <h3 class="bios">{{userBio}}</h3>
+        <span>&#148</span>
+      </div>
+      <nav role='navigation' class="SiteNav">
+       <label for="trigger" class="SiteNav-triggerLabel">People you follow &#10095</label>
+       <input type="checkbox" id="trigger" class="SiteNav-trigger"/>
+          <ul class="SiteNav-links">
+            {{#each user in userFollows}}
+              <li>
+               {{#link-to 'users.show' user}}
+                 {{user.userName}}
+               {{/link-to}}
+              </li>
+            {{/each}}
+          </ul>
+      </nav>
+
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger2" class="SiteNav-triggerLabel">Bands you follow &#10095</label>
+        <input type="checkbox" id="trigger2" class="SiteNav-trigger"/>
+          <ul class="SiteNav-links">
+            {{#each band in userBands itemController='userBands'}}
+            <li>
+              {{#link-to 'bands.show' band}}
+                {{band.bandName}}
+              {{/link-to}}
+              <span>at</span>
+              {{#link-to 'venues.show' band.bandVenue}}
+                {{band.bandVenue.venueName}}
+              {{/link-to}}
+                {{band.bandStartTime}}
+            </li>
+            {{/each}}
+          </ul>
+      </nav>
+
+
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger3" class="SiteNav-triggerLabel">Followers &#10095</label>
+        <input type="checkbox" id="trigger3" class="SiteNav-trigger"/>
+         <ul class="SiteNav-links">
+           {{#each user in userFollowedBy}}
+             <li>{{#link-to 'users.show' user}}
+              {{user.userName}}
+             {{/link-to}}</li>
+           {{/each}}
+         </ul>
+      </nav>
+      </div>
+      <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
+
+    </script>
+
+<!--///////////////////////////BROWSE USERS////////////////////////////-->
+
+    <script type='text/x-handlebars' data-template-name='users/viewAll'>
+    {{input type='text' class="searches" value=filter placeholder="Search Users"}}
+    <span class="underline"></span>
+      <ul class="all-users">
+        {{#each filteredContent itemController='userItem'}}
+          <div {{bind-attr style=imgStyle}} class='user-img-small'></div>
+          {{#link-to 'users.show' this}}
+            <li>{{userName}}</li>
+          {{/link-to}}
+        {{/each}}
+      </ul>
+    </script>
+
+<!--////////////////////////////SHOW USER///////////////////////////////-->
+
+    <script type='text/x-handlebars' data-template-name='users/show'>
+      <div class="profile-container">
+      <div {{bind-attr style=imgStyle}} class='band-img'></div>
+      <h1 class="profile-usernames">
+        {{userName}}
+      </h1>
+      {{#if emailIsPublic}}
+        <h3 class="profile-email">{{email}}</h3>
+      {{/if}}
+
+      <div class="bios-container">
+        <span>&#147</span>
+        <h3 class="bios">{{userBio}}</h3>
+        <span>&#148</span>
+      </div>
+
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger4" class="SiteNav-triggerLabel">Bands {{userName}} is going to see &#10095</label>
+        <input type="checkbox" id="trigger4" class="SiteNav-trigger"/>
+          <ul class="SiteNav-links">
+           {{#each band in userBands itemController='userBands'}}
+             <li>
+               {{#link-to 'bands.show' band}}
+                 {{band.bandName}}
+               {{/link-to}}
+               <span>at</span>
+               {{#link-to 'venues.show' band.bandVenue}}
+                 {{band.bandVenue.venueName}}
+               {{/link-to}}
+               {{band.bandStartTime}}
+             </li>
+           {{/each}}
+         </ul>
+      </nav>
+
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger5" class="SiteNav-triggerLabel">People {{userName}} follows &#10095</label>
+        <input type="checkbox" id="trigger5" class="SiteNav-trigger"/>
+        <ul class="SiteNav-links">
+          {{#each user in model.userFollows}}
+            <li>{{#link-to 'users.show' user}}
+              {{user.userName}}
+            {{/link-to}}</li>
+          {{/each}}
+        </ul>
+      </nav>
+
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger6" class="SiteNav-triggerLabel">{{userName}}'s Followers &#10095</label>
+        <input type="checkbox" id="trigger6" class="SiteNav-trigger"/>
+        <ul class="SiteNav-links">
+          {{#each user in model.userFollowedBy}}
+            <li>{{#link-to 'users.show' user}}
+              {{user.userName}}
+            {{/link-to}}</li>
+          {{/each}}
+        </ul>
+      </nav>
+
+
+      {{#if friendsInCommon}}
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger7" class="SiteNav-triggerLabel">Friends you have in common &#10095</label>
+        <input type="checkbox" id="trigger7" class="SiteNav-trigger"/>
+        <ul class="SiteNav-links">
+          {{#each friendsInCommon}}
+            <li>{{#link-to 'users.show' this}}
+              {{userName}}
+            {{/link-to}}</li>
+          {{/each}}
+        </ul>
+      </nav>
+      {{/if}}
+
+      {{#if bandsInCommon}}
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger8" class="SiteNav-triggerLabel">Bands you have in common &#10095</label>
+        <input type="checkbox" id="trigger8" class="SiteNav-trigger"/>
+        <ul class="SiteNav-links">
+          {{#each bandsInCommon}}
+            <li>{{#link-to 'bands.show' this}}
+              {{bandName}}
+            {{/link-to}}</li>
+          {{/each}}
+        </ul>
+      </nav>
+      {{/if}}
+
+
+      {{#if followed}}
+      <button {{action "unfollowUser"}} class="btn">Unfollow User</button>
+      {{else}}
+      <button {{action "followUser"}} class="btn">Follow!</button>
+      {{/if}}
+      </div>
+    </script>
+
+<!-- ////////////////////////////// ALL BANDS ///////////////////////////////-->
+
+    <script type='text/x-handlebars' data-template-name='bands/viewAll'>
+    {{input type='text' class="searches" value=filter placeholder="Search Bands"}}
+    <span class="underline"></span>
+     <div class="all-bands-container">
+      {{#each filteredContent itemController='bandItem'}}
+      <ul>
+        <li class="each">
+          {{#link-to 'bands.show' this}}
+            <div {{bind-attr style=imgStyle}} class='band-img-small'></div>
+            {{bandName}}
+          {{/link-to}}
+        </li>
+       </ul>
+      {{/each}}
+      </div>
+    </script>
+
+
+<!-- ///////////////////////////// EACH BAND ///////////////////////////////-->
+
+    <script type='text/x-handlebars' data-template-name='bands/show'>
+      <div class="each-band-container">
+        <div {{bind-attr style=imgStyle}} class='band-img'></div>
+        <h2>{{currentBand.bandName}}</h2>
+        <div class="bandcamp">{{bandcamp-embed src=currentBand.bandEmbedUrl href=currentBand.bandLinkUrl text=currentBand.bandText}}</div>
+        <div class="band-bio">{{currentBand.bandBio}}</div>
+
+          <h4>{{#link-to 'venues.show' currentBand.bandVenue}}
+            {{currentBand.bandVenue.venueName}}
+          {{/link-to}}</h4>
+          <h4>{{bandStartTime}}</h4>
+
+
+        <nav role='navigation' class="SiteNav">
+          <label for="trigger9" class="SiteNav-triggerLabel">People following this band &#10095</label>
+          <input type="checkbox" id="trigger9" class="SiteNav-trigger"/>
+          <ul class="SiteNav-links">
+            {{#each user in model.bandAttendees}}
+              <li>
+                {{#link-to 'users.show' user}}
+                  {{user.userName}}
+                {{/link-to}}
+              </li>
+            {{/each}}
+          </ul>
+        </nav>
+
+
+        {{#if friendFollowed}}
+        <nav role='navigation' class="SiteNav">
+          <label for="trigger10" class="SiteNav-triggerLabel">Friends Following this band </label>
+          <input type="checkbox" id="trigger10" class="SiteNav-trigger"/>
+          <ul class="SiteNav-links">
+            {{#each friendFollowed}}
+              <li>
+                {{#link-to 'users.show' this}}
+                  {{userName}}
+                {{/link-to}}
+              </li>
+            {{/each}}
+          </ul>
+        </nav>
+        {{/if}}
+
+        {{#if followed}}
+          <button {{action 'unfollowBand'}} class="btn">Unfollow Band</button>
+        {{else}}
+          <button {{action "followBand"}} class="btn">Follow this Band!</button>
+        {{/if}}
+      </div>
+
+      </div>
+    </script>
+
+
+<!-- /////////////////////////////// ALL VENUES /////////////////////////////-->
+
+
+    <script type='text/x-handlebars' data-template-name='venues/viewAll'>
+        <ul class="all-venues">
+          {{#each}}
+            <li class="each">
+              {{#link-to 'venues.show' this}}
+                {{venueName}}
+              {{/link-to}}
+            </li>
+          {{/each}}
+        </ul>
+<!--       <div id="map_canvas" style="width:90%; height:500px"></div>
+ -->  <div class="new-map">
+        <iframe width='90%' height='400px' frameBorder='0' src='https://a.tiles.mapbox.com/v4/olliegill.k5j6de2b/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1Ijoib2xsaWVnaWxsIiwiYSI6IlFhOVNveGcifQ.0DfgZ11nX__lEwJH-hgydg'></iframe>
+      </div>
+      <div class="legend">
+        <div><img src="images/redpoint.png"><span>Venues</span></div>
+        <div><img src="images/mintpoint.png"><span>Hotels</span></div>
+        <div><img src="images/yellowpoint.png"><span>Places to eat</span></div>
+      </div>
+
+    </script>
+
+
+<!-- /////////////////////////////// EACH VENUE /////////////////////////////-->
+
+
+    <script type='text/x-handlebars' data-template-name='venues/show'>
+
+      <div class="each-venue-container">
+        <div {{bind-attr style=imgStyle}} class='band-img'></div>
+          <div class="each-venue">
+           <h2>{{venueName}}</h2>
+           <div>{{venueDescription}}</div>
+           {{#each band in model.venueBands itemController='venueBand'}}
+           <ul>
+            <li class="each">
+              {{#link-to 'bands.show' band}}
+                {{band.bandName}}
+              {{/link-to}}
+               <span class="times">{{band.bandStartTime}} - {{band.bandEndTime}}</span>
+            </li>
+          </ul>
+           {{/each}}
+
+          <div>{{venueAddress}}</div>
+        </div>
+      </div>
+      {{map-embed src=venueEmbedAddress}}
+
+    </script>
+
+<!-- ///////////////////////////////// SCHEDULE //////////////////////////////// -->
+
+    <script type="text/x-handlebars" data-template-name="schedule">
+      <h1>SCHEDULE</h1>
+
+      <div class="schedule-container">
+
+       <ul class="schedule-times">
+         <li>1PM</li>
+         <li>2PM</li>
+         <li>3PM</li>
+         <li>4PM</li>
+         <li>5PM</li>
+         <li>6PM</li>
+         <li>7PM</li>
+         <li>8PM</li>
+         <li>9PM</li>
+         <li>10PM</li>
+         <li>11PM</li>
+         <li>12AM</li>
+         <li>1AM</li>
+       </ul>
+
+          <ul class="schedule">
+            {{#each}}
+             <li class="venue-list">
+               {{#link-to 'venues.show' this}}
+                 <h5>{{venueName}}</h5>
+               {{/link-to}}
+                  <ul class="time-slot">
+                    {{#each band in venueBands itemController="venueBand"}}
+                      {{#link-to 'bands.show' band}}
+                        <li {{ bind-attr class='band.isSelected' style=band.timeSlotStyle }}>
+                        {{band.bandName}}<br/>
+                        {{band.bandStartTime}}
+                        </li>
+                      {{/link-to}}
+                    {{/each}}
+                  </ul>
+                 </li>
+            {{/each}}
+          </ul>
+      </div>
+
+    </script>
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
+
+    <script src="scripts/vendor.js"></script>
+
+        <script src="scripts/main.js"></script>
+</body>
+</html>
