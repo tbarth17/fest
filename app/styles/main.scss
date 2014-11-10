@@ -338,9 +338,9 @@ li {
   border-radius: 4px;
   padding: 0 .3em;
   margin-bottom: 1em;
-  position: absolute;
+  position: relative;
   width: 80%;
-  bottom: -80px;
+  bottom: 0;
   -webkit-animation: slideIn 1s ease 1;
 
   li {
@@ -353,6 +353,7 @@ li {
 .errors li:last-child {
   border-bottom: 0;
 }
+
 
 .email-check {
   display: inline-block;
