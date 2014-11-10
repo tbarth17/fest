@@ -42,6 +42,8 @@
       <script type='text/x-handlebars' data-template-name='application'>
         {{#link-to 'index'}}<div class="header">
           <img src="images/fest-logo.png">
+<!--           <div class="header-text">Greenville, SC <br/>
+November 15th</div> -->
         </div>{{/link-to}}
 
 
@@ -95,7 +97,7 @@
               </div>
             {{input type="password" class="login-input" placeholder="Password" value=password}}
               {{#if userImgUrl}}
-                <img {{ bind-attr src=userImgUrl }}>
+                <div {{bind-attr style=imgStyle}} class='signup-img'></div>
               {{else}}
                 <button {{ action 'addPhoto' }} class="btn btn-blue">Add Photo</button>
               {{/if}}
@@ -107,7 +109,7 @@
                   {{/each}}
                 </ul>
               {{/if}}
-            <button {{ action 'createUser' }} type="submit" class="btn btn-blue">Sign up</button>
+            <button {{ action 'createUser' }} type="submit" id="signup-button" class="btn btn-blue">Sign up</button>
           </form>
         </div>
       </div>
@@ -501,7 +503,7 @@
                  <h5>{{venueName}}</h5>
                {{/link-to}}
                   <ul class="time-slot">
-                    {{#each band in venueBands itemController="venueBand"}}
+                    {{#each band in venueBands itemController="scheduleBand"}}
                       {{#link-to 'bands.show' band}}
                         <li {{ bind-attr class='band.isSelected' style=band.timeSlotStyle }}>
                         {{band.bandName}}<br/>
