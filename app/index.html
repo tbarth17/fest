@@ -11,31 +11,8 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css" />
     <!-- endbower -->
+    <script src="styles/vendor/liquid-fire-0.12.0.css"></script>
     <!-- endbuild -->
-<!--
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgAuFCzr9I0uV9cLtXi0zMo69K3wW5_oY&sensor=true">
-    </script>
-
-      <style>
-      * {
-          margin: 0;
-          padding: 0;
-      }
-      div.popup {
-          font-size: 14px;
-          margin: 0;
-          width: 270px;
-      }
-      div.popup p {
-          background-color: #FFF;
-          color: #333;
-          font-size: 12px;
-          line-height: 15px;
-      }
-      div.popup p a {
-          color: #1122CC;
-      }
-      </style> -->
 
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
@@ -57,13 +34,13 @@
 
   <ul class="navigation">
     {{#link-to 'user'}}<li>Profile</li>{{/link-to}}
-    {{#link-to 'users.viewAll'}}<li>Users</li>{{/link-to}}
+    {{#link-to 'users.viewAll'}}<li>Fans</li>{{/link-to}}
     {{#link-to 'bands.viewAll'}}<li>Bands</li>{{/link-to}}
     {{#link-to 'venues.viewAll'}}<li>Venues</li>{{/link-to}}
     {{#link-to 'schedule'}}<li>Schedule</li>{{/link-to}}
     <div class="clear"></div>
   </ul>
-            {{outlet}}
+            {{liquid-outlet}}
 
       </script>
 
@@ -139,7 +116,7 @@
           <div class="home-links">Profile</div>
         {{/link-to}}
         {{#link-to 'users.viewAll'}}
-          <div class="home-links">Browse Users</div>
+          <div class="home-links">Browse Fans</div>
         {{/link-to}}
         {{#link-to 'schedule'}}
           <div class="home-links">Schedule</div>
@@ -391,7 +368,7 @@
       </div>
     </script>
 
-<!-- ////////////////////////////// ALL BANDS ///////////////////////////////-->
+<!-- ////////////////////////////// BANDS VIEWALL ///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='bands/viewAll'>
     <div class="all-bands-container">
@@ -399,12 +376,12 @@
     <span class="underline"></span>
       {{#each filteredContent itemController='bandItem'}}
       <ul>
-        <li class="each">
-          {{#link-to 'bands.show' this}}
+        {{#link-to 'bands.show' this}}
+          <li class="each">
             <div {{bind-attr style=imgStyle}} class='band-img-small'></div>
             {{bandName}}
-          {{/link-to}}
-        </li>
+          </li>
+        {{/link-to}}
        </ul>
       {{/each}}
       </div>
@@ -475,11 +452,11 @@
     <script type='text/x-handlebars' data-template-name='venues/viewAll'>
         <ul class="all-venues">
           {{#each}}
-            <li class="each">
-              {{#link-to 'venues.show' this}}
-                {{venueName}}
-              {{/link-to}}
-            </li>
+            {{#link-to 'venues.show' this}}
+              <li class="each">
+                  {{venueName}}
+              </li>
+            {{/link-to}}
           {{/each}}
         </ul>
 <!--       <div id="map_canvas" style="width:90%; height:500px"></div>
@@ -585,13 +562,14 @@
     <script src="../bower_components/emberfire/dist/emberfire.min.js"></script>
     <script src="../bower_components/filepicker/filepicker.min.js"></script>
     <script src="../bower_components/ember-validations/index.js"></script>
+    <script src="../bower_components/velocity/velocity.js"></script>
     <!-- endbower -->
-    <!-- endbuild -->
+    <script src="js/vendor/liquid-fire-0.12.0.js"></script>
 
+    <!-- endbuild -->
         <!-- build:js scripts/main.js -->
         <script src="js/application.js"></script>
         <script src="js/router.js"></script>
-        <script src="js/venues_viewall_view.js"></script>
         <script src="js/index_view.js"></script>
         <script src="js/user_view.js"></script>
         <script src="js/models/band.js"></script>
@@ -611,6 +589,7 @@
         <script src="js/controllers/user_controller.js"></script>
         <script src="js/controllers/users_show_controller.js"></script>
         <script src="js/controllers/following_controller.js"></script>
+        <script src="js/transitions.js"></script>
 
 
 
