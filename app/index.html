@@ -49,9 +49,9 @@
   <!-- ////////////////////// APPLICATION ///////////////////////////////////-->
       <script type='text/x-handlebars' data-template-name='application'>
         {{#link-to 'index'}}<div class="header">
-          <img src="images/fest-logo.png">
-<!--           <div class="header-text">Greenville, SC <br/>
-November 15th</div> -->
+          <img src="images/indie.png">
+          <div class="header-text">Greenville, SC
+                  November 15th</div>
         </div>{{/link-to}}
 
 
@@ -148,7 +148,7 @@ November 15th</div> -->
        </div>
 
         <div class="home-text">
-          <h1>Welcome to Salad Days Fest!</h1>
+          <h1>Welcome to Indie Upstate!</h1>
             <div id="slider">
              <ul id="images">
               <li style="background:url(https://c2.staticflickr.com/4/3626/3354626263_68ed0a35f6.jpg)  no-repeat center center; "></li>
@@ -158,12 +158,12 @@ November 15th</div> -->
             </div>
 
             <div class="home-blurb">
-              <h2>This is the official app for Salad Days Fest!</h2>
+              <h2>This is the official app for Indie Upstate!</h2>
               <p>Everything you need for the ultimate festival experience is here!<br/>
               Just add your friends and pick some bands to watch and let us do the rest. It's that simple.</p>
 
               <p>We know we have the sweetest line up available, but be sure to check out the sights and sounds of our host city, <a href="http://www.visitgreenvillesc.com/">GREENVILLE!</a>
-              This fair city has gone all out to be welcoming, so no wrecking the place, ok? Be cool. Enjoy yourself. <br/> The Salad Days team.
+              This fair city has gone all out to be welcoming, so no wrecking the place, ok? Be cool. Enjoy yourself. <br/> The Indie Upstate team.
               </p>
             </div>
         </div>
@@ -262,8 +262,8 @@ November 15th</div> -->
     <span class="underline"></span>
       <ul class="all-users">
         {{#each filteredContent itemController='userItem'}}
-          <div {{bind-attr style=imgStyle}} class='user-img-small'></div>
           {{#link-to 'users.show' this}}
+          <div {{bind-attr style=imgStyle}} class='user-img-small'></div>
             <li>{{userName}}</li>
           {{/link-to}}
         {{/each}}
