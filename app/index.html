@@ -229,6 +229,27 @@ November 15th</div> -->
            {{/each}}
          </ul>
       </nav>
+
+      <div class='message-board-container'>
+        <div class='message-board-display'>
+          <ul>
+            {{#each model.userReceivedMessages itemController='message'}}
+              <li>
+                <div {{bind-attr style=imgStyle}} class='user-img-small'></div>
+                {{postingUser.userName}}{{messageText}}{{postTime}}
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+
+        <div class='post-field'>
+          <form>
+            {{input type='text' value=messageText}}
+            <button {{ action 'addMessage' }}>Leave a Message on your Board</button>
+          </form>
+        </div>
+      </div>
+
       </div>
       <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
 
