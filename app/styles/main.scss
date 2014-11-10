@@ -478,7 +478,7 @@ li {
 }
 
 .slider input[type=checkbox]:checked + label:after {
-  background: $blue;
+  background: $green;
 }
 
 .btn {
@@ -1212,6 +1212,8 @@ li {
     z-index: 2;
 
   }
+}
 
-
+.is-selected:hover {
+  opacity: .8;
 }
