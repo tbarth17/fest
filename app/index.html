@@ -109,7 +109,7 @@
               {{else}}
                 <button {{ action 'addPhoto' }} class="btn btn-blue">Add Photo</button>
               {{/if}}
-            {{textarea class="bio-text" value=userBio cols="45" rows="6" placeholder='Your statement'}}
+            {{textarea class="bio-text" value=userBio cols="45" rows="6" placeholder='Add a personal statement'}}
               {{#if flash.errors}}
                 <ul class="errors">
                   {{#each flash.errors}}
@@ -229,6 +229,27 @@
            {{/each}}
          </ul>
       </nav>
+
+      <div class='message-board-container'>
+        <div class='message-board-display'>
+          <ul>
+            {{#each model.userReceivedMessages itemController='message'}}
+              <li>
+                <div {{bind-attr style=imgStyle}} class='user-img-small'></div>
+                {{postingUser.userName}}{{messageText}}{{postTime}}
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+
+        <div class='post-field'>
+          <form>
+            {{input type='text' value=messageText}}
+            <button {{ action 'addMessage' }}>Leave a Message on your Board</button>
+          </form>
+        </div>
+      </div>
+
       </div>
       <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
 
@@ -345,6 +366,28 @@
       {{else}}
       <button {{action "followUser"}} class="btn">Follow!</button>
       {{/if}}
+
+      {{#if followed}}
+        <div class='message-board-container'>
+          <div class='message-board-display'>
+            <ul>
+              {{#each model.userReceivedMessages itemController='message'}}
+                <li>
+                  <div {{bind-attr style=imgStyle}} class='user-img-small'></div>
+                  {{postingUser.userName}}{{messageText}}{{postTime}}
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+
+          <div class='post-field'>
+            <form>
+              {{input type='text' value=messageText}}
+              <button {{ action 'addMessage' }}>Leave {{userName}} a Message</button>
+            </form>
+          </div>
+        </div>
+      {{/if}}
       </div>
     </script>
 
@@ -416,9 +459,9 @@
         {{/if}}
 
         {{#if followed}}
-          <button {{action 'unfollowBand'}} class="btn">Unfollow Band</button>
+          <button {{action 'unfollowBand'}} class="btn">Remove Band from Schedule</button>
         {{else}}
-          <button {{action "followBand"}} class="btn">Follow this Band!</button>
+          <button {{action "followBand"}} class="btn">Add Band to Schedule!</button>
         {{/if}}
       </div>
 
@@ -444,9 +487,9 @@
         <iframe width='90%' height='400px' frameBorder='0' src='https://a.tiles.mapbox.com/v4/olliegill.k5j6de2b/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1Ijoib2xsaWVnaWxsIiwiYSI6IlFhOVNveGcifQ.0DfgZ11nX__lEwJH-hgydg'></iframe>
       </div>
       <div class="legend">
-        <div><img src="images/redpoint.png"><span>Venues</span></div>
-        <div><img src="images/mintpoint.png"><span>Hotels</span></div>
-        <div><img src="images/yellowpoint.png"><span>Places to eat</span></div>
+        <div><img src="../images/redpoint.png"><span>Venues</span></div>
+        <div><img src="../images/mintpoint.png"><span>Hotels</span></div>
+        <div><img src="../images/yellowpoint.png"><span>Places to eat</span></div>
       </div>
 
     </script>
@@ -554,6 +597,7 @@
         <script src="js/models/band.js"></script>
         <script src="js/models/venue.js"></script>
         <script src="js/models/user.js"></script>
+        <script src="js/models/message.js"></script>
         <script src="js/controllers/bands_viewall_controller.js"></script>
         <script src="js/controllers/users_viewall_controller.js"></script>
         <script src="js/controllers/user_bands_controller.js"></script>
