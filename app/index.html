@@ -209,11 +209,13 @@
 
       <div class='message-board-container'>
         <div class='message-board-display'>
-          <ul>
+          <ul><div class="messages-head">Messages</div>
             {{#each model.userReceivedMessages itemController='message'}}
-              <li>
-                <div {{bind-attr style=imgStyle}} class='user-img-small'></div>
-                {{postingUser.userName}}{{messageText}}{{postTime}}
+              <li class="each-msg">
+                <div {{bind-attr style=imgStyle }} class='user-img-small'></div>
+                <span>{{postingUser.userName}}</span>
+                <span>{{messageText}}</span>
+                <span>{{postTime}}</span>
               </li>
             {{/each}}
           </ul>
@@ -221,7 +223,7 @@
 
         <div class='post-field'>
           <form>
-            {{input type='text' value=messageText}}
+            {{input type='text' placeholder="Write your message here" value=messageText}}
             <button {{ action 'addMessage' }}>Leave a Message on your Board</button>
           </form>
         </div>
@@ -347,11 +349,13 @@
       {{#if followed}}
         <div class='message-board-container'>
           <div class='message-board-display'>
-            <ul>
+            <ul><div class="messages-head">Messages</div>
               {{#each model.userReceivedMessages itemController='message'}}
-                <li>
+                <li class="each-msg">
                   <div {{bind-attr style=imgStyle}} class='user-img-small'></div>
-                  {{postingUser.userName}}{{messageText}}{{postTime}}
+                  <span>{{postingUser.userName}}</span>
+                  <span>{{messageText}}</span>
+                  <span>{{postTime}}</span>
                 </li>
               {{/each}}
             </ul>
@@ -359,7 +363,7 @@
 
           <div class='post-field'>
             <form>
-              {{input type='text' value=messageText}}
+              {{input type='text' placeholder="Write your message here" value=messageText}}
               <button {{ action 'addMessage' }}>Leave {{userName}} a Message</button>
             </form>
           </div>
@@ -459,8 +463,6 @@
             {{/link-to}}
           {{/each}}
         </ul>
-<!--       <div id="map_canvas" style="width:90%; height:500px"></div>
- -->  <div class="new-map">
         <iframe width='90%' height='400px' frameBorder='0' src='https://a.tiles.mapbox.com/v4/olliegill.k5j6de2b/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1Ijoib2xsaWVnaWxsIiwiYSI6IlFhOVNveGcifQ.0DfgZ11nX__lEwJH-hgydg'></iframe>
       </div>
       <div class="legend">
