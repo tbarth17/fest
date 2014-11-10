@@ -52,7 +52,9 @@ Fest.LoginController = Ember.Controller.extend(Ember.Validations.Mixin, {
         filepicker.pickAndStore({mimetype:"image/*"},{},
         function(InkBlobs){
           var url = InkBlobs[0].url;
-          self.set('userImgUrl', url);
+          var convertUrl = (url + '/convert?rotate=exif');
+          console.log(convertUrl);
+          self.set('userImgUrl', convertUrl);
         });
       },
 
