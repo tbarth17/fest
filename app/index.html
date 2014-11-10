@@ -109,7 +109,7 @@ November 15th</div> -->
               {{else}}
                 <button {{ action 'addPhoto' }} class="btn btn-blue">Add Photo</button>
               {{/if}}
-            {{textarea class="bio-text" value=userBio cols="45" rows="6" placeholder='Your statement'}}
+            {{textarea class="bio-text" value=userBio cols="45" rows="6" placeholder='Add a personal statement'}}
               {{#if flash.errors}}
                 <ul class="errors">
                   {{#each flash.errors}}
