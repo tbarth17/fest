@@ -232,11 +232,13 @@
 
       <div class='message-board-container'>
         <div class='message-board-display'>
-          <ul>
+          <ul><div class="messages-head">Messages</div>
             {{#each model.userReceivedMessages itemController='message'}}
-              <li>
-                <div {{bind-attr style=imgStyle}} class='user-img-small'></div>
-                {{postingUser.userName}}{{messageText}}{{postTime}}
+              <li class="each-msg">
+                <div {{bind-attr style=imgStyle }} class='user-img-small'></div>
+                <span>{{postingUser.userName}}</span>
+                <span>{{messageText}}</span>
+                <span>{{postTime}}</span>
               </li>
             {{/each}}
           </ul>
@@ -244,7 +246,7 @@
 
         <div class='post-field'>
           <form>
-            {{input type='text' value=messageText}}
+            {{input type='text' placeholder="Write your message here" value=messageText}}
             <button {{ action 'addMessage' }}>Leave a Message on your Board</button>
           </form>
         </div>
@@ -370,11 +372,13 @@
       {{#if followed}}
         <div class='message-board-container'>
           <div class='message-board-display'>
-            <ul>
+            <ul><div class="messages-head">Messages</div>
               {{#each model.userReceivedMessages itemController='message'}}
-                <li>
+                <li class="each-msg">
                   <div {{bind-attr style=imgStyle}} class='user-img-small'></div>
-                  {{postingUser.userName}}{{messageText}}{{postTime}}
+                  <span>{{postingUser.userName}}</span>
+                  <span>{{messageText}}</span>
+                  <span>{{postTime}}</span>
                 </li>
               {{/each}}
             </ul>
@@ -382,7 +386,7 @@
 
           <div class='post-field'>
             <form>
-              {{input type='text' value=messageText}}
+              {{input type='text' placeholder="Write your message here" value=messageText}}
               <button {{ action 'addMessage' }}>Leave {{userName}} a Message</button>
             </form>
           </div>
@@ -444,7 +448,7 @@
 
         {{#if friendFollowed}}
         <nav role='navigation' class="SiteNav">
-          <label for="trigger10" class="SiteNav-triggerLabel">Friends Following this band </label>
+          <label for="trigger10" class="SiteNav-triggerLabel">Friends Following this band &#10095</label>
           <input type="checkbox" id="trigger10" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
             {{#each friendFollowed}}
