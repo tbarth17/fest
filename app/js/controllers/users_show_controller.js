@@ -60,7 +60,7 @@ Fest.MessageController = Ember.ObjectController.extend({
 }.property('postingUser.userImgUrl'),
 
   postTime: function(){
-    return moment(this.get('model.messageTime')).zone('+0000').format('MMM Do h:mm A');
+    return moment(this.get('model.messageTime')).zone('-0500').format('MMM Do h:mm A');
   }.property('model.messageTime'),
 
 })

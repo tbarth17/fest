@@ -289,7 +289,7 @@
       </div>
 
       <nav role='navigation' class="SiteNav">
-        <label for="trigger4" class="SiteNav-triggerLabel">Bands {{userName}} is going to see &#10095</label>
+        <label for="trigger4" class="SiteNav-triggerLabel">Bands {{userName}} is going to see {{#if userBands}}({{userBands.length}}){{/if}} &#10095</label>
         <input type="checkbox" id="trigger4" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
            {{#each band in userBands itemController='userBands'}}
@@ -308,7 +308,7 @@
       </nav>
 
       <nav role='navigation' class="SiteNav">
-        <label for="trigger5" class="SiteNav-triggerLabel">People {{userName}} follows &#10095</label>
+        <label for="trigger5" class="SiteNav-triggerLabel">People {{userName}} follows {{#if model.userFollows}}({{model.userFollows.length}}){{/if}} &#10095</label>
         <input type="checkbox" id="trigger5" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each user in model.userFollows}}
@@ -320,7 +320,7 @@
       </nav>
 
       <nav role='navigation' class="SiteNav">
-        <label for="trigger6" class="SiteNav-triggerLabel">{{userName}}'s Followers &#10095</label>
+        <label for="trigger6" class="SiteNav-triggerLabel">{{userName}}'s Followers {{#if userFollowedBy}}({{userFollowedBy.length}}){{/if}} &#10095</label>
         <input type="checkbox" id="trigger6" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each user in model.userFollowedBy}}
@@ -334,7 +334,7 @@
 
       {{#if friendsInCommon}}
       <nav role='navigation' class="SiteNav">
-        <label for="trigger7" class="SiteNav-triggerLabel">Friends you have in common &#10095</label>
+        <label for="trigger7" class="SiteNav-triggerLabel">Friends you have in common ({{friendsInCommon.length}}) &#10095</label>
         <input type="checkbox" id="trigger7" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each friendsInCommon}}
@@ -348,7 +348,7 @@
 
       {{#if bandsInCommon}}
       <nav role='navigation' class="SiteNav">
-        <label for="trigger8" class="SiteNav-triggerLabel">Bands you have in common &#10095</label>
+        <label for="trigger8" class="SiteNav-triggerLabel">Bands you have in common ({{bandsInCommon.length}}) &#10095</label>
         <input type="checkbox" id="trigger8" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each bandsInCommon}}
@@ -362,7 +362,7 @@
 
 
       {{#if followed}}
-      <button {{action "unfollowUser"}} class="btn">Unfollow User</button>
+      <button {{action "unfollowUser"}} class="btn">Unfollow {{userName}}</button>
       {{else}}
       <button {{action "followUser"}} class="btn">Follow!</button>
       {{/if}}
@@ -428,7 +428,7 @@
 
 
         <nav role='navigation' class="SiteNav">
-          <label for="trigger9" class="SiteNav-triggerLabel">People following this band &#10095</label>
+          <label for="trigger9" class="SiteNav-triggerLabel">People going to this show ({{bandAttendees.length}}) &#10095</label>
           <input type="checkbox" id="trigger9" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
             {{#each user in model.bandAttendees}}
@@ -444,7 +444,7 @@
 
         {{#if friendFollowed}}
         <nav role='navigation' class="SiteNav">
-          <label for="trigger10" class="SiteNav-triggerLabel">Friends Following this band </label>
+          <label for="trigger10" class="SiteNav-triggerLabel">Friends going to this show ({{friendFollowed.length}}) &#10095</label>
           <input type="checkbox" id="trigger10" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
             {{#each friendFollowed}}
