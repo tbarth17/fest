@@ -345,6 +345,28 @@ November 15th</div> -->
       {{else}}
       <button {{action "followUser"}} class="btn">Follow!</button>
       {{/if}}
+
+      {{#if followed}}
+        <div class='message-board-container'>
+          <div class='message-board-display'>
+            <ul>
+              {{#each model.userReceivedMessages itemController='message'}}
+                <li>
+                  <div {{bind-attr style=imgStyle}} class='user-img-small'></div>
+                  {{postingUser.userName}}{{messageText}}{{postTime}}
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+
+          <div class='post-field'>
+            <form>
+              {{input type='text' value=messageText}}
+              <button {{ action 'addMessage' }}>Leave {{userName}} a Message</button>
+            </form>
+          </div>
+        </div>
+      {{/if}}
       </div>
     </script>
 
@@ -554,6 +576,7 @@ November 15th</div> -->
         <script src="js/models/band.js"></script>
         <script src="js/models/venue.js"></script>
         <script src="js/models/user.js"></script>
+        <script src="js/models/message.js"></script>
         <script src="js/controllers/bands_viewall_controller.js"></script>
         <script src="js/controllers/users_viewall_controller.js"></script>
         <script src="js/controllers/user_bands_controller.js"></script>

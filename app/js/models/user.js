@@ -6,7 +6,9 @@ Fest.User = DS.Model.extend({
   userBio: DS.attr('string'),
   userFollows: DS.hasMany('user', {async: true}),
   userFollowedBy: DS.hasMany('user', {inverse: 'userFollows', async: true}),
-  userBands: DS.hasMany('band', {async: true})
+  userBands: DS.hasMany('band', {async: true}),
+  userPostedMessages: DS.hasMany('message', {async: true, inverse: 'postingUser'}),
+  userReceivedMessages: DS.hasMany('message', {async: true, inverse: 'postedTo'})
 });
 
 Fest.User.Validations = {
