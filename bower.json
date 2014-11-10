@@ -8,11 +8,13 @@
     "bourbon": "~4.0.2",
     "neat": "~1.6.0",
     "normalize-css": "~3.0.1",
-    "emberfire": "~1.2.7",
+    "emberfire": "~1.3.0",
     "filepicker": "*",
     "ember-validations": "http://builds.dockyard.com.s3.amazonaws.com/ember-validations/tags/v1.0.0/ember-validations.js"
   },
   "resolutions": {
-    "ember-validations": "e-tag:212fcee2e"
+    "ember-validations": "e-tag:212fcee2e",
+    "emberfire": "~1.2.7",
+    "firebase": "1.1.x"
   }
 }

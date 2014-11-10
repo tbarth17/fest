@@ -103,7 +103,7 @@
               </div>
             {{input type="password" class="login-input" placeholder="Password" value=password}}
               {{#if userImgUrl}}
-                <img {{ bind-attr src=userImgUrl }}>
+                <div {{bind-attr style=imgStyle}} class='signup-img'></div>
               {{else}}
                 <button {{ action 'addPhoto' }} class="btn btn-blue">Add Photo</button>
               {{/if}}
@@ -509,7 +509,7 @@
                  <h5>{{venueName}}</h5>
                {{/link-to}}
                   <ul class="time-slot">
-                    {{#each band in venueBands itemController="venueBand"}}
+                    {{#each band in venueBands itemController="scheduleBand"}}
                       {{#link-to 'bands.show' band}}
                         <li {{ bind-attr class='band.isSelected' style=band.timeSlotStyle }}>
                         {{band.bandName}}<br/>

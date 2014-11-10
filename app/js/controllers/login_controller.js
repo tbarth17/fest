@@ -3,6 +3,10 @@ Fest.LoginController = Ember.Controller.extend(Ember.Validations.Mixin, {
   validations: Fest.User.Validations,
   flash: {},
 
+  imgStyle: function(){
+  return new Ember.Handlebars.SafeString("background-image: url('"+this.get('userImgUrl')+"')").toString();
+}.property('userImgUrl'),
+
   actions: {
     createUser: function(){
       var self = this;
