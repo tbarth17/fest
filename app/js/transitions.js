@@ -253,8 +253,8 @@ LiquidFire.map(function(){
   this.transition(
   this.fromRoute('bands.show'),
   this.toRoute('schedule'),
-  this.use('toLeft'),
-  this.reverse('toRight')
+  this.use('toRight'),
+  this.reverse('toLeft')
 );
 
   this.transition(

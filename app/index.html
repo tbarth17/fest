@@ -409,7 +409,10 @@
 
 
         <nav role='navigation' class="SiteNav">
-          <label for="trigger9" class="SiteNav-triggerLabel">People going to this show ({{bandAttendees.length}}) &#10095</label>
+          <label for="trigger9" class="SiteNav-triggerLabel">People going to this show
+            {{#if bandAttendees}}
+              ({{bandAttendees.length}})
+            {{/if}} &#10095</label>
           <input type="checkbox" id="trigger9" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
             {{#each user in model.bandAttendees}}
@@ -425,7 +428,10 @@
 
         {{#if friendFollowed}}
         <nav role='navigation' class="SiteNav">
-          <label for="trigger10" class="SiteNav-triggerLabel">Friends going to this show ({{friendFollowed.length}}) &#10095</label>
+          <label for="trigger10" class="SiteNav-triggerLabel">Friends going to this show
+            {{#if friendFollowed}}
+              ({{friendFollowed.length}})
+            {{/if}} &#10095</label>
           <input type="checkbox" id="trigger10" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
             {{#each friendFollowed}}
