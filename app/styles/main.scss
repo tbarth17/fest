@@ -18,7 +18,7 @@ body {
   @include outer-container;
 }
 
-
+$tiny: new-breakpoint(max-width 320px);
 $mobile: new-breakpoint(max-width 600px 12);
 $bands: new-breakpoint(max-width 1000px 12);
 $dark-grey: #303030;
@@ -186,8 +186,14 @@ li {
   width: 100%;
   line-height: 50px;
   color: white;
+}
 
+.nav-sched {
+  @include media($tiny) {
 
+  //outline: solid red 1px;
+  font-size: .9em;
+}
 }
 
 .navigation li {
@@ -603,12 +609,35 @@ p img {
   h2 {
     margin: .7em 0;
     font-size: 1.7em;
+    //outline: solid red 1px;
+    display: inline-block;
+    @include shift(1);
+    @include span-columns(18);
   }
 
   p {
+    //outline: solid red 1px;
     margin: .7em;
-    //background: $dark-grey;
+    display: inline-block;
+    font-size: 1.5em;
+    font-weight: 400;
+    text-align: left;
+    @include span-columns(18);
+    @include shift(2);
+    background: $light-grey;
+    color: white;
+    padding: 1em;
+    border-bottom: solid $dark-grey 2px;
   }
+}
+
+.home-blurb:nth-child(3) {
+  @include shift(6);
+}
+
+.home-text .twitter-timeline {
+  //outline: solid red 1px;
+  @include shift(4.5);
 }
 
 #slider {
@@ -954,11 +983,12 @@ li {
   width: 80%;
   overflow: ellipsis;
   margin: 0 auto;
+  padding: 0;
   @include span-columns(12);
-  @include shift(5.5);
+  @include shift(6);
   @include media($mobile) {
     @include span-columns(9);
-    @include shift(1);
+    @include shift(1.5);
   }
 }
 
@@ -1067,9 +1097,11 @@ li {
  .bios-container {
   background: $dark-grey;
   margin-bottom: .5em;
+  position: relative;
 }
 
 .bios-container span {
+  //outline: solid red 1px;
   font-size: 5em;
   font-family: "Palatino Linotype";
   position: relative;
@@ -1087,11 +1119,12 @@ li {
 }
 
 .bios {
+  //outline: solid red 1px;
   background: $dark-grey;
   color: white;
   font-weight: 400;
   margin: 0;
-  padding: .5em;
+  padding: .5em 2em;
   text-align: left;
   line-height: 1.4;
 }

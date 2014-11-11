@@ -37,7 +37,7 @@
     {{#link-to 'users.viewAll'}}<li>Fans</li>{{/link-to}}
     {{#link-to 'bands.viewAll'}}<li>Bands</li>{{/link-to}}
     {{#link-to 'venues.viewAll'}}<li>Venues</li>{{/link-to}}
-    {{#link-to 'schedule'}}<li>Schedule</li>{{/link-to}}
+    {{#link-to 'schedule'}}<li class="nav-sched">Schedule</li>{{/link-to}}
     <div class="clear"></div>
   </ul>
             {{liquid-outlet}}
@@ -126,13 +126,8 @@
 
         <div class="home-text">
           <h1>Welcome to Indie Upstate!</h1>
-            <div id="slider">
-             <ul id="images">
-              <li style="background:url(https://c2.staticflickr.com/4/3626/3354626263_68ed0a35f6.jpg)  no-repeat center center; "></li>
-              <li style="background:url(https://c1.staticflickr.com/3/2728/4516269817_72fa4996a2_z.jpg)  no-repeat center center;"></li>
-              <li style="background:url(http://www.greenvilleinformation.com/images/terrace_650.jpg)  no-repeat center center; "></li>
-	           </ul>
-            </div>
+           <img src="https://c2.staticflickr.com/4/3626/3354626263_68ed0a35f6.jpg">
+
 
             <div class="home-blurb">
               <h2>This is the official app for Indie Upstate!</h2>
@@ -143,10 +138,10 @@
               This fair city has gone all out to be welcoming, so no wrecking the place, ok? Be cool. Enjoy yourself. <br/> The Indie Upstate team.
               </p>
             </div>
-        </div>
+
 
         <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
-
+         </div>
 
     </script>
 
@@ -372,7 +367,7 @@
       </div>
     </script>
 
-<!-- ////////////////////////////// BANDS VIEWALL ///////////////////////////////-->
+<!-- ////////////////////////////// BANDS VIEW ALL ///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='bands/viewAll'>
     <div class="all-bands-container">
