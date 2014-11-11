@@ -180,58 +180,6 @@ Fest.ScheduleRoute = Ember.Route.extend({
   }
 });
 
-(function(){
-    var map;
-      openInfowindow = null;
-      newPoints = [];
-
-  Fest.VenuesViewAllView = Ember.View.extend({
-    didInsertElement: function(){
-      initialize();
-    }
-  });
-
-  function initialize () {
-      var mapOptions = {
-          center: new google.maps.LatLng(34.86811622745945, -82.38741874694824),
-          zoom: 12,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          streetViewControl: false
-      };
-      map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-      addPoints();
-  }
-
-  function addPoints () {
-      newPoints[0] = [34.842944, -82.405371, 'Smileys', 'Smileys Acoustic Cafe'];
-      newPoints[1] = [34.852573, -82.358908, 'Gottrocks', 'Gottrocks'];
-      newPoints[2] = [34.886534, -82.390397, 'Radio Room', 'Radio Room'];
-      newPoints[3] = [34.867923, -82.404426, 'Independent Ale House', 'Independent Ale House'];
-      newPoints[4] = [34.847036, -82.428652, 'Mac Arnold&#39;s', 'Mac Arnold&#39;s'];
-      for (var i = 0; i < newPoints.length; i++) {
-          var position = new google.maps.LatLng(newPoints[i][0], newPoints[i][1]);
-          var marker = new google.maps.Marker({
-              position: position,
-              map: map
-          });
-          createMarker(marker, i);
-      }
-  }
-
-  function createMarker (marker, i) {
-      var infowindow = new google.maps.InfoWindow({
-          content: '<div class="popup">' + newPoints[i][3] + '</div>',
-      });
-      google.maps.event.addListener(marker, 'click', function () {
-          if (openInfowindow) {
-              openInfowindow.close();
-          }
-          infowindow.open(marker.getMap('map_canvas'), marker);
-          openInfowindow = infowindow;
-      });
-  }
-})();
-
 Fest.IndexView = Ember.View.extend({
   didInsertElement: function() {
     var self = this;
@@ -299,7 +247,9 @@ Fest.User = DS.Model.extend({
   userBio: DS.attr('string'),
   userFollows: DS.hasMany('user', {async: true}),
   userFollowedBy: DS.hasMany('user', {inverse: 'userFollows', async: true}),
-  userBands: DS.hasMany('band', {async: true})
+  userBands: DS.hasMany('band', {async: true}),
+  userPostedMessages: DS.hasMany('message', {async: true, inverse: 'postingUser'}),
+  userReceivedMessages: DS.hasMany('message', {async: true, inverse: 'postedTo'})
 });
 
 Fest.User.Validations = {
@@ -316,6 +266,13 @@ Fest.User.Validations = {
     length: {minimum: 3, messages: {tooShort: 'Please add a personal statement.'} }
   }
 };
+
+Fest.Message = DS.Model.extend({
+  messageText: DS.attr('string'),
+  postingUser: DS.belongsTo('user', {async: true}),
+  postedTo: DS.belongsTo('user', {async: true}),
+  messageTime: DS.attr('date')
+});
 
 Fest.BandsViewAllController = Ember.ArrayController.extend({
   sortAscending: true,
@@ -425,26 +382,6 @@ Fest.VenueBandController = Ember.ObjectController.extend({
   bandEndTime: function(){
     return moment(this.get('model.bandEndTime')).zone('+0000').format('h:mm A');
   }.property('model.bandEndTime'),
-
-  // isSelected: function() {
-  //   var currentUser = this.get('controllers.session.currentUser');
-  //   var currentBand = this.get('model');
-  //   if (currentBand.get('bandAttendees').contains(currentUser)){
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }.property('model.bandAttendees.@each', 'controllers.session.currentUser'),
-  //
-  // timeSlotStyle: function() {
-  //   var start = this.get('model.bandStartTime');
-  //   var end = this.get('model.bandEndTime');
-  //   var bandBreak = this.get('model.bandBreak');
-  //   var timeSlot = Math.abs(end - start);
-  //   var ratio = timeSlot/30000;
-  //   var margin = bandBreak * 2;
-  //   return new Ember.Handlebars.SafeString("width:" +ratio+ "px; margin-left:" +margin+ "px;").toString();
-  // }.property('model.bandStartTime', 'model.bandEndTime', 'model.bandBreak')
 });
 
 Fest.ScheduleBandController = Ember.ObjectController.extend({
@@ -533,7 +470,9 @@ Fest.LoginController = Ember.Controller.extend(Ember.Validations.Mixin, {
         filepicker.pickAndStore({mimetype:"image/*"},{},
         function(InkBlobs){
           var url = InkBlobs[0].url;
-          self.set('userImgUrl', url);
+          var convertUrl = (url + '/convert?rotate=exif');
+          console.log(convertUrl);
+          self.set('userImgUrl', convertUrl);
         });
       },
 
@@ -609,9 +548,29 @@ Fest.ApplicationController = Ember.Controller.extend({
 Fest.UserController = Ember.ObjectController.extend({
   needs: ['application', 'session'],
 
+  actions: {
+    addMessage: function() {
+      var currentUser = this.get('controllers.session.currentUser');
+      var viewedUser = this.get('model');
+      var message = this.store.createRecord('message', {
+        messageText: this.get('messageText'),
+        messageTime: new Date(),
+        postingUser: currentUser,
+        postedTo: viewedUser
+      });
+      currentUser.get('userPostedMessages').addObject(message);
+      viewedUser.get('userReceivedMessages').addObject(message);
+      message.save();
+      currentUser.save();
+      viewedUser.save();
+      this.set('messageText', '');
+    }
+  },
+
   imgStyle: function(){
   return new Ember.Handlebars.SafeString("background-image: url('"+this.get('userImgUrl')+"')").toString();
-}.property('userImgUrl')
+}.property('userImgUrl'),
+
 });
 
 Fest.UsersShowController = Ember.ObjectController.extend({
@@ -635,6 +594,23 @@ Fest.UsersShowController = Ember.ObjectController.extend({
       viewedUser.get('userFollowedBy').removeObject(currentUser);
       currentUser.save();
       viewedUser.save();
+    },
+
+    addMessage: function() {
+      var currentUser = this.get('controllers.session.currentUser');
+      var viewedUser = this.get('model');
+      var message = this.store.createRecord('message', {
+        messageText: this.get('messageText'),
+        messageTime: new Date(),
+        postingUser: currentUser,
+        postedTo: viewedUser
+      });
+      currentUser.get('userPostedMessages').addObject(message);
+      viewedUser.get('userReceivedMessages').addObject(message);
+      message.save();
+      currentUser.save();
+      viewedUser.save();
+      this.set('messageText', '');
     }
   },
 
@@ -653,6 +629,311 @@ Fest.UsersShowController = Ember.ObjectController.extend({
 }.property('userImgUrl')
 });
 
+Fest.MessageController = Ember.ObjectController.extend({
+  imgStyle: function(){
+  return new Ember.Handlebars.SafeString("background-image: url('"+this.get('postingUser.userImgUrl')+"')").toString();
+}.property('postingUser.userImgUrl'),
+
+  postTime: function(){
+    return moment(this.get('model.messageTime')).zone('-0500').format('MMM Do h:mm A');
+  }.property('model.messageTime'),
+
+})
+
 Fest.FollowingController = Ember.Controller.extend({
   needs: ['application', 'session']
+});
+
+LiquidFire.map(function(){
+  //user
+  this.transition(
+  this.fromRoute('user'),
+  this.toRoute('users.show'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('user'),
+  this.toRoute('users.viewAll'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('user'),
+  this.toRoute('bands.viewAll'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('user'),
+  this.toRoute('schedule'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('user'),
+  this.toRoute('venues.viewAll'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('user'),
+  this.toRoute('users.show'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('user'),
+  this.toRoute('index'),
+  this.use('toRight'),
+  this.reverse('toLeft')
+);
+
+//users viewAll
+
+  this.transition(
+  this.fromRoute('users.viewAll'),
+  this.toRoute('bands.viewAll'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('users.viewAll'),
+  this.toRoute('users.show'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('users.viewAll'),
+  this.toRoute('bands.viewAll'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('users.viewAll'),
+  this.toRoute('venues.viewAll'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('users.viewAll'),
+  this.toRoute('schedule'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('users.viewAll'),
+  this.toRoute('users.show'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('users.viewAll'),
+  this.toRoute('index'),
+  this.use('toRight'),
+  this.reverse('toLeft')
+);
+
+  //bands.viewAll
+
+  this.transition(
+  this.fromRoute('bands.viewAll'),
+  this.toRoute('venues.viewAll'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('bands.viewAll'),
+  this.toRoute('schedule'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('bands.viewAll'),
+  this.toRoute('bands.show'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('bands.viewAll'),
+  this.toRoute('index'),
+  this.use('toRight'),
+  this.reverse('toLeft')
+);
+
+  //venues.viewAll
+
+  this.transition(
+  this.fromRoute('venues.viewAll'),
+  this.toRoute('schedule'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('venues.viewAll'),
+  this.toRoute('venues.show'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('venues.viewAll'),
+  this.toRoute('index'),
+  this.use('toRight'),
+  this.reverse('toLeft')
+);
+
+  //venues.show
+
+  this.transition(
+  this.fromRoute('venues.show'),
+  this.toRoute('venues.viewAll'),
+  this.use('toRight'),
+  this.reverse('toLeft')
+);
+
+  this.transition(
+  this.fromRoute('venues.show'),
+  this.toRoute('bands.viewAll'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('venues.show'),
+  this.toRoute('schedule'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('venues.show'),
+  this.toRoute('index'),
+  this.use('toRight'),
+  this.reverse('toLeft')
+);
+
+  //users.show
+
+  this.transition(
+  this.fromRoute('users.show'),
+  this.toRoute('bands.show'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('users.show'),
+  this.toRoute('venues.show'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('users.show'),
+  this.toRoute('bands.viewAll'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('users.show'),
+  this.toRoute('venues.viewAll'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('users.show'),
+  this.toRoute('schedule'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('users.show'),
+  this.toRoute('index'),
+  this.use('toRight'),
+  this.reverse('toLeft')
+);
+
+  //bands.show
+
+  this.transition(
+  this.fromRoute('bands.show'),
+  this.toRoute('venues.show'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('bands.show'),
+  this.toRoute('users.viewAll'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('bands.show'),
+  this.toRoute('venues.viewAll'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('bands.show'),
+  this.toRoute('schedule'),
+  this.use('toRight'),
+  this.reverse('toLeft')
+);
+
+  this.transition(
+  this.fromRoute('bands.show'),
+  this.toRoute('user'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('bands.show'),
+  this.toRoute('index'),
+  this.use('toRight'),
+  this.reverse('toLeft')
+);
+
+  //schedule
+
+  this.transition(
+  this.fromRoute('schedule'),
+  this.toRoute('bands.show'),
+  this.use('toLeft'),
+  this.reverse('toRight')
+);
+
+  this.transition(
+  this.fromRoute('schedule'),
+  this.toRoute('index'),
+  this.use('toRight'),
+  this.reverse('toLeft')
+);
+
+  //buggy
+
+
 });
