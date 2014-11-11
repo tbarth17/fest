@@ -289,32 +289,5 @@ LiquidFire.map(function(){
 
   //buggy
 
-  this.transition(
-  this.fromRoute('users.show'),
-  this.toRoute('users.show'),
-  this.use('crossFade'),
-  this.reverse('crossFade')
-);
-});
 
-// Fest.Router.map(function() {
-//   this.resource('bands', function(){
-//     this.route('show', {path: ':band_id'});
-//     this.route('viewAll');
-//   });
-//
-//   this.resource('venues', function(){
-//     this.route('show', {path: ':venue_id'});
-//     this.route('viewAll');
-//   });
-//
-//   this.resource('users', function(){
-//     this.route('viewAll');
-//     this.route('show', {path: ':user_id'});
-//   });
-//
-//   this.route('user');
-//   this.route('login');
-//   this.route('schedule');
-//
-// });
+});
