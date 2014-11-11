@@ -253,6 +253,10 @@ li {
 
 ////////////////////// LOG IN //////////////////////////////////////////////////////
 
+.login-container {
+  height: 35em;
+}
+
 .modal {
   opacity: 0;
   visibility: hidden;
@@ -273,6 +277,7 @@ li {
   bottom: 0;
   left: 0;
   cursor: pointer;
+
 }
 
 .modal-state {
@@ -301,7 +306,7 @@ li {
   background: #fff;
   border-radius: 5px;
   padding: 2em 2em;
-  height: 50%;
+  height: 100%;
 }
 
 .modal__close {
