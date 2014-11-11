@@ -8,30 +8,6 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <link rel="stylesheet" href="styles/vendor.css">
-<!--
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgAuFCzr9I0uV9cLtXi0zMo69K3wW5_oY&sensor=true">
-    </script>
-
-      <style>
-      * {
-          margin: 0;
-          padding: 0;
-      }
-      div.popup {
-          font-size: 14px;
-          margin: 0;
-          width: 270px;
-      }
-      div.popup p {
-          background-color: #FFF;
-          color: #333;
-          font-size: 12px;
-          line-height: 15px;
-      }
-      div.popup p a {
-          color: #1122CC;
-      }
-      </style> -->
 
     <link rel="stylesheet" href="styles/main.css">
 
@@ -41,21 +17,21 @@
   <!-- ////////////////////// APPLICATION ///////////////////////////////////-->
       <script type='text/x-handlebars' data-template-name='application'>
         {{#link-to 'index'}}<div class="header">
-          <img src="images/fest-logo.png">
-<!--           <div class="header-text">Greenville, SC <br/>
-November 15th</div> -->
+          <img src="images/indie.png">
+          <div class="header-text">Greenville, SC
+                  November 15th</div>
         </div>{{/link-to}}
 
 
   <ul class="navigation">
     {{#link-to 'user'}}<li>Profile</li>{{/link-to}}
-    {{#link-to 'users.viewAll'}}<li>Users</li>{{/link-to}}
+    {{#link-to 'users.viewAll'}}<li>Fans</li>{{/link-to}}
     {{#link-to 'bands.viewAll'}}<li>Bands</li>{{/link-to}}
     {{#link-to 'venues.viewAll'}}<li>Venues</li>{{/link-to}}
     {{#link-to 'schedule'}}<li>Schedule</li>{{/link-to}}
     <div class="clear"></div>
   </ul>
-            {{outlet}}
+            {{liquid-outlet}}
 
       </script>
 
@@ -131,7 +107,7 @@ November 15th</div> -->
           <div class="home-links">Profile</div>
         {{/link-to}}
         {{#link-to 'users.viewAll'}}
-          <div class="home-links">Browse Users</div>
+          <div class="home-links">Browse Fans</div>
         {{/link-to}}
         {{#link-to 'schedule'}}
           <div class="home-links">Schedule</div>
@@ -140,7 +116,7 @@ November 15th</div> -->
        </div>
 
         <div class="home-text">
-          <h1>Welcome to Salad Days Fest!</h1>
+          <h1>Welcome to Indie Upstate!</h1>
             <div id="slider">
              <ul id="images">
               <li style="background:url(https://c2.staticflickr.com/4/3626/3354626263_68ed0a35f6.jpg)  no-repeat center center; "></li>
@@ -150,12 +126,12 @@ November 15th</div> -->
             </div>
 
             <div class="home-blurb">
-              <h2>This is the official app for Salad Days Fest!</h2>
+              <h2>This is the official app for Indie Upstate!</h2>
               <p>Everything you need for the ultimate festival experience is here!<br/>
               Just add your friends and pick some bands to watch and let us do the rest. It's that simple.</p>
 
               <p>We know we have the sweetest line up available, but be sure to check out the sights and sounds of our host city, <a href="http://www.visitgreenvillesc.com/">GREENVILLE!</a>
-              This fair city has gone all out to be welcoming, so no wrecking the place, ok? Be cool. Enjoy yourself. <br/> The Salad Days team.
+              This fair city has gone all out to be welcoming, so no wrecking the place, ok? Be cool. Enjoy yourself. <br/> The Indie Upstate team.
               </p>
             </div>
         </div>
@@ -177,7 +153,7 @@ November 15th</div> -->
         <span>&#148</span>
       </div>
       <nav role='navigation' class="SiteNav">
-       <label for="trigger" class="SiteNav-triggerLabel">People you follow &#10095</label>
+       <label for="trigger" class="SiteNav-triggerLabel">People you follow {{#if userFollows}}({{userFollows.length}}){{/if}} &#10095</label>
        <input type="checkbox" id="trigger" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
             {{#each user in userFollows}}
@@ -191,7 +167,7 @@ November 15th</div> -->
       </nav>
 
       <nav role='navigation' class="SiteNav">
-        <label for="trigger2" class="SiteNav-triggerLabel">Bands you follow &#10095</label>
+        <label for="trigger2" class="SiteNav-triggerLabel">Bands on your schedule {{#if userBands}}({{userBands.length}}){{/if}} &#10095</label>
         <input type="checkbox" id="trigger2" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
             {{#each band in userBands itemController='userBands'}}
@@ -211,7 +187,7 @@ November 15th</div> -->
 
 
       <nav role='navigation' class="SiteNav">
-        <label for="trigger3" class="SiteNav-triggerLabel">Followers &#10095</label>
+        <label for="trigger3" class="SiteNav-triggerLabel">Followers {{#if userFollowedBy}}({{userFollowedBy.length}}){{/if}} &#10095</label>
         <input type="checkbox" id="trigger3" class="SiteNav-trigger"/>
          <ul class="SiteNav-links">
            {{#each user in userFollowedBy}}
@@ -221,6 +197,29 @@ November 15th</div> -->
            {{/each}}
          </ul>
       </nav>
+
+      <div class='message-board-container'>
+        <div class='message-board-display'>
+          <ul><div class="messages-head">Messages</div>
+            {{#each model.userReceivedMessages itemController='message'}}
+              <li class="each-msg">
+                <div {{bind-attr style=imgStyle }} class='user-img-small'></div>
+                <span>{{postingUser.userName}}</span>
+                <span>{{messageText}}</span>
+                <span>{{postTime}}</span>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+
+        <div class='post-field'>
+          <form>
+            {{input type='text' placeholder="Write your message here" value=messageText}}
+            <button {{ action 'addMessage' }}>Leave a Message on your Board</button>
+          </form>
+        </div>
+      </div>
+
       </div>
       <a class="twitter-timeline" href="https://twitter.com/hashtag/festival" data-widget-id="527195709221527554">#festival Tweets</a>
 
@@ -233,8 +232,8 @@ November 15th</div> -->
     <span class="underline"></span>
       <ul class="all-users">
         {{#each filteredContent itemController='userItem'}}
-          <div {{bind-attr style=imgStyle}} class='user-img-small'></div>
           {{#link-to 'users.show' this}}
+          <div {{bind-attr style=imgStyle}} class='user-img-small'></div>
             <li>{{userName}}</li>
           {{/link-to}}
         {{/each}}
@@ -260,7 +259,7 @@ November 15th</div> -->
       </div>
 
       <nav role='navigation' class="SiteNav">
-        <label for="trigger4" class="SiteNav-triggerLabel">Bands {{userName}} is going to see &#10095</label>
+        <label for="trigger4" class="SiteNav-triggerLabel">Bands {{userName}} is going to see {{#if userBands}}({{userBands.length}}){{/if}} &#10095</label>
         <input type="checkbox" id="trigger4" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
            {{#each band in userBands itemController='userBands'}}
@@ -279,7 +278,7 @@ November 15th</div> -->
       </nav>
 
       <nav role='navigation' class="SiteNav">
-        <label for="trigger5" class="SiteNav-triggerLabel">People {{userName}} follows &#10095</label>
+        <label for="trigger5" class="SiteNav-triggerLabel">People {{userName}} follows {{#if model.userFollows}}({{model.userFollows.length}}){{/if}} &#10095</label>
         <input type="checkbox" id="trigger5" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each user in model.userFollows}}
@@ -291,7 +290,7 @@ November 15th</div> -->
       </nav>
 
       <nav role='navigation' class="SiteNav">
-        <label for="trigger6" class="SiteNav-triggerLabel">{{userName}}'s Followers &#10095</label>
+        <label for="trigger6" class="SiteNav-triggerLabel">{{userName}}'s Followers {{#if userFollowedBy}}({{userFollowedBy.length}}){{/if}} &#10095</label>
         <input type="checkbox" id="trigger6" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each user in model.userFollowedBy}}
@@ -305,7 +304,7 @@ November 15th</div> -->
 
       {{#if friendsInCommon}}
       <nav role='navigation' class="SiteNav">
-        <label for="trigger7" class="SiteNav-triggerLabel">Friends you have in common &#10095</label>
+        <label for="trigger7" class="SiteNav-triggerLabel">Friends you have in common ({{friendsInCommon.length}}) &#10095</label>
         <input type="checkbox" id="trigger7" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each friendsInCommon}}
@@ -319,7 +318,7 @@ November 15th</div> -->
 
       {{#if bandsInCommon}}
       <nav role='navigation' class="SiteNav">
-        <label for="trigger8" class="SiteNav-triggerLabel">Bands you have in common &#10095</label>
+        <label for="trigger8" class="SiteNav-triggerLabel">Bands you have in common ({{bandsInCommon.length}}) &#10095</label>
         <input type="checkbox" id="trigger8" class="SiteNav-trigger"/>
         <ul class="SiteNav-links">
           {{#each bandsInCommon}}
@@ -333,14 +332,38 @@ November 15th</div> -->
 
 
       {{#if followed}}
-      <button {{action "unfollowUser"}} class="btn">Unfollow User</button>
+      <button {{action "unfollowUser"}} class="btn">Unfollow {{userName}}</button>
       {{else}}
       <button {{action "followUser"}} class="btn">Follow!</button>
+      {{/if}}
+
+      {{#if followed}}
+        <div class='message-board-container'>
+          <div class='message-board-display'>
+            <ul><div class="messages-head">Messages</div>
+              {{#each model.userReceivedMessages itemController='message'}}
+                <li class="each-msg">
+                  <div {{bind-attr style=imgStyle}} class='user-img-small'></div>
+                  <span>{{postingUser.userName}}</span>
+                  <span>{{messageText}}</span>
+                  <span>{{postTime}}</span>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+
+          <div class='post-field'>
+            <form>
+              {{input type='text' placeholder="Write your message here" value=messageText}}
+              <button {{ action 'addMessage' }}>Leave {{userName}} a Message</button>
+            </form>
+          </div>
+        </div>
       {{/if}}
       </div>
     </script>
 
-<!-- ////////////////////////////// ALL BANDS ///////////////////////////////-->
+<!-- ////////////////////////////// BANDS VIEWALL ///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='bands/viewAll'>
     <div class="all-bands-container">
@@ -348,12 +371,12 @@ November 15th</div> -->
     <span class="underline"></span>
       {{#each filteredContent itemController='bandItem'}}
       <ul>
-        <li class="each">
-          {{#link-to 'bands.show' this}}
+        {{#link-to 'bands.show' this}}
+          <li class="each">
             <div {{bind-attr style=imgStyle}} class='band-img-small'></div>
             {{bandName}}
-          {{/link-to}}
-        </li>
+          </li>
+        {{/link-to}}
        </ul>
       {{/each}}
       </div>
@@ -377,7 +400,10 @@ November 15th</div> -->
 
 
         <nav role='navigation' class="SiteNav">
-          <label for="trigger9" class="SiteNav-triggerLabel">People following this band &#10095</label>
+          <label for="trigger9" class="SiteNav-triggerLabel">People going to this show
+            {{#if bandAttendees}}
+              ({{bandAttendees.length}})
+            {{/if}} &#10095</label>
           <input type="checkbox" id="trigger9" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
             {{#each user in model.bandAttendees}}
@@ -393,7 +419,10 @@ November 15th</div> -->
 
         {{#if friendFollowed}}
         <nav role='navigation' class="SiteNav">
-          <label for="trigger10" class="SiteNav-triggerLabel">Friends Following this band </label>
+          <label for="trigger10" class="SiteNav-triggerLabel">Friends going to this show
+            {{#if friendFollowed}}
+              ({{friendFollowed.length}})
+            {{/if}} &#10095</label>
           <input type="checkbox" id="trigger10" class="SiteNav-trigger"/>
           <ul class="SiteNav-links">
             {{#each friendFollowed}}
@@ -424,21 +453,19 @@ November 15th</div> -->
     <script type='text/x-handlebars' data-template-name='venues/viewAll'>
         <ul class="all-venues">
           {{#each}}
-            <li class="each">
-              {{#link-to 'venues.show' this}}
-                {{venueName}}
-              {{/link-to}}
-            </li>
+            {{#link-to 'venues.show' this}}
+              <li class="each">
+                  {{venueName}}
+              </li>
+            {{/link-to}}
           {{/each}}
         </ul>
-<!--       <div id="map_canvas" style="width:90%; height:500px"></div>
- -->  <div class="new-map">
         <iframe width='90%' height='400px' frameBorder='0' src='https://a.tiles.mapbox.com/v4/olliegill.k5j6de2b/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1Ijoib2xsaWVnaWxsIiwiYSI6IlFhOVNveGcifQ.0DfgZ11nX__lEwJH-hgydg'></iframe>
       </div>
       <div class="legend">
-        <div><img src="images/redpoint.png"><span>Venues</span></div>
-        <div><img src="images/mintpoint.png"><span>Hotels</span></div>
-        <div><img src="images/yellowpoint.png"><span>Places to eat</span></div>
+        <div><img src="../images/redpoint.png"><span>Venues</span></div>
+        <div><img src="../images/mintpoint.png"><span>Hotels</span></div>
+        <div><img src="../images/yellowpoint.png"><span>Places to eat</span></div>
       </div>
 
     </script>
@@ -524,7 +551,6 @@ November 15th</div> -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
 
     <script src="scripts/vendor.js"></script>
-
         <script src="scripts/main.js"></script>
 </body>
 </html>
