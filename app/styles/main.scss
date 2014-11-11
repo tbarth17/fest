@@ -954,11 +954,12 @@ li {
   width: 80%;
   overflow: ellipsis;
   margin: 0 auto;
+  padding: 0;
   @include span-columns(12);
-  @include shift(5.5);
+  @include shift(6);
   @include media($mobile) {
     @include span-columns(9);
-    @include shift(1);
+    @include shift(1.5);
   }
 }
 
@@ -1067,9 +1068,11 @@ li {
  .bios-container {
   background: $dark-grey;
   margin-bottom: .5em;
+  position: relative;
 }
 
 .bios-container span {
+  //outline: solid red 1px;
   font-size: 5em;
   font-family: "Palatino Linotype";
   position: relative;
@@ -1087,11 +1090,12 @@ li {
 }
 
 .bios {
+  //outline: solid red 1px;
   background: $dark-grey;
   color: white;
   font-weight: 400;
   margin: 0;
-  padding: .5em;
+  padding: .5em 2em;
   text-align: left;
   line-height: 1.4;
 }
