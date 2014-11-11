@@ -92,7 +92,7 @@ li {
   transform: scale(1);
 }
 
-.underline {
+/* .underline {
   background-color: black;
   display: inline-block;
   height: 2px;
@@ -106,18 +106,18 @@ li {
   @include span-columns(9.18);
   @include shift(4.55);
 
-  @include media($bands) {
+  @include media(\$bands) {
     @include span-columns(6); //11.76
     @include shift(2.9);
 }
 
-  @include media($mobile) {
+  @include media(\$mobile) {
     @include span-columns(9);
     @include shift(1.46);
     margin-top: em(67);
     width: 73%;
   }
-}
+} */
 
 
 ///////////////////////////// HEADER ////////////////////////////////////////////
