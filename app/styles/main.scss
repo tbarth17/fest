@@ -603,12 +603,35 @@ p img {
   h2 {
     margin: .7em 0;
     font-size: 1.7em;
+    //outline: solid red 1px;
+    display: inline-block;
+    @include shift(1);
+    @include span-columns(18);
   }
 
   p {
+    //outline: solid red 1px;
     margin: .7em;
-    //background: $dark-grey;
+    display: inline-block;
+    font-size: 1.5em;
+    font-weight: 400;
+    text-align: left;
+    @include span-columns(18);
+    @include shift(2);
+    background: $light-grey;
+    color: white;
+    padding: 1em;
+    border-bottom: solid $dark-grey 2px;
   }
+}
+
+.home-blurb:nth-child(3) {
+  @include shift(6);
+}
+
+.home-text .twitter-timeline {
+  //outline: solid red 1px;
+  @include shift(4.5);
 }
 
 #slider {
