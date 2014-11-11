@@ -89,6 +89,12 @@ Fest.UsersRoute = Ember.Route.extend({
 });
 
 Fest.UsersShowRoute = Ember.Route.extend({
+  redirect: function(model){
+    if (model === this.controllerFor('session').get('currentUser')){
+      this.transitionTo('user');
+    }
+  },
+
   beforeModel: function() {
   var user = this.controllerFor('session').get('currentUser');
     if (! user) {
@@ -630,6 +636,9 @@ Fest.UsersShowController = Ember.ObjectController.extend({
 });
 
 Fest.MessageController = Ember.ObjectController.extend({
+  sortAscending: false,
+  sortProperties: ['messageTime'],
+
   imgStyle: function(){
   return new Ember.Handlebars.SafeString("background-image: url('"+this.get('postingUser.userImgUrl')+"')").toString();
 }.property('postingUser.userImgUrl'),
@@ -644,296 +653,306 @@ Fest.FollowingController = Ember.Controller.extend({
   needs: ['application', 'session']
 });
 
-LiquidFire.map(function(){
+LiquidFire.map(function() {
   //user
   this.transition(
-  this.fromRoute('user'),
-  this.toRoute('users.show'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('user'),
+    this.toRoute('users.show'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('user'),
-  this.toRoute('users.viewAll'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('user'),
+    this.toRoute('users.viewAll'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('user'),
-  this.toRoute('bands.viewAll'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('user'),
+    this.toRoute('bands.viewAll'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('user'),
-  this.toRoute('schedule'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('user'),
+    this.toRoute('schedule'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('user'),
-  this.toRoute('venues.viewAll'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('user'),
+    this.toRoute('venues.viewAll'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('user'),
-  this.toRoute('users.show'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('user'),
+    this.toRoute('users.show'),
+    this.use('toLeft'),
+    this.reverse('toLeft')
+  );
 
   this.transition(
-  this.fromRoute('user'),
-  this.toRoute('index'),
-  this.use('toRight'),
-  this.reverse('toLeft')
-);
+    this.fromRoute('user'),
+    this.toRoute('index'),
+    this.use('toRight'),
+    this.reverse('toLeft')
+  );
 
-//users viewAll
-
-  this.transition(
-  this.fromRoute('users.viewAll'),
-  this.toRoute('bands.viewAll'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+  //users viewAll
 
   this.transition(
-  this.fromRoute('users.viewAll'),
-  this.toRoute('users.show'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('users.viewAll'),
+    this.toRoute('bands.viewAll'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('users.viewAll'),
-  this.toRoute('bands.viewAll'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('users.viewAll'),
+    this.toRoute('users.show'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('users.viewAll'),
-  this.toRoute('venues.viewAll'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('users.viewAll'),
+    this.toRoute('bands.viewAll'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('users.viewAll'),
-  this.toRoute('schedule'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('users.viewAll'),
+    this.toRoute('venues.viewAll'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('users.viewAll'),
-  this.toRoute('users.show'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('users.viewAll'),
+    this.toRoute('schedule'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('users.viewAll'),
-  this.toRoute('index'),
-  this.use('toRight'),
-  this.reverse('toLeft')
-);
+    this.fromRoute('users.viewAll'),
+    this.toRoute('users.show'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
+
+  this.transition(
+    this.fromRoute('users.viewAll'),
+    this.toRoute('index'),
+    this.use('toRight'),
+    this.reverse('toLeft')
+  );
 
   //bands.viewAll
 
   this.transition(
-  this.fromRoute('bands.viewAll'),
-  this.toRoute('venues.viewAll'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('bands.viewAll'),
+    this.toRoute('venues.viewAll'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('bands.viewAll'),
-  this.toRoute('schedule'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('bands.viewAll'),
+    this.toRoute('schedule'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('bands.viewAll'),
-  this.toRoute('bands.show'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('bands.viewAll'),
+    this.toRoute('bands.show'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('bands.viewAll'),
-  this.toRoute('index'),
-  this.use('toRight'),
-  this.reverse('toLeft')
-);
+    this.fromRoute('bands.viewAll'),
+    this.toRoute('index'),
+    this.use('toRight'),
+    this.reverse('toLeft')
+  );
 
   //venues.viewAll
 
   this.transition(
-  this.fromRoute('venues.viewAll'),
-  this.toRoute('schedule'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('venues.viewAll'),
+    this.toRoute('schedule'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('venues.viewAll'),
-  this.toRoute('venues.show'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('venues.viewAll'),
+    this.toRoute('venues.show'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('venues.viewAll'),
-  this.toRoute('index'),
-  this.use('toRight'),
-  this.reverse('toLeft')
-);
+    this.fromRoute('venues.viewAll'),
+    this.toRoute('index'),
+    this.use('toRight'),
+    this.reverse('toLeft')
+  );
 
   //venues.show
 
   this.transition(
-  this.fromRoute('venues.show'),
-  this.toRoute('venues.viewAll'),
-  this.use('toRight'),
-  this.reverse('toLeft')
-);
+    this.fromRoute('venues.show'),
+    this.toRoute('venues.viewAll'),
+    this.use('toRight'),
+    this.reverse('toLeft')
+  );
 
   this.transition(
-  this.fromRoute('venues.show'),
-  this.toRoute('bands.viewAll'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('venues.show'),
+    this.toRoute('bands.viewAll'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('venues.show'),
-  this.toRoute('schedule'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('venues.show'),
+    this.toRoute('schedule'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('venues.show'),
-  this.toRoute('index'),
-  this.use('toRight'),
-  this.reverse('toLeft')
-);
+    this.fromRoute('venues.show'),
+    this.toRoute('index'),
+    this.use('toRight'),
+    this.reverse('toLeft')
+  );
 
   //users.show
 
   this.transition(
-  this.fromRoute('users.show'),
-  this.toRoute('bands.show'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('users.show'),
+    this.toRoute('bands.show'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('users.show'),
-  this.toRoute('venues.show'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('users.show'),
+    this.toRoute('venues.show'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('users.show'),
-  this.toRoute('bands.viewAll'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('users.show'),
+    this.toRoute('bands.viewAll'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('users.show'),
-  this.toRoute('venues.viewAll'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('users.show'),
+    this.toRoute('venues.viewAll'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('users.show'),
-  this.toRoute('schedule'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('users.show'),
+    this.toRoute('schedule'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('users.show'),
-  this.toRoute('index'),
-  this.use('toRight'),
-  this.reverse('toLeft')
-);
+    this.fromRoute('users.show'),
+    this.toRoute('index'),
+    this.use('toRight'),
+    this.reverse('toLeft')
+  );
 
   //bands.show
 
   this.transition(
-  this.fromRoute('bands.show'),
-  this.toRoute('venues.show'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('bands.show'),
+    this.toRoute('venues.show'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('bands.show'),
-  this.toRoute('users.viewAll'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('bands.show'),
+    this.toRoute('users.viewAll'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('bands.show'),
-  this.toRoute('venues.viewAll'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('bands.show'),
+    this.toRoute('venues.viewAll'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('bands.show'),
-  this.toRoute('schedule'),
-  this.use('toRight'),
-  this.reverse('toLeft')
-);
+    this.fromRoute('bands.show'),
+    this.toRoute('schedule'),
+    this.use('toRight'),
+    this.reverse('toLeft')
+  );
 
   this.transition(
-  this.fromRoute('bands.show'),
-  this.toRoute('user'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('bands.show'),
+    this.toRoute('user'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('bands.show'),
-  this.toRoute('index'),
-  this.use('toRight'),
-  this.reverse('toLeft')
-);
+    this.fromRoute('bands.show'),
+    this.toRoute('index'),
+    this.use('toRight'),
+    this.reverse('toLeft')
+  );
 
   //schedule
 
   this.transition(
-  this.fromRoute('schedule'),
-  this.toRoute('bands.show'),
-  this.use('toLeft'),
-  this.reverse('toRight')
-);
+    this.fromRoute('schedule'),
+    this.toRoute('bands.show'),
+    this.use('toLeft'),
+    this.reverse('toRight')
+  );
 
   this.transition(
-  this.fromRoute('schedule'),
-  this.toRoute('index'),
-  this.use('toRight'),
-  this.reverse('toLeft')
-);
+    this.fromRoute('schedule'),
+    this.toRoute('index'),
+    this.use('toRight'),
+    this.reverse('toLeft')
+  );
 
-  //buggy
+  //login/signup
 
+  this.transition(
+    this.fromRoute('login'),
+    this.toRoute('user'),
+    this.use('toLeft')
+  );
 
+  this.transition(
+    this.fromRoute('index'),
+    this.toRoute('login'),
+    this.use('toLeft')
+  );
 });
