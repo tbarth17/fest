@@ -719,6 +719,10 @@ p img {
   padding-top: 1.3em;
 }
 
+.all-venues li:active {
+  color: white;
+}
+
 .legend {
   font-size: 1.3em;
   color: white;
@@ -779,6 +783,8 @@ p img {
     padding: 0.8em;
     text-align: left;
     color: white;
+    @include shift(0);
+    @include span-columns(24);
 
     @include media($mobile) {
       @include shift(.2);
@@ -795,7 +801,7 @@ p img {
   //margin-top: 1em;
   padding-top: 1em;
   @include span-columns(48);
-  @include shift(-13);
+  @include shift(-14);
   @include media($bands) {
     margin-top: 0;
   }
@@ -985,7 +991,7 @@ li {
 ////////////////////////////// BROWSE USERS /////////////////////////////////////
 
 .all-users {
-  width: 80%;
+  width: 75%;
   overflow: ellipsis;
   margin: 0 auto;
   padding: 0;
