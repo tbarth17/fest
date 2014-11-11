@@ -11,7 +11,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css" />
     <!-- endbower -->
-    <script src="styles/vendor/liquid-fire-0.12.0.css"></script>
+    <link rel="stylesheet" href="styles/vendor/liquid-fire-0.12.0.css">
     <!-- endbuild -->
 
     <!-- build:css styles/main.css -->
@@ -247,6 +247,7 @@
 <!--////////////////////////////SHOW USER///////////////////////////////-->
 
     <script type='text/x-handlebars' data-template-name='users/show'>
+    {{#liquid-with model controller="usersShow" use="toLeft"}}
       <div class="profile-container">
       <div {{bind-attr style=imgStyle}} class='band-img'></div>
       <h1 class="profile-usernames">
@@ -338,7 +339,7 @@
       {{#if followed}}
       <button {{action "unfollowUser"}} class="btn">Unfollow {{userName}}</button>
       {{else}}
-      <button {{action "followUser"}} class="btn">Follow!</button>
+      <button {{action "followUser"}} class="btn">Follow {{userName}}!</button>
       {{/if}}
 
       {{#if followed}}
@@ -365,6 +366,7 @@
         </div>
       {{/if}}
       </div>
+    {{/liquid-with}}
     </script>
 
 <!-- ////////////////////////////// BANDS VIEW ALL ///////////////////////////////-->
@@ -467,9 +469,9 @@
         <iframe width='90%' height='400px' frameBorder='0' src='https://a.tiles.mapbox.com/v4/olliegill.k5j6de2b/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1Ijoib2xsaWVnaWxsIiwiYSI6IlFhOVNveGcifQ.0DfgZ11nX__lEwJH-hgydg'></iframe>
       </div>
       <div class="legend">
-        <div><img src="../images/redpoint.png"><span>Venues</span></div>
-        <div><img src="../images/mintpoint.png"><span>Hotels</span></div>
-        <div><img src="../images/yellowpoint.png"><span>Places to eat</span></div>
+        <div><img src="images/redpoint.png"><span>Venues</span></div>
+        <div><img src="images/mintpoint.png"><span>Hotels</span></div>
+        <div><img src="images/yellowpoint.png"><span>Places to eat</span></div>
       </div>
 
     </script>

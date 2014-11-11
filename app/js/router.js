@@ -61,6 +61,12 @@ Fest.UsersRoute = Ember.Route.extend({
 });
 
 Fest.UsersShowRoute = Ember.Route.extend({
+  redirect: function(model){
+    if (model === this.controllerFor('session').get('currentUser')){
+      this.transitionTo('user');
+    }
+  },
+
   beforeModel: function() {
   var user = this.controllerFor('session').get('currentUser');
     if (! user) {

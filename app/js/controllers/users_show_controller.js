@@ -55,6 +55,9 @@ Fest.UsersShowController = Ember.ObjectController.extend({
 });
 
 Fest.MessageController = Ember.ObjectController.extend({
+  sortAscending: false,
+  sortProperties: ['messageTime'],
+
   imgStyle: function(){
   return new Ember.Handlebars.SafeString("background-image: url('"+this.get('postingUser.userImgUrl')+"')").toString();
 }.property('postingUser.userImgUrl'),
