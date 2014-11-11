@@ -18,7 +18,7 @@ body {
   @include outer-container;
 }
 
-
+$tiny: new-breakpoint(max-width 320px);
 $mobile: new-breakpoint(max-width 600px 12);
 $bands: new-breakpoint(max-width 1000px 12);
 $dark-grey: #303030;
@@ -186,8 +186,14 @@ li {
   width: 100%;
   line-height: 50px;
   color: white;
+}
 
+.nav-sched {
+  @include media($tiny) {
 
+  //outline: solid red 1px;
+  font-size: .9em;
+}
 }
 
 .navigation li {
