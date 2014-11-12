@@ -2,7 +2,7 @@
 	'use strict';
 	window.Fest = Ember.Application.create();
 
-  Fest.ref = new Firebase("https://premature-optimization.firebaseio.com/"); //https://premature-optimization.firebaseio.com/     https://fest2.firebaseio.com/
+  Fest.ref = new Firebase("https://premature-optimization.firebaseio.com"); //https://premature-optimization.firebaseio.com/     https://fest2.firebaseio.com/
 
 	Fest.ApplicationAdapter = DS.FirebaseAdapter.extend({
 	  firebase: Fest.ref
