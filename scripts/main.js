@@ -647,7 +647,7 @@ Fest.MessageController = Ember.ObjectController.extend({
     return moment(this.get('model.messageTime')).zone('-0500').format('MMM Do h:mm A');
   }.property('model.messageTime'),
 
-})
+});
 
 Fest.FollowingController = Ember.Controller.extend({
   needs: ['application', 'session']
