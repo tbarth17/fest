@@ -49,11 +49,7 @@ li {
 }
 ////////////////////////// SEARCHES ////////////////////////////////////////////////////
 
-.typcn {
-  float: right;
-  text-align: right;
-  @include span-columns(18);
-}
+
 
 .searches {
   display: block;
@@ -1028,12 +1024,18 @@ li {
 }
 
 ///////////////////////////// USER PROFILE /////////////////////////////////////
-
+.typcn {
+  display: inline-block;
+  float: right;
+  text-align: right;
+}
 
 .profile-container .SiteNav-triggerLabel {
   width: 100%;
   @include shift(0);
 }
+
+
 
 .SiteNav-triggerLabel {
   color: $dark-grey;
