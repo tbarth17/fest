@@ -102,7 +102,12 @@ gulp.task('watch', ['connect', 'serve'], function () {
   gulp.watch('bower.json', ['wiredep']);
 });
 
-gulp.task('build', ['html', 'images', 'extras'], function () {
+gulp.task('fonts', [], function(){
+  return gulp.src(['app/**/*.eot', 'app/**/*.svg', 'app/**/*.ttf', 'app/**/*.woff'])
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('build', ['html', 'images', 'extras', 'fonts'], function () {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
