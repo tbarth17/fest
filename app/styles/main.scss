@@ -5,28 +5,40 @@
 @import 'schedule';
 
 // Custom Styles
+
+@font-face {
+  font-family: 'typicons';
+  src: url("path/to/typicons.eot");
+  src: url("path/to/typicons.eot?#iefix") format('embedded-opentype'),
+       url("path/to/typicons.woff") format('woff'),
+       url("path/to/typicons.ttf") format('truetype'),
+       url("path/to/typicons.svg#typicons") format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   border-radius: 2px;
 }
 
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: $helvetica;
   padding: 1%;
   font: 1/1.5em sans-serif;
   text-align: center;
-  background: #DCDCDC;
+  background: #DCDCDC;  //#DCDCDC
   @include outer-container;
 }
 
 $tiny: new-breakpoint(max-width 320px);
 $mobile: new-breakpoint(max-width 600px 12);
 $bands: new-breakpoint(max-width 1000px 12);
-$dark-grey: #303030;
-$light-grey: #A6AAA6;
+$dark-grey: #303030; //#303030
+$light-grey: #A6AAA6; //#A6AAA6
 $green: #27AE60;
 $hover-green: #2ecc71;
-$blue: #2980B9;
-$hover-blue: #3498db;
+$blue: #2980B9; //#2980B9
+$hover-blue: #3498db; //#3498db
 $red: #ED2024;
 $dark-red: #8B0002;
 
@@ -48,6 +60,11 @@ li {
 }
 ////////////////////////// SEARCHES ////////////////////////////////////////////////////
 
+.typcn {
+  float: right;
+  text-align: right;
+  @include span-columns(18);
+}
 
 .searches {
   display: block;
@@ -92,7 +109,7 @@ li {
   transform: scale(1);
 }
 
-.underline {
+/* .underline {
   background-color: black;
   display: inline-block;
   height: 2px;
@@ -106,18 +123,18 @@ li {
   @include span-columns(9.18);
   @include shift(4.55);
 
-  @include media($bands) {
+  @include media(\$bands) {
     @include span-columns(6); //11.76
     @include shift(2.9);
 }
 
-  @include media($mobile) {
+  @include media(\$mobile) {
     @include span-columns(9);
     @include shift(1.46);
     margin-top: em(67);
     width: 73%;
   }
-}
+} */
 
 
 ///////////////////////////// HEADER ////////////////////////////////////////////

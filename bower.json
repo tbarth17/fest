@@ -11,7 +11,8 @@
     "emberfire": "~1.3.0",
     "filepicker": "*",
     "ember-validations": "http://builds.dockyard.com.s3.amazonaws.com/ember-validations/tags/v1.0.0/ember-validations.js",
-    "velocity": "~1.1.0"
+    "velocity": "~1.1.0",
+    "typicons": "~2.0.6"
   },
   "resolutions": {
     "ember-validations": "e-tag:212fcee2e",
