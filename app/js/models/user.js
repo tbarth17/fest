@@ -8,7 +8,9 @@ Fest.User = DS.Model.extend({
   userFollowedBy: DS.hasMany('user', {inverse: 'userFollows', async: true}),
   userBands: DS.hasMany('band', {async: true}),
   userPostedMessages: DS.hasMany('message', {async: true, inverse: 'postingUser'}),
-  userReceivedMessages: DS.hasMany('message', {async: true, inverse: 'postedTo'})
+  userReceivedMessages: DS.hasMany('message', {async: true, inverse: 'postedTo'}),
+  sortedReceivedMessages: Ember.computed.sort('userReceivedMessages', 'messagesSorting'),
+  messagesSorting: ['messageTime:desc']
 });
 
 Fest.User.Validations = {

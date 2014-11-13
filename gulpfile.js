@@ -23,7 +23,7 @@ gulp.task('html', ['styles'], function () {
 
   return gulp.src('app/*.html')
     .pipe($.useref.assets({searchPath: '{.tmp,app}'}))
-    .pipe($.if('*.css', $.csso()))
+    // .pipe($.if('*.css', $.csso()))
     .pipe($.useref.restore())
     .pipe($.useref())
     .pipe(gulp.dest('dist'));
@@ -44,6 +44,7 @@ gulp.task('extras', function () {
 });
 
 gulp.task('clean', function (cb) {
+  $.cache.clearAll();
   rimraf('.tmp', function () {
     rimraf('dist', cb);
   });
