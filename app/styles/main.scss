@@ -6,6 +6,30 @@
 
 // Custom Styles
 
+/* $dark-grey: #0B437C; 
+$light-grey: #97AFC7;
+$green: #27AE60;
+$hover-green: #2ecc71;
+$blue: #ED2024;
+$hover-blue: #8B0002;
+$red: #ED2024;
+$dark-red: #8B0002;
+$grey: grey;
+$background: #FFCE4D;  */
+
+$dark-grey: #303030;
+$light-grey: #A6AAA6;
+$green: #27AE60;
+$hover-green: #2ecc71;
+$blue: #2980B9;
+$hover-blue: #3498db;
+$red: #ED2024;
+$dark-red: #8B0002;
+$grey: grey;
+$background: #DCDCDC;
+
+
+
 * {
   border-radius: 2px;
 }
@@ -15,21 +39,16 @@ body {
   padding: 1%;
   font: 1/1.5em sans-serif;
   text-align: center;
-  background: #DCDCDC;  //#DCDCDC
+  background: $background;
   @include outer-container;
 }
 
 $tiny: new-breakpoint(max-width 320px);
 $mobile: new-breakpoint(max-width 600px 12);
 $bands: new-breakpoint(max-width 1000px 12);
-$dark-grey: #303030; //#303030
-$light-grey: #A6AAA6; //#A6AAA6
-$green: #27AE60;
-$hover-green: #2ecc71;
-$blue: #2980B9; //#2980B9
-$hover-blue: #3498db; //#3498db
-$red: #ED2024;
-$dark-red: #8B0002;
+
+
+
 
 ////////////////////////ALL ANCHORS ///////////////////////////////////////////////
 
@@ -126,7 +145,7 @@ li {
 .header {
   width: 100%;
   height: 6em; //4.5 //6
-  background: #DCDCDC;
+  background: $background;
   @include span-columns(24);
 }
 
@@ -218,7 +237,7 @@ li {
   width: 17.5%;
   text-align: center;
   z-index: 5;
-  color: #fff;
+  color: $grey;
   @include media($mobile) {
     width: 21%;
   }
