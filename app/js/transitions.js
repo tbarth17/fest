@@ -44,6 +44,13 @@ LiquidFire.map(function() {
 
   this.transition(
     this.fromRoute('user'),
+    this.toRoute('venues.show'),
+    this.use('toLeft'),
+    this.reverse('toLeft')
+  );
+
+  this.transition(
+    this.fromRoute('user'),
     this.toRoute('index'),
     this.use('toRight'),
     this.reverse('toLeft')
