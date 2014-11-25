@@ -1,3 +1,1 @@
-## Yo, I'm a Readme
-
-You should probably update me so people looking at your code have an idea what it is being used for :)
+UpStage is an application that I built with a partner as our final project at the Iron Yard Academy. It is a customized, white label, microsocial network and scheduling application for music festivals and business conferences. I handled the bulk of the functionality as well as some aspects of the design. This app is built using Ember and Ember-data with Firebase as a back-end. Liquid fire was used for transition animation. It was designed mobile-first and uses the Bourbon Neat framework for its responsive design.
