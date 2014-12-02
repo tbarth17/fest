@@ -544,7 +544,7 @@ Fest.SessionController = Ember.Controller.extend({
         self.configureSession(authData).then(resolve, reject);
       });
     });
-  },
+  }
 
 });
 
