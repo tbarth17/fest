@@ -161,19 +161,6 @@
         <h3 class="bios">{{userBio}}</h3>
         <span>&#148</span>
       </div>
-      <nav role='navigation' class="SiteNav">
-       <label for="trigger" class="SiteNav-triggerLabel">People you follow {{#if userFollows}}({{userFollows.length}}){{/if}} <span class="typcn typcn-chevron-right"</span></label>
-       <input type="checkbox" id="trigger" class="SiteNav-trigger"/>
-          <ul class="SiteNav-links">
-            {{#each user in userFollows}}
-              <li>
-               {{#link-to 'users.show' user}}
-                 {{user.userName}}
-               {{/link-to}}
-              </li>
-            {{/each}}
-          </ul>
-      </nav>
 
       <nav role='navigation' class="SiteNav">
         <label for="trigger2" class="SiteNav-triggerLabel">Bands on your schedule {{#if userBands}}({{userBands.length}}){{/if}} <span class="typcn typcn-chevron-right"</span></label>
@@ -194,6 +181,19 @@
           </ul>
       </nav>
 
+      <nav role='navigation' class="SiteNav">
+        <label for="trigger" class="SiteNav-triggerLabel">People you follow {{#if userFollows}}({{userFollows.length}}){{/if}} <span class="typcn typcn-chevron-right"</span></label>
+        <input type="checkbox" id="trigger" class="SiteNav-trigger"/>
+            <ul class="SiteNav-links">
+              {{#each user in userFollows}}
+                <li>
+                  {{#link-to 'users.show' user}}
+                    {{user.userName}}
+                  {{/link-to}}
+                </li>
+              {{/each}}
+            </ul>
+      </nav>
 
       <nav role='navigation' class="SiteNav">
         <label for="trigger3" class="SiteNav-triggerLabel">Followers {{#if userFollowedBy}}({{userFollowedBy.length}}){{/if}} <span class="typcn typcn-chevron-right"</span></label>
